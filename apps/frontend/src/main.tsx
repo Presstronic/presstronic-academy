@@ -13,6 +13,12 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import { theme } from './theme';
 
+// Enable React DevTools Profiler in development
+if (import.meta.env.DEV) {
+  const rootElement = document.getElementById('root')!;
+  rootElement.setAttribute('data-react-devtools-profiler', 'true');
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider theme={theme}>

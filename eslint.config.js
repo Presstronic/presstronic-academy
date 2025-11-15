@@ -6,6 +6,7 @@
 import js from '@eslint/js';
 import headers from 'eslint-plugin-headers';
 import importPlugin from 'eslint-plugin-import';
+import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -247,12 +248,43 @@ SPDX-License-Identifier: GPL-3.0-or-later`,
       globals: globals.browser,
     },
     plugins: {
+      react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+
+      // React import (not needed in React 17+)
+      'react/react-in-jsx-scope': 'off',
+
+      // Performance rules
+      'react/jsx-key': 'error',
+      'react/jsx-no-bind': [
+        'warn',
+        {
+          allowArrowFunctions: true,
+          allowBind: false,
+          ignoreRefs: true,
+        },
+      ],
+      'react/no-array-index-key': 'warn',
+      'react/jsx-no-constructed-context-values': 'error',
+
+      // Best practices
+      'react/prop-types': 'off', // Using TypeScript
+      'react/display-name': 'warn',
+      'react/no-unused-prop-types': 'warn',
+      'react/self-closing-comp': 'warn',
+
+      // Security
+      'react/jsx-no-target-blank': 'error',
     },
   },
 
