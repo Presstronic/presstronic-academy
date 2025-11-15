@@ -207,6 +207,8 @@ SPDX-License-Identifier: GPL-3.0-or-later`,
     files: [
       '**/*.spec.ts',
       '**/*.test.ts',
+      '**/*.spec.tsx',
+      '**/*.test.tsx',
       '**/test/**/*.ts',
       'tools/**',
       '**/jest*.{cjs,js,ts}',
