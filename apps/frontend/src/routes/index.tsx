@@ -6,6 +6,7 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
+import { RouterErrorElement } from '@/components/errors/ErrorBoundary';
 import { RootLayout } from '@/components/layout/RootLayout';
 import { LoadingFallback } from '@/components/routing/LoadingFallback';
 import { ProtectedRoute } from '@/components/routing/ProtectedRoute';
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    errorElement: <RouterErrorElement />,
     children: [
       {
         index: true,
