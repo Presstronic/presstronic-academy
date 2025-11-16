@@ -340,9 +340,9 @@ export const ChangePasswordSection: FC = () => {
                   label: 'One special character',
                   test: /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(formData.newPassword),
                 },
-              ].map((req, index) => (
+              ].map((req) => (
                 <Box
-                  key={index}
+                  key={req.label}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
