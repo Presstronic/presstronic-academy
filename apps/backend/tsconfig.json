@@ -7,8 +7,8 @@
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "paths": {
-      "@presstronic/shared": ["packages/shared/src/index.ts"],
-      "@presstronic/shared/*": ["packages/shared/src/*"]
+      "@presstronic/shared": ["packages/shared/dist/index.d.ts"],
+      "@presstronic/shared/*": ["packages/shared/dist/*"]
     }
   },
   "include": ["src"]

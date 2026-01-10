@@ -1,5 +1,10 @@
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": {},
+  "compilerOptions": {
+    "paths": {
+      "@presstronic/shared": ["packages/shared/dist/index.d.ts"],
+      "@presstronic/shared/*": ["packages/shared/dist/*"]
+    }
+  },
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }
