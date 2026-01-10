@@ -1,10 +1,10 @@
-# 🌌 Matrix Academy
+# 🌌 Presstronic Academy
 
 _A choose-your-own-adventure journey into software mastery_
 
-[![CI](https://github.com/Presstronic/matrix-academy/actions/workflows/ci.yml/badge.svg)](https://github.com/Presstronic/matrix-academy/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/Presstronic/matrix-academy/actions/workflows/codeql.yml/badge.svg)](https://github.com/Presstronic/matrix-academy/actions/workflows/codeql.yml)
-[![codecov](https://codecov.io/gh/Presstronic/matrix-academy/branch/main/graph/badge.svg)](https://codecov.io/gh/Presstronic/matrix-academy)
+[![CI](https://github.com/Presstronic/presstronic-academy/actions/workflows/ci.yml/badge.svg)](https://github.com/Presstronic/presstronic-academy/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/Presstronic/presstronic-academy/actions/workflows/codeql.yml/badge.svg)](https://github.com/Presstronic/presstronic-academy/actions/workflows/codeql.yml)
+[![codecov](https://codecov.io/gh/Presstronic/presstronic-academy/branch/main/graph/badge.svg)](https://codecov.io/gh/Presstronic/presstronic-academy)
 [![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-blue.svg)](./LICENSE.md)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-24-339933?logo=node.js&logoColor=white)
@@ -14,7 +14,7 @@ _A choose-your-own-adventure journey into software mastery_
 
 ## ✨ Overview
 
-**Matrix Academy** is an interactive learning platform where developers sharpen their craft by navigating a branching, story‑driven adventure.
+**Presstronic Academy** is an interactive learning platform where developers sharpen their craft by navigating a branching, story‑driven adventure.
 Rather than endless tutorials, every decision you make impacts your path—combining hands‑on coding, narrative challenges, and progression milestones.
 
 > This document is intentionally lightweight and will expand as functionality lands.
@@ -69,8 +69,8 @@ The fastest way to get the full stack running with PostgreSQL and Redis:
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/matrix-academy.git
-cd matrix-academy
+git clone https://github.com/your-username/presstronic-academy.git
+cd presstronic-academy
 
 # Start the development environment
 pnpm docker:dev:up
@@ -126,8 +126,8 @@ cp apps/backend/.env.example apps/backend/.env
 pnpm dev
 
 # Or run frontend/backend separately:
-pnpm --filter @matrix-academy/frontend dev  # Frontend on http://localhost:5173
-pnpm --filter @matrix-academy/backend dev   # Backend on http://localhost:3000
+pnpm --filter @presstronic/frontend dev  # Frontend on http://localhost:5173
+pnpm --filter @presstronic/backend dev   # Backend on http://localhost:3000
 ```
 
 > **Note**: Hot reload works better when running services locally on macOS due to Docker volume file-watching limitations. See [Database docs](./docs/DATABASE.md#hot-reload-in-docker-macos) for details.
@@ -188,13 +188,13 @@ Build and run production-optimized Docker images:
 
 ```bash
 # Build development image
-docker build -f apps/backend/Dockerfile --target development -t matrix-academy-backend:dev .
+docker build -f apps/backend/Dockerfile --target development -t presstronic-academy-backend:dev .
 
 # Build production image (optimized, ~383MB)
-docker build -f apps/backend/Dockerfile --target production -t matrix-academy-backend:prod .
+docker build -f apps/backend/Dockerfile --target production -t presstronic-academy-backend:prod .
 
 # Run production container
-docker run -p 3000:3000 --env-file apps/backend/.env matrix-academy-backend:prod
+docker run -p 3000:3000 --env-file apps/backend/.env presstronic-academy-backend:prod
 ```
 
 > **Prerequisites:**
@@ -231,13 +231,13 @@ Run the test suites to ensure everything is working correctly:
 pnpm test
 
 # Backend unit tests
-pnpm --filter @matrix-academy/backend test
+pnpm --filter @presstronic/backend test
 
 # Backend E2E tests
-pnpm --filter @matrix-academy/backend test:e2e
+pnpm --filter @presstronic/backend test:e2e
 
 # Frontend tests
-pnpm --filter @matrix-academy/frontend test
+pnpm --filter @presstronic/frontend test
 
 # Tests with coverage
 pnpm test:cov

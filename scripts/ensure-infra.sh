@@ -66,21 +66,21 @@ wait_for_health() {
 info "Checking infrastructure services..."
 
 # Check if PostgreSQL is running
-if is_container_running "matrix-academy-postgres"; then
+if is_container_running "presstronic-academy-postgres"; then
     info "PostgreSQL is already running"
 else
     info "Starting PostgreSQL..."
     docker compose up -d postgres
-    wait_for_health "matrix-academy-postgres"
+    wait_for_health "presstronic-academy-postgres"
 fi
 
 # Check if Redis is running
-if is_container_running "matrix-academy-redis"; then
+if is_container_running "presstronic-academy-redis"; then
     info "Redis is already running"
 else
     info "Starting Redis..."
     docker compose up -d redis
-    wait_for_health "matrix-academy-redis"
+    wait_for_health "presstronic-academy-redis"
 fi
 
 info "Infrastructure services are ready!"

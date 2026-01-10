@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * @file auth.controller.spec.ts — Matrix Academy backend tests (type-safe, no `any`)
+ * @file auth.controller.spec.ts — Presstronic Academy backend tests (type-safe, no `any`)
  */
 import { jest } from '@jest/globals';
 import { Test } from '@nestjs/testing';

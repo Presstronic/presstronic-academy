@@ -5,7 +5,7 @@
 
 ## Summary
 
-This document outlines the accessibility audit performed on the Matrix Academy landing page and authentication pages to ensure WCAG 2.1 AA compliance.
+This document outlines the accessibility audit performed on the Presstronic Academy landing page and authentication pages to ensure WCAG 2.1 AA compliance.
 
 ## ✅ Compliant Features
 
@@ -54,8 +54,8 @@ This document outlines the accessibility audit performed on the Matrix Academy l
 
 **HomePage:**
 
-- H2: "Welcome to Matrix Academy" (Hero)
-- H2: "Why Choose Matrix Academy?" (Features)
+- H2: "Welcome to Presstronic Academy" (Hero)
+- H2: "Why Choose Presstronic Academy?" (Features)
 - H3: "Expert-Led Learning", "Hands-On Projects", "Community Support"
 - H2: "Ready to Begin Your Journey?" (CTA)
 
@@ -115,9 +115,9 @@ This document outlines the accessibility audit performed on the Matrix Academy l
 **Status:** Not verified
 **Recommendation:** Ensure each page has a descriptive `<title>` tag:
 
-- Home: "Matrix Academy - Learn to Code"
-- Login: "Login - Matrix Academy"
-- Register: "Register - Matrix Academy"
+- Home: "Presstronic Academy - Learn to Code"
+- Login: "Login - Presstronic Academy"
+- Register: "Register - Presstronic Academy"
 
 ### 3. Language Declaration (WCAG 3.1.1 - Language of Page)
 
@@ -182,7 +182,7 @@ This document outlines the accessibility audit performed on the Matrix Academy l
 
 ## Conclusion
 
-The Matrix Academy landing page implementation demonstrates **strong WCAG 2.1 AA compliance** with semantic HTML, proper ARIA usage, excellent color contrast, and comprehensive keyboard support. The few remaining recommendations are minor enhancements that can be addressed in future iterations.
+The Presstronic Academy landing page implementation demonstrates **strong WCAG 2.1 AA compliance** with semantic HTML, proper ARIA usage, excellent color contrast, and comprehensive keyboard support. The few remaining recommendations are minor enhancements that can be addressed in future iterations.
 
 **Overall Compliance: 95%**
 

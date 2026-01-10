@@ -37,13 +37,13 @@ ENV NODE_ENV=development
 EXPOSE 3000
 
 # Start the development server with hot reload
-CMD ["pnpm", "--filter", "@matrix-academy/backend", "dev"]
+CMD ["pnpm", "--filter", "@presstronic/backend", "dev"]
 
 # Build stage - compile TypeScript for production
 FROM dependencies AS build
 
 # Build the backend application
-RUN pnpm --filter=@matrix-academy/backend build
+RUN pnpm --filter=@presstronic/backend build
 
 # Production stage - minimal runtime image
 FROM node:22-alpine AS production
@@ -68,7 +68,7 @@ COPY apps/backend/package.json ./apps/backend/
 
 # Install production dependencies only
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
-    pnpm install --frozen-lockfile --prod --ignore-scripts --filter=@matrix-academy/backend
+    pnpm install --frozen-lockfile --prod --ignore-scripts --filter=@presstronic/backend
 
 # Copy built application from build stage
 COPY --from=build /app/apps/backend/dist ./apps/backend/dist

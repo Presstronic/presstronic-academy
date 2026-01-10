@@ -7,17 +7,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ErrorResponse, ValidationErrorDetail } from '@matrix-academy/shared';
-import { ErrorCode } from '@matrix-academy/shared';
-import type {
-  ArgumentsHost,
-  ExceptionFilter} from '@nestjs/common';
-import {
-  Catch,
-  HttpException,
-  HttpStatus,
-  Logger,
-} from '@nestjs/common';
+import type { ArgumentsHost, ExceptionFilter } from '@nestjs/common';
+import { Catch, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import type { ErrorResponse, ValidationErrorDetail } from '@presstronic/shared';
+import { ErrorCode } from '@presstronic/shared';
 import type { Request, Response } from 'express';
 import { QueryFailedError } from 'typeorm';
 
@@ -90,7 +83,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       const message =
         typeof exceptionResponse === 'string'
           ? exceptionResponse
-          : (exceptionResponse as any).message ?? exception.message;
+          : ((exceptionResponse as any).message ?? exception.message);
 
       // Handle class-validator validation errors
       const validationErrors = this.extractValidationErrors(exceptionResponse);
@@ -125,7 +118,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       const messages = (response as any).message;
       if (Array.isArray(messages)) {
         return messages.map((msg) => ({
-          field: typeof msg === 'string' ? 'unknown' : msg.property ?? 'unknown',
+          field: typeof msg === 'string' ? 'unknown' : (msg.property ?? 'unknown'),
           message: typeof msg === 'string' ? msg : Object.values(msg.constraints ?? {}).join(', '),
         }));
       }

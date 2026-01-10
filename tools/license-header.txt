@@ -1,5 +1,5 @@
 /**
- * @file ${FILE_BASENAME} — Matrix Academy (interactive learning platform)
+ * @file ${FILE_BASENAME} — Presstronic Academy (interactive learning platform)
  * @author ${AUTHOR_NAME} <${AUTHOR_EMAIL}>
  * @copyright ${YEAR} Presstronic Studios LLC
  *

@@ -5,19 +5,13 @@
  *
  * @file Change Password Section Component
  */
-import {
-  Check as CheckIcon,
-  Lock as LockIcon,
-  Visibility,
-  VisibilityOff,
-} from '@mui/icons-material';
+import { Lock as LockIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Alert,
   Box,
   Button,
   IconButton,
   InputAdornment,
-  LinearProgress,
   Paper,
   TextField,
   Typography,
@@ -27,6 +21,8 @@ import { useState } from 'react';
 
 import { AuthenticationError } from '../../lib/api/errors';
 import { changePassword } from '../../lib/api/services/auth.service';
+import { passwordsMatch, validatePassword } from '../../lib/validation/passwordValidation';
+import { PasswordStrengthIndicator } from '../common/PasswordStrengthIndicator';
 
 interface PasswordFormData {
   currentPassword: string;
@@ -75,39 +71,6 @@ export const ChangePasswordSection: FC = () => {
     setShowPasswords((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
-  const validatePassword = (password: string): { valid: boolean; errors: string[] } => {
-    const validationErrors: string[] = [];
-
-    if (password.length < 8) {
-      validationErrors.push('At least 8 characters');
-    }
-    if (!/[A-Z]/.test(password)) {
-      validationErrors.push('One uppercase letter');
-    }
-    if (!/[a-z]/.test(password)) {
-      validationErrors.push('One lowercase letter');
-    }
-    if (!/[0-9]/.test(password)) {
-      validationErrors.push('One number');
-    }
-    if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
-      validationErrors.push('One special character');
-    }
-
-    return { valid: validationErrors.length === 0, errors: validationErrors };
-  };
-
-  const getPasswordStrength = (password: string): number => {
-    let strength = 0;
-    if (password.length >= 8) strength += 20;
-    if (password.length >= 12) strength += 20;
-    if (/[A-Z]/.test(password)) strength += 20;
-    if (/[a-z]/.test(password)) strength += 20;
-    if (/[0-9]/.test(password)) strength += 10;
-    if (/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) strength += 10;
-    return Math.min(strength, 100);
-  };
-
   const validateForm = (): boolean => {
     const newErrors: PasswordErrors = {};
 
@@ -134,7 +97,7 @@ export const ChangePasswordSection: FC = () => {
     // Confirm password validation
     if (!formData.confirmPassword) {
       newErrors.confirmPassword = 'Please confirm your new password';
-    } else if (formData.confirmPassword !== formData.newPassword) {
+    } else if (!passwordsMatch(formData.newPassword, formData.confirmPassword)) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
 
@@ -185,12 +148,6 @@ export const ChangePasswordSection: FC = () => {
       setIsSubmitting(false);
     }
   };
-
-  const passwordStrength = getPasswordStrength(formData.newPassword);
-  const strengthColor =
-    passwordStrength < 40 ? 'error' : passwordStrength < 70 ? 'warning' : 'success';
-  const strengthLabel =
-    passwordStrength < 40 ? 'Weak' : passwordStrength < 70 ? 'Medium' : 'Strong';
 
   return (
     <Paper
@@ -299,64 +256,9 @@ export const ChangePasswordSection: FC = () => {
         />
 
         {/* Password Strength Indicator */}
-        {formData.newPassword && (
-          <Box sx={{ mb: 3 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-              <Typography variant="caption" color="text.secondary">
-                Password Strength:
-              </Typography>
-              <Typography
-                variant="caption"
-                sx={{
-                  color: `${strengthColor}.main`,
-                  fontWeight: 'bold',
-                }}
-              >
-                {strengthLabel}
-              </Typography>
-            </Box>
-            <LinearProgress
-              variant="determinate"
-              value={passwordStrength}
-              color={strengthColor}
-              sx={{
-                height: 8,
-                borderRadius: 4,
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              }}
-            />
-
-            {/* Password Requirements Checklist */}
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
-                Password must contain:
-              </Typography>
-              {[
-                { label: 'At least 8 characters', test: formData.newPassword.length >= 8 },
-                { label: 'One uppercase letter', test: /[A-Z]/.test(formData.newPassword) },
-                { label: 'One lowercase letter', test: /[a-z]/.test(formData.newPassword) },
-                { label: 'One number', test: /[0-9]/.test(formData.newPassword) },
-                {
-                  label: 'One special character',
-                  test: /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(formData.newPassword),
-                },
-              ].map((req) => (
-                <Box
-                  key={req.label}
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: req.test ? 'success.main' : 'text.disabled',
-                    fontSize: '0.75rem',
-                  }}
-                >
-                  <CheckIcon sx={{ fontSize: 16, mr: 1 }} />
-                  {req.label}
-                </Box>
-              ))}
-            </Box>
-          </Box>
-        )}
+        <Box sx={{ mb: 3 }}>
+          <PasswordStrengthIndicator password={formData.newPassword} />
+        </Box>
 
         {/* Confirm Password */}
         <TextField

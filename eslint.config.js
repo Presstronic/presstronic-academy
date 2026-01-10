@@ -20,7 +20,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const tsParserOptions = {
-  project: ['./tsconfig.base.json'],
+  project: ['./tsconfig.base.json', './apps/backend/tsconfig.eslint.json'],
   tsconfigRootDir: __dirname,
 };
 
@@ -58,7 +58,7 @@ export default [
 
   // Make ESLint treat config/scripts as Node (so `process`, `console`, etc. are defined)
   {
-    name: 'matrix-academy:node-globals (configs & tools)',
+    name: 'presstronic-academy:node-globals (configs & tools)',
     files: ['eslint.config.js', 'tools/**/*.{js,mjs,cjs}'],
     languageOptions: {
       ecmaVersion: 'latest',
@@ -99,7 +99,7 @@ export default [
 
   // Root repo rules (apply to JS & TS)
   {
-    name: 'matrix-academy:root',
+    name: 'presstronic-academy:root',
     files: ['**/*.{ts,tsx,js,jsx,mjs,cjs}'],
     ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.turbo/**', '**/coverage/**'],
     plugins: {
@@ -230,7 +230,7 @@ SPDX-License-Identifier: GPL-3.0-or-later`,
   },
 
   {
-    name: 'matrix-academy:backend-types',
+    name: 'presstronic-academy:backend-types',
     files: ['apps/backend/**/*.ts'],
     languageOptions: {
       parserOptions: {
@@ -242,7 +242,7 @@ SPDX-License-Identifier: GPL-3.0-or-later`,
 
   // Frontend React rules
   {
-    name: 'matrix-academy:frontend-react',
+    name: 'presstronic-academy:frontend-react',
     files: ['apps/frontend/**/*.{ts,tsx}'],
     languageOptions: {
       globals: globals.browser,
@@ -290,7 +290,7 @@ SPDX-License-Identifier: GPL-3.0-or-later`,
 
   // Frontend-specific: Disable extension enforcement for Vite bundler resolution
   {
-    name: 'matrix-academy:frontend-imports',
+    name: 'presstronic-academy:frontend-imports',
     files: ['apps/frontend/**/*.{ts,tsx}'],
     rules: {
       // Vite with bundler resolution handles extensions differently

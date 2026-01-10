@@ -1,6 +1,6 @@
 # Authorization & RBAC
 
-This document describes the Role-Based Access Control (RBAC) system implemented in Matrix Academy.
+This document describes the Role-Based Access Control (RBAC) system implemented in Presstronic Academy.
 
 ## Overview
 

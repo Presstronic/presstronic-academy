@@ -3,12 +3,15 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Alert,
   Box,
   Button,
   Container,
   Grid,
+  IconButton,
+  InputAdornment,
   Link,
   Paper,
   TextField,
@@ -18,7 +21,9 @@ import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { Link as RouterLink, Navigate, useNavigate } from 'react-router-dom';
 
+import { PasswordStrengthIndicator } from '@/components/common/PasswordStrengthIndicator';
 import { useAuth } from '@/hooks/useAuth';
+import { passwordsMatch, validatePassword } from '@/lib/validation/passwordValidation';
 
 interface FormData {
   email: string;
@@ -59,6 +64,8 @@ export function RegisterPage() {
   });
   const [submitError, setSubmitError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Redirect if already authenticated
   if (user && !authLoading) {
@@ -90,19 +97,20 @@ export function RegisterPage() {
         'Username must be 3-50 characters (letters, numbers, underscore, hyphen)';
     }
 
-    // Password validation
+    // Password validation using shared utility
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters long';
-    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
-      newErrors.password = 'Password must contain uppercase, lowercase, and number';
+    } else {
+      const passwordValidation = validatePassword(formData.password);
+      if (!passwordValidation.valid) {
+        newErrors.password = `Password must contain: ${passwordValidation.errors.join(', ')}`;
+      }
     }
 
     // Confirm password validation
     if (!formData.confirmPassword) {
       newErrors.confirmPassword = 'Please confirm your password';
-    } else if (formData.password !== formData.confirmPassword) {
+    } else if (!passwordsMatch(formData.password, formData.confirmPassword)) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
 
@@ -180,7 +188,7 @@ export function RegisterPage() {
           </Typography>
 
           <Typography variant="body2" sx={{ mb: 4, textAlign: 'center', color: 'text.secondary' }}>
-            Create your Matrix Academy account
+            Create your Presstronic Academy account
           </Typography>
 
           {submitError && (
@@ -260,25 +268,39 @@ export function RegisterPage() {
             id="password"
             name="password"
             label="Password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             autoComplete="new-password"
             value={formData.password}
             onChange={handleChange('password')}
             error={Boolean(errors.password)}
-            helperText={
-              errors.password || 'Min. 8 characters with uppercase, lowercase, and number'
-            }
+            helperText={errors.password}
             disabled={isSubmitting}
             required
             sx={{ mt: 2 }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
+
+          {/* Password Strength Indicator */}
+          <PasswordStrengthIndicator password={formData.password} />
 
           <TextField
             fullWidth
             id="confirmPassword"
             name="confirmPassword"
             label="Confirm Password"
-            type="password"
+            type={showConfirmPassword ? 'text' : 'password'}
             autoComplete="new-password"
             value={formData.confirmPassword}
             onChange={handleChange('confirmPassword')}
@@ -287,6 +309,19 @@ export function RegisterPage() {
             disabled={isSubmitting}
             required
             sx={{ mt: 2 }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle confirm password visibility"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
 
           <Button

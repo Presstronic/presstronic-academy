@@ -1,6 +1,6 @@
-# Matrix Academy - Frontend
+# Presstronic Academy - Frontend
 
-React 18 + TypeScript + Vite + Material-UI frontend application for Matrix Academy.
+React 18 + TypeScript + Vite + Material-UI frontend application for Presstronic Academy.
 
 ## Tech Stack
 
@@ -25,7 +25,7 @@ React 18 + TypeScript + Vite + Material-UI frontend application for Matrix Acade
 pnpm install
 
 # Run frontend dev server (from root)
-pnpm turbo run dev --filter=@matrix-academy/frontend
+pnpm turbo run dev --filter=@presstronic/frontend
 
 # Or run all services in parallel
 pnpm dev
@@ -159,10 +159,10 @@ Install the EditorConfig plugin for your editor for automatic configuration.
 
 ```bash
 # Build for production
-pnpm turbo run build --filter=@matrix-academy/frontend
+pnpm turbo run build --filter=@presstronic/frontend
 
 # Preview production build
-pnpm turbo run preview --filter=@matrix-academy/frontend
+pnpm turbo run preview --filter=@presstronic/frontend
 ```
 
 ## TypeScript Configuration

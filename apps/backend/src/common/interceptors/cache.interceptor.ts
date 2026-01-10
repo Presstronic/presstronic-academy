@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * @file cache.interceptor.ts — Matrix Academy (interactive learning platform)
+ * @file cache.interceptor.ts — Presstronic Academy (interactive learning platform)
  * @author Your Name <you@example.com>
  * @copyright 2025 Presstronic Studios LLC
  */
@@ -21,10 +21,7 @@ import { of, tap } from 'rxjs';
 export class HttpCacheInterceptor implements NestInterceptor {
   constructor(@Inject(CACHE_MANAGER) private readonly cacheManager: Cache) {}
 
-  async intercept(
-    context: ExecutionContext,
-    next: CallHandler,
-  ): Promise<Observable<unknown>> {
+  async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<unknown>> {
     const request = context.switchToHttp().getRequest<{
       method: string;
       url: string;
@@ -53,10 +50,7 @@ export class HttpCacheInterceptor implements NestInterceptor {
   /**
    * Generate cache key from request
    */
-  private generateCacheKey(request: {
-    url: string;
-    user?: { id: string };
-  }): string {
+  private generateCacheKey(request: { url: string; user?: { id: string } }): string {
     const userId = request.user?.id ?? 'anonymous';
     return `http:${userId}:${request.url}`;
   }

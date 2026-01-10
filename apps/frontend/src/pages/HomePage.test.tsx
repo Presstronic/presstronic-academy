@@ -19,7 +19,7 @@ describe('HomePage', () => {
       renderWithRouter(<HomePage />);
 
       expect(
-        screen.getByRole('heading', { name: /Welcome to Matrix Academy/i, level: 1 }),
+        screen.getByRole('heading', { name: /Welcome to Presstronic Academy/i, level: 1 }),
       ).toBeInTheDocument();
     });
 
@@ -55,7 +55,7 @@ describe('HomePage', () => {
       renderWithRouter(<HomePage />);
 
       expect(
-        screen.getByRole('heading', { name: /Why Choose Matrix Academy\?/i }),
+        screen.getByRole('heading', { name: /Why Choose Presstronic Academy\?/i }),
       ).toBeInTheDocument();
     });
 

@@ -3,8 +3,8 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
-import { ErrorCode } from '@matrix-academy/shared';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { ErrorCode } from '@presstronic/shared';
 
 /**
  * Custom exception for business logic violations
