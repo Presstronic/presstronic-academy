@@ -47,7 +47,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build dependencies
-        run: pnpm --filter @matrix-academy/shared build
+        run: pnpm --filter @presstronic/shared build
 
       - name: Run linter
         run: pnpm lint
@@ -87,10 +87,10 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build dependencies
-        run: pnpm --filter @matrix-academy/shared build
+        run: pnpm --filter @presstronic/shared build
 
       - name: Type check
-        run: pnpm --filter @matrix-academy/backend exec tsc --noEmit
+        run: pnpm --filter @presstronic/backend exec tsc --noEmit
 
   # Unit tests job - Run Jest unit tests with coverage
   test-unit:
@@ -127,10 +127,10 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build dependencies
-        run: pnpm --filter @matrix-academy/shared build
+        run: pnpm --filter @presstronic/shared build
 
       - name: Run unit tests
-        run: pnpm --filter @matrix-academy/backend test:cov
+        run: pnpm --filter @presstronic/backend test:cov
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
@@ -202,10 +202,10 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build dependencies
-        run: pnpm --filter @matrix-academy/shared build
+        run: pnpm --filter @presstronic/shared build
 
       - name: Run E2E tests
-        run: pnpm --filter @matrix-academy/backend test:e2e:cov
+        run: pnpm --filter @presstronic/backend test:e2e:cov
         env:
           NODE_ENV: test
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/matrix_academy_test

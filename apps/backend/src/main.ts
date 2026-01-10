@@ -58,8 +58,8 @@ async function bootstrap(): Promise<void> {
 
   // Configure Swagger/OpenAPI
   const config = new DocumentBuilder()
-    .setTitle('Matrix Academy API')
-    .setDescription('Matrix Academy backend API documentation')
+    .setTitle('Presstronic Academy API')
+    .setDescription('Presstronic Academy backend API documentation')
     .setVersion('1.0')
     .addBearerAuth(
       {

@@ -3,5 +3,5 @@
   "compilerOptions": {
     "types": ["node", "express", "multer"]
   },
-  "include": ["src/**/*.ts", "test/**/*.ts", "scripts/**/*.ts"]
+  "include": ["src/**/*.ts", "test/**/*.ts", "scripts/**/*.ts", "../../packages/shared/src/**/*.ts"]
 }

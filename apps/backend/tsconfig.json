@@ -7,8 +7,8 @@
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "paths": {
-      "@matrix-academy/shared": ["../../packages/shared/src/index.ts"],
-      "@matrix-academy/shared/*": ["../../packages/shared/src/*"]
+      "@presstronic/shared": ["packages/shared/src/index.ts"],
+      "@presstronic/shared/*": ["packages/shared/src/*"]
     }
   },
   "include": ["src"]

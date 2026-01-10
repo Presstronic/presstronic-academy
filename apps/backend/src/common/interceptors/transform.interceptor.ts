@@ -3,13 +3,13 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
-import { SuccessResponseDto } from '@matrix-academy/shared';
-import type {
-  CallHandler,
-  ExecutionContext,
-  NestInterceptor,
+import {
+  type CallHandler,
+  type ExecutionContext,
+  Injectable,
+  type NestInterceptor,
 } from '@nestjs/common';
-import { Injectable } from '@nestjs/common';
+import { SuccessResponseDto } from '@presstronic/shared';
 import type { Request } from 'express';
 import type { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -18,13 +18,8 @@ import { map } from 'rxjs/operators';
  * Interceptor that wraps all successful responses in a standard format
  */
 @Injectable()
-export class TransformInterceptor<T>
-  implements NestInterceptor<T, SuccessResponseDto<T>>
-{
-  intercept(
-    context: ExecutionContext,
-    next: CallHandler,
-  ): Observable<SuccessResponseDto<T>> {
+export class TransformInterceptor<T> implements NestInterceptor<T, SuccessResponseDto<T>> {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<SuccessResponseDto<T>> {
     const request = context.switchToHttp().getRequest<Request>();
     const correlationId = this.getCorrelationId(request);
 
@@ -47,8 +42,7 @@ export class TransformInterceptor<T>
   private getCorrelationId(request: Request): string {
     // Check for correlation ID in headers
     const headerCorrelationId =
-      request.headers['x-correlation-id'] ??
-      request.headers['x-request-id'];
+      request.headers['x-correlation-id'] ?? request.headers['x-request-id'];
 
     if (typeof headerCorrelationId === 'string') {
       return headerCorrelationId;

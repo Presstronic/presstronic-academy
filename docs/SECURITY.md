@@ -1,6 +1,6 @@
 # Security Configuration
 
-This document outlines the security measures implemented in the Matrix Academy backend application.
+This document outlines the security measures implemented in the Presstronic Academy backend application.
 
 ## CORS (Cross-Origin Resource Sharing)
 

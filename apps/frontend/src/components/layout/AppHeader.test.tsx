@@ -67,7 +67,7 @@ describe('AppHeader', () => {
       mockGetCurrentUser.mockRejectedValue(new Error('Unauthorized'));
     });
 
-    it('should render Matrix Academy branding', async () => {
+    it('should render Presstronic Academy branding', async () => {
       renderWithProviders(<AppHeader />);
 
       await waitFor(() => {

@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * @file s3-storage.service.ts — Matrix Academy (interactive learning platform)
+ * @file s3-storage.service.ts — Presstronic Academy (interactive learning platform)
  * @author Your Name <you@example.com>
  * @copyright 2025 Presstronic Studios LLC
  */
@@ -34,7 +34,7 @@ export class S3StorageService implements IStorageService, OnModuleInit {
   private readonly forcePathStyle: boolean;
 
   constructor(private readonly configService: ConfigService) {
-    this.bucketName = this.configService.get<string>('S3_BUCKET_NAME', 'matrix-academy');
+    this.bucketName = this.configService.get<string>('S3_BUCKET_NAME', 'presstronic-academy');
     this.endpoint = this.configService.get<string>('S3_ENDPOINT');
     this.region = this.configService.get<string>('S3_REGION', 'us-east-1');
     this.forcePathStyle = this.configService.get<string>('S3_FORCE_PATH_STYLE') === 'true';

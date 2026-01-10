@@ -2,7 +2,7 @@
 
 ## Overview
 
-Matrix Academy uses PostgreSQL as its primary database with TypeORM as the ORM layer. This document covers database setup, migrations, and best practices.
+Presstronic Academy uses PostgreSQL as its primary database with TypeORM as the ORM layer. This document covers database setup, migrations, and best practices.
 
 ## Configuration
 

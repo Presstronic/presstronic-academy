@@ -1,10 +1,10 @@
 # Redis Integration Testing
 
-This document provides instructions for testing the Redis caching integration in the Matrix Academy backend.
+This document provides instructions for testing the Redis caching integration in the Presstronic Academy backend.
 
 ## Prerequisites
 
-- Docker container `matrix-academy-redis-dev` must be running
+- Docker container `presstronic-academy-redis-dev` must be running
 - Redis should be accessible at `redis://localhost:6379`
 
 ## Quick Test Script
@@ -31,7 +31,7 @@ You can also test Redis directly using the Redis CLI:
 
 ```bash
 # Connect to Redis container
-docker exec -it matrix-academy-redis-dev redis-cli
+docker exec -it presstronic-academy-redis-dev redis-cli
 
 # Inside Redis CLI:
 PING                    # Should return PONG
@@ -108,13 +108,13 @@ docker ps --filter "name=redis"
 ### View Redis Stats
 
 ```bash
-docker exec -it matrix-academy-redis-dev redis-cli INFO stats
+docker exec -it presstronic-academy-redis-dev redis-cli INFO stats
 ```
 
 ### Monitor Redis Operations in Real-Time
 
 ```bash
-docker exec -it matrix-academy-redis-dev redis-cli MONITOR
+docker exec -it presstronic-academy-redis-dev redis-cli MONITOR
 ```
 
 ## Configuration
@@ -175,7 +175,7 @@ docker-compose up -d redis
 
 ```bash
 # Connect to Redis CLI
-docker exec -it matrix-academy-redis-dev redis-cli
+docker exec -it presstronic-academy-redis-dev redis-cli
 
 # Clear all data (use with caution!)
 FLUSHALL

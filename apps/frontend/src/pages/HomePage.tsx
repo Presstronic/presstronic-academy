@@ -43,7 +43,7 @@ export function HomePage() {
                 mb: 2,
               }}
             >
-              Welcome to Matrix Academy
+              Welcome to Presstronic Academy
             </Typography>
 
             <Typography
@@ -107,7 +107,7 @@ export function HomePage() {
               fontSize: { xs: '1.75rem', sm: '2.5rem' },
             }}
           >
-            Why Choose Matrix Academy?
+            Why Choose Presstronic Academy?
           </Typography>
 
           <Grid container spacing={4}>

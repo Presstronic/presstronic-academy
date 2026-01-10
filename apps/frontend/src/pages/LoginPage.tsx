@@ -144,7 +144,7 @@ export function LoginPage() {
           </Typography>
 
           <Typography variant="body2" sx={{ mb: 4, textAlign: 'center', color: 'text.secondary' }}>
-            Welcome back to Matrix Academy
+            Welcome back to Presstronic Academy
           </Typography>
 
           {submitError && (

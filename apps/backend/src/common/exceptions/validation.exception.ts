@@ -3,9 +3,8 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
-import type { ValidationErrorDetail } from '@matrix-academy/shared';
-import { ErrorCode } from '@matrix-academy/shared';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { ErrorCode, type ValidationErrorDetail } from '@presstronic/shared';
 
 /**
  * Custom exception for validation errors

@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 # Docker Development Helper Script
-# Manages the Matrix Academy development environment with Docker Compose
+# Manages the Presstronic Academy development environment with Docker Compose
 
 set -e
 

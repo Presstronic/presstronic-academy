@@ -71,7 +71,7 @@ importers:
       '@aws-sdk/client-s3':
         specifier: ^3.914.0
         version: 3.914.0
-      '@matrix-academy/shared':
+      '@presstronic/shared':
         specifier: workspace:^
         version: link:../../packages/shared
       '@nestjs/cache-manager':

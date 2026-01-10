@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * @file auth.e2e-spec.ts — Matrix Academy (interactive learning platform)
+ * @file auth.e2e-spec.ts — Presstronic Academy (interactive learning platform)
  * @author Your Name <you@example.com>
  * @copyright 2025 Presstronic Studios LLC
  */

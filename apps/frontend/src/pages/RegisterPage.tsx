@@ -188,7 +188,7 @@ export function RegisterPage() {
           </Typography>
 
           <Typography variant="body2" sx={{ mb: 4, textAlign: 'center', color: 'text.secondary' }}>
-            Create your Matrix Academy account
+            Create your Presstronic Academy account
           </Typography>
 
           {submitError && (

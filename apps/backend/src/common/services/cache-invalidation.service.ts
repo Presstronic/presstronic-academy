@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * @file cache-invalidation.service.ts — Matrix Academy (interactive learning platform)
+ * @file cache-invalidation.service.ts — Presstronic Academy (interactive learning platform)
  * @author Your Name <you@example.com>
  * @copyright 2025 Presstronic Studios LLC
  */

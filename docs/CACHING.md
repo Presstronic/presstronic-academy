@@ -2,7 +2,7 @@
 
 ## Overview
 
-Matrix Academy uses Redis for distributed caching to improve application performance and reduce database load. This document covers cache setup, usage patterns, and best practices.
+Presstronic Academy uses Redis for distributed caching to improve application performance and reduce database load. This document covers cache setup, usage patterns, and best practices.
 
 ## Configuration
 

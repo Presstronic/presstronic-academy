@@ -1,6 +1,6 @@
 # API Conventions
 
-This document outlines the standard conventions for Matrix Academy API responses.
+This document outlines the standard conventions for Presstronic Academy API responses.
 
 ## Response Format
 

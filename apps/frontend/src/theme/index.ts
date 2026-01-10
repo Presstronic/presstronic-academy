@@ -5,7 +5,7 @@
  */
 import { createTheme } from '@mui/material/styles';
 
-// Matrix Academy theme with green color scheme
+// Presstronic Academy theme with green color scheme
 export const theme = createTheme({
   palette: {
     mode: 'dark',
