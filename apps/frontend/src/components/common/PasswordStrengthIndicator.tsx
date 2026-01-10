@@ -70,11 +70,13 @@ export const PasswordStrengthIndicator: FC<PasswordStrengthIndicatorProps> = ({
           <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
             Password must contain:
           </Typography>
-          {PASSWORD_REQUIREMENTS.map((requirement) => {
+          {PASSWORD_REQUIREMENTS.map((requirement, index) => {
             const isMet = requirement.test(password);
             return (
               <Box
                 key={requirement.label}
+                data-testid={`password-requirement-${index}`}
+                data-met={isMet ? 'true' : 'false'}
                 sx={{
                   display: 'flex',
                   alignItems: 'center',

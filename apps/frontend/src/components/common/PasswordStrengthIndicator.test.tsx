@@ -72,6 +72,13 @@ describe('PasswordStrengthIndicator', () => {
       expect(requirements).toHaveLength(5);
     });
 
+    it('should mark unmet requirements for weak passwords', () => {
+      render(<PasswordStrengthIndicator password="short" />);
+      const items = screen.getAllByTestId(/password-requirement-/);
+      expect(items).toHaveLength(5);
+      expect(items.some((item) => item.getAttribute('data-met') === 'false')).toBe(true);
+    });
+
     it('should validate minimum length requirement', () => {
       const { rerender } = render(<PasswordStrengthIndicator password="short" />);
       // Length requirement should be failing (only 5 chars)
@@ -90,6 +97,10 @@ describe('PasswordStrengthIndicator', () => {
       expect(screen.getByText('One lowercase letter')).toBeInTheDocument();
       expect(screen.getByText('One number')).toBeInTheDocument();
       expect(screen.getByText('One special character')).toBeInTheDocument();
+
+      const items = screen.getAllByTestId(/password-requirement-/);
+      expect(items).toHaveLength(5);
+      expect(items.every((item) => item.getAttribute('data-met') === 'true')).toBe(true);
     });
   });
 
