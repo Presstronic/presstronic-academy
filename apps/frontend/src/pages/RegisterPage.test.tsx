@@ -472,7 +472,7 @@ describe('RegisterPage', () => {
         expect(screen.getByLabelText(/^password/i, { selector: 'input' })).toBeInTheDocument();
       });
 
-      const passwordInput = screen.getByLabelText(/^password/i, {
+      const passwordInput = screen.getByLabelText<HTMLInputElement>(/^password/i, {
         selector: 'input',
       });
       const toggleButton = screen.getByLabelText('toggle password visibility');
@@ -503,7 +503,7 @@ describe('RegisterPage', () => {
         ).toBeInTheDocument();
       });
 
-      const confirmPasswordInput = screen.getByLabelText(/Confirm Password/i, {
+      const confirmPasswordInput = screen.getByLabelText<HTMLInputElement>(/Confirm Password/i, {
         selector: 'input',
       });
       const toggleButton = screen.getByLabelText('toggle confirm password visibility');
