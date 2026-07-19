@@ -1,0 +1,279 @@
+# Academy Lesson Challenge Specification
+
+## Purpose
+
+Define the Presstronic Academy lesson and skill challenge experience.
+
+This specification captures the challenge briefing, acceptance checklist, code editor, test run and reset controls, AI mentor panel, grading, progress updates, sandbox safety expectations, draft handling, and navigation back to the story. It does not specify provider-specific sandbox or model internals.
+
+## Requirements
+
+### Requirement: Lesson Shell Context
+WHERE the lesson screen is displayed,
+the system SHALL render the lesson challenge inside the in-app Academy shell.
+
+#### Scenario: Lesson uses app shell
+GIVEN the current screen is `lesson`
+WHEN the application renders
+THEN the lesson challenge content is displayed inside the app shell
+AND the sidebar is displayed
+AND the in-app top bar is displayed.
+
+#### Scenario: Lesson heading
+GIVEN the lesson screen is displayed
+WHEN the page heading renders
+THEN the system displays the section label `// SKILL CHALLENGE`
+AND displays the lesson title
+AND displays the branch context badge `Branch B - do it right`.
+
+### Requirement: Challenge Briefing
+WHERE the lesson challenge is displayed,
+the system SHALL explain the concept and challenge objective.
+
+#### Scenario: Briefing visible
+GIVEN the lesson screen is displayed
+WHEN the briefing card renders
+THEN the system displays the section label `// BRIEFING`
+AND explains what a poison message is
+AND explains that forever retries block later work.
+
+#### Scenario: Dead-letter queue explanation
+GIVEN the briefing card is displayed
+WHEN the learner reads the fix explanation
+THEN the system explains counting attempts
+AND explains parking messages in a dead-letter queue after a limit
+AND identifies dead-letter queue as the key concept.
+
+### Requirement: Acceptance Checklist
+WHERE the lesson challenge is displayed,
+the system SHALL show challenge acceptance tests and their current execution state.
+
+#### Scenario: Acceptance heading
+GIVEN the lesson screen is displayed
+WHEN the acceptance card renders
+THEN the system displays the section label `// ACCEPTANCE`.
+
+#### Scenario: Initial test status
+GIVEN the lesson screen has initialized
+AND no persisted test run exists for the current challenge attempt
+WHEN the acceptance checklist renders
+THEN each acceptance item displays `WAIT`.
+
+#### Scenario: Ran test status
+GIVEN the user has run tests
+WHEN the acceptance checklist renders
+THEN each acceptance item displays `PASS` when its configured result passes
+AND displays `FAIL` when its configured result fails.
+
+#### Scenario: Acceptance item names
+GIVEN the acceptance checklist renders
+WHEN test names are displayed
+THEN the system includes `parks message after 3 retries`
+AND includes `preserves message payload in DLQ`
+AND includes `does not block subsequent messages`.
+
+### Requirement: Lesson Story Navigation
+WHERE the lesson challenge is displayed,
+the system SHALL provide actions for returning to the story context.
+
+#### Scenario: Rewatch briefing
+GIVEN the lesson screen is displayed
+WHEN the user activates `Rewatch briefing - 01:32`
+THEN the system navigates to the story screen.
+
+#### Scenario: Back to story
+GIVEN the lesson screen is displayed
+WHEN the user activates `Back to the story`
+THEN the system navigates to the story screen.
+
+### Requirement: Code Pane
+WHERE the lesson challenge is displayed,
+the system SHALL present an editable code workspace for the challenge file.
+
+#### Scenario: File label
+GIVEN the lesson screen is displayed
+WHEN the code pane header renders
+THEN the system displays the file path `src/worker.ts`.
+
+#### Scenario: Code lines
+GIVEN the lesson screen is displayed
+WHEN the code workspace renders
+THEN the system displays the configured code lines
+AND displays line numbers
+AND applies syntax-token styling
+AND allows the learner to edit the code.
+
+#### Scenario: Code pane terminal styling
+GIVEN the lesson screen is displayed
+WHEN the code pane renders
+THEN the system uses dark terminal styling
+AND includes scanline styling.
+
+### Requirement: Test Run
+WHEN the user runs or resets tests,
+the system SHALL execute the challenge tests against the learner's current code and display test output.
+
+#### Scenario: Run tests
+GIVEN tests have not been run for the current challenge attempt
+WHEN the user activates `Run tests`
+THEN the system executes the challenge test suite
+AND displays individual PASS and FAIL statuses in the acceptance checklist
+AND displays summary output explaining the current result.
+
+#### Scenario: Reset tests
+GIVEN tests have been run for the current challenge attempt
+WHEN the user activates `Reset`
+THEN the system restores the starter code
+AND displays `WAIT` for each acceptance item
+AND displays summary output `RUN TESTS TO EVALUATE`.
+
+#### Scenario: Reward display
+GIVEN the lesson screen is displayed
+WHEN the code pane footer renders
+THEN the system displays reward text `REWARD +120 XP`.
+
+### Requirement: AI Mentor Panel
+WHERE the lesson challenge is displayed,
+the system SHALL show an AI mentor panel with contextual chips, sample exchange, prompt input, and live indicator.
+
+#### Scenario: Mentor header
+GIVEN the lesson screen is displayed
+WHEN the AI mentor panel renders
+THEN the system displays the section label `// PROXY - AI MENTOR`
+AND displays a live indicator.
+
+#### Scenario: Mentor context chips before tests
+GIVEN tests have not been run for the current challenge attempt
+WHEN the mentor context chips render
+THEN the system displays `LESSON: DEAD-LETTER QUEUES`
+AND displays `FILE: worker.ts`
+AND displays `TESTS: NOT RUN`.
+
+#### Scenario: Mentor context chips after tests
+GIVEN tests have been run for the current challenge attempt
+WHEN the mentor context chips render
+THEN the system displays `LESSON: DEAD-LETTER QUEUES`
+AND displays `FILE: worker.ts`
+AND displays `TESTS: 2 / 3 PASSING`.
+
+#### Scenario: Sample mentor exchange
+GIVEN the AI mentor panel is displayed
+WHEN the message area renders
+THEN the system displays a sample learner question about the third test
+AND displays a mentor response explaining that the catch block still requeues every failure
+AND references tracking message attempts and sending to a dead-letter queue after the third attempt.
+
+#### Scenario: Mentor prompt input
+GIVEN the AI mentor panel is displayed
+WHEN the prompt area renders
+THEN the system displays an input with placeholder `Ask about this lesson or your code...`
+AND displays a `Send` action
+AND explains that the mentor sees the lesson, editor, and test results.
+
+### Requirement: Lesson Data Source
+WHERE the lesson challenge renders content,
+the system SHALL derive lesson details from the authored lesson and challenge data source.
+
+#### Scenario: Lesson fields
+GIVEN the lesson screen is displayed
+WHEN challenge content renders
+THEN the system reads lesson title, challenge text, starter code, and test definitions from lesson data.
+
+#### Scenario: Test results
+GIVEN the user runs tests
+WHEN test statuses render
+THEN the system reads pass and fail outcomes from the latest executed test run.
+
+### Requirement: Lesson Challenge Persistence
+WHERE the lesson challenge handles learner work,
+the system SHALL persist challenge attempts, code edits, test results, mentor context, and earned rewards to the learner account.
+
+#### Scenario: Code edits persist
+GIVEN the lesson screen is displayed
+WHEN the learner edits the challenge code
+THEN the system preserves the current draft across page reloads
+AND associates the draft with the current challenge attempt.
+
+#### Scenario: Tests execute
+GIVEN the user activates `Run tests`
+WHEN test state updates
+THEN the system displays results from the executed challenge tests
+AND stores the latest run result.
+
+#### Scenario: Mentor send uses current context
+GIVEN the AI mentor panel is displayed
+WHEN the learner sends a mentor question
+THEN the system sends the lesson, current code, and latest test results as context
+AND displays the mentor response in the conversation.
+
+#### Scenario: XP is awarded on completion
+GIVEN the lesson screen displays `REWARD +120 XP`
+WHEN the learner completes the challenge according to its acceptance criteria
+THEN the system awards the configured XP once
+AND updates learner progression.
+
+### Requirement: Challenge Sandbox Safety
+WHEN the learner runs challenge tests,
+the system SHALL execute learner code in an isolated, resource-limited environment.
+
+#### Scenario: Runtime isolation
+GIVEN the learner activates `Run tests`
+WHEN the challenge test suite executes
+THEN the system runs learner code outside the application process
+AND prevents access to unauthorized network, filesystem, environment, and credential resources.
+
+#### Scenario: Resource limits
+GIVEN learner code enters an infinite loop or consumes excessive resources
+WHEN the challenge test suite executes
+THEN the system stops execution at configured CPU, memory, and wall-clock limits
+AND displays a timeout or resource-limit result instead of hanging the lesson screen.
+
+#### Scenario: Sandbox failure
+GIVEN the test sandbox cannot start or returns an infrastructure error
+WHEN the learner runs tests
+THEN the system preserves the learner's draft
+AND displays a retryable service error
+AND does not award or revoke XP.
+
+### Requirement: Challenge Draft Safety
+WHERE the learner has unsaved or changed challenge code,
+the system SHALL protect the learner from accidental draft loss.
+
+#### Scenario: Draft autosaves
+GIVEN the learner edits challenge code
+WHEN the draft changes
+THEN the system periodically saves the draft to the current challenge attempt
+AND indicates whether the latest draft is saved or pending save.
+
+#### Scenario: Navigate with unsaved draft
+GIVEN the learner has unsaved code changes
+WHEN the learner activates `Back to the story` or `Rewatch briefing - 01:32`
+THEN the system warns that changes may be lost
+AND lets the learner continue navigation or stay on the challenge.
+
+#### Scenario: Reset changed draft
+GIVEN the learner's current draft differs from starter code
+WHEN the learner activates `Reset`
+THEN the system asks for confirmation before restoring starter code.
+
+### Requirement: Mentor Safety and Request State
+WHEN the learner interacts with the AI mentor,
+the system SHALL disclose context sharing, handle request state, and avoid unbounded mentor usage.
+
+#### Scenario: Mentor send pending
+GIVEN the learner sends a mentor question
+WHEN the mentor response is in progress
+THEN the system disables duplicate sends for that prompt
+AND provides a cancel or stop-generating affordance when streaming is available.
+
+#### Scenario: Mentor failure
+GIVEN a mentor request fails
+WHEN the mentor panel renders the result
+THEN the system displays a retryable error
+AND preserves the learner's unsent or failed prompt text.
+
+#### Scenario: Mentor privacy boundary
+GIVEN the AI mentor panel is displayed
+WHEN the prompt area renders
+THEN the system explains that the mentor receives the lesson, current code, latest test results, and conversation context
+AND does not send unrelated learner profile, billing, or private account data.
