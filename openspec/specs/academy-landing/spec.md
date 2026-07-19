@@ -87,9 +87,8 @@ THEN the system displays a secondary `Watch a branch play out` action.
 #### Scenario: Hero metrics
 GIVEN the landing hero is displayed
 WHEN the user views the metrics row
-THEN the system displays `27 STORY PATHS`
-AND displays `412 CHALLENGES`
-AND displays `8,900+ OPERATIVES`.
+THEN the system displays story path count, challenge count, and learner participation metrics from configured product metrics
+AND does not hard-code temporary mockup counts as contractual product values.
 
 #### Scenario: Hero background treatment
 GIVEN the landing hero is displayed
@@ -217,69 +216,6 @@ AND displays social icons
 AND displays all-systems-operational status
 AND displays copyright, license, and Kansas City location metadata.
 
-### Requirement: Data Export Request
-WHEN the user requests a data export from the landing footer,
-the system SHALL invoke the shared privacy-controls data export flow.
-
-#### Scenario: Request data export
-GIVEN the landing footer is displayed
-WHEN the user activates `Request my data`
-THEN the system starts the shared data export request flow.
-
-### Requirement: Account Deletion Request
-WHEN the user starts account deletion from the landing footer,
-the system SHALL invoke the shared account-erasure confirmation flow.
-
-#### Scenario: Open deletion dialog
-GIVEN the landing footer is displayed
-WHEN the user activates `Delete me`
-THEN the system opens the shared account-erasure confirmation dialog.
-
-#### Scenario: Cancel deletion
-GIVEN the deletion confirmation dialog is open
-WHEN the user activates `Keep my account`
-THEN the system closes the dialog
-AND does not schedule account deletion.
-
-#### Scenario: Confirm deletion
-GIVEN the deletion confirmation dialog is open
-WHEN the user activates `Yes - delete me`
-THEN the system closes the dialog
-AND schedules account deletion through the shared account-erasure flow.
-
-### Requirement: Cookie Preferences
-WHEN the user opens cookie preferences from the landing footer,
-the system SHALL invoke the shared cookie preferences flow.
-
-#### Scenario: Open cookie preferences
-GIVEN the landing footer is displayed
-WHEN the user activates `Cookie preferences`
-THEN the system opens the shared cookie preferences dialog.
-
-#### Scenario: Strictly necessary cookies
-GIVEN the cookie preferences dialog is open
-WHEN the cookie categories render
-THEN Strictly necessary is marked always on
-AND describes sessions, security, and saving the learner's place in the story.
-
-#### Scenario: Optional cookie categories
-GIVEN the cookie preferences dialog is open
-WHEN the cookie categories render
-THEN Analytics is displayed with an optional switch
-AND Marketing is displayed with an optional switch.
-
-#### Scenario: Cancel cookie preferences
-GIVEN the cookie preferences dialog is open
-WHEN the user activates `Cancel`
-THEN the system closes the dialog
-AND does not display the preferences-saved status message.
-
-#### Scenario: Save cookie preferences
-GIVEN the cookie preferences dialog is open
-WHEN the user activates `Save preferences`
-THEN the system closes the dialog
-AND displays a status message stating cookie preferences were saved for this terminal.
-
 ### Requirement: Public Compliance Badges
 WHEN the landing footer renders its bottom bar,
 the system SHALL display compliance badges for GDPR, CCPA, and WCAG 2.2 AA.
@@ -324,3 +260,24 @@ AND prevents navigation content from overlapping the hero or page content.
 GIVEN the landing page is displayed
 WHEN assistive technology navigates the page
 THEN the system exposes recognizable header, main, section, and footer landmarks.
+
+### Requirement: Landing Responsibility Boundary
+The landing capability SHALL own public landing presentation, marketing section structure, public calls to action, footer entry points, and delegation to shared capabilities without owning shared privacy-control, authentication, billing, shell, or global visual-design internals.
+
+#### Scenario: Privacy actions delegate to privacy controls
+- **GIVEN** the landing page exposes data export, account erasure, or cookie preference entry points
+- **WHEN** the user activates one of those entry points
+- **THEN** the landing page invokes the shared privacy-controls capability
+- **AND** does not define privacy request persistence, verification, consent, or erasure policy behavior itself.
+
+#### Scenario: Auth and billing actions remain entry points
+- **GIVEN** the landing page displays enrollment, sign-in, or plan call-to-action controls
+- **WHEN** the user activates one of those controls
+- **THEN** the landing page routes to authentication or plan intent capture
+- **AND** does not define authentication form validation, session lifecycle, checkout, entitlement, or subscription behavior itself.
+
+#### Scenario: Landing visual treatment references global design
+- **GIVEN** the landing page specifies visual treatment for public sections
+- **WHEN** the implementation applies colors, typography, geometry, motion, or decorative treatments
+- **THEN** the landing page follows the academy-visual-design capability
+- **AND** only specifies landing-specific layout or content exceptions.
