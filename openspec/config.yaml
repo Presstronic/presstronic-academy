@@ -1,0 +1,15 @@
+schema: spec-driven
+
+context: |
+  Presstronic Academy is a mastery-based developer education platform.
+  Backend: Spring Boot with Gradle Kotlin DSL.
+  Frontend: React, Vite, TypeScript, and ShadCN.
+  Storage and infrastructure include PostgreSQL, Redis, and S3.
+  Requirements should describe observable product behavior rather than implementation details.
+
+rules:
+  specs:
+    - Use Given/When/Then structure for scenarios.
+    - Assign each behavior to one authoritative capability.
+    - Avoid duplicating requirements across surface and shared-capability specs.
+    - Avoid hard-coded volatile content unless the literal value is contractually required.
