@@ -25,6 +25,12 @@ WHEN the user views the first viewport
 THEN the Presstronic Academy lockup is visible in the navigation bar
 AND the hero communicates the choose-your-own-adventure software mastery positioning.
 
+#### Scenario: Landing visual direction
+GIVEN the landing page is displayed
+WHEN visual styling is applied
+THEN the system uses the Academy graphite, signal cyan, and sparse volt visual language
+AND does not use photos, illustration, 3D art, or gradient decoration as the primary visual treatment.
+
 ### Requirement: Landing Navigation Bar
 WHERE the landing page is displayed,
 the system SHALL show a sticky public navigation bar with brand, section labels, and authentication entry actions.
@@ -41,6 +47,12 @@ GIVEN the landing page is displayed
 WHEN the user activates Paths, Challenges, or Pricing
 THEN the system scrolls or navigates to the corresponding public landing section
 AND keeps keyboard focus in a predictable location at the destination.
+
+#### Scenario: Sticky navigation styling
+GIVEN the landing page navigation bar is sticky
+WHEN the page is scrolled
+THEN the navigation background uses the Academy page color at high opacity
+AND may use the approved backdrop blur treatment.
 
 #### Scenario: Sign in action
 GIVEN the landing page is displayed
@@ -78,6 +90,19 @@ WHEN the user views the metrics row
 THEN the system displays `27 STORY PATHS`
 AND displays `412 CHALLENGES`
 AND displays `8,900+ OPERATIVES`.
+
+#### Scenario: Hero background treatment
+GIVEN the landing hero is displayed
+WHEN hero background styling is applied
+THEN the system may use the approved 48px grid
+AND may use one soft cyan radial glow
+AND does not stack additional decorative background effects.
+
+#### Scenario: Hero type scale
+GIVEN the landing hero headline is displayed
+WHEN typography is applied on a desktop viewport
+THEN the headline uses the Academy display type role
+AND stays within the approved hero-scale range.
 
 ### Requirement: Feature Summary
 WHEN the landing page renders the feature summary section,

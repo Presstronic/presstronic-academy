@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="./styles.css" />
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js" crossorigin="anonymous"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0a0b0c; }
+  body { font-family: 'Archivo','Helvetica Neue',sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--text-accent); text-decoration: none; }
+  a:hover { color: var(--cyan-300); }
+  ::selection { background: color-mix(in oklab, var(--cyan-500) 35%, transparent); }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--cyan-400); outline-offset: 2px; }
+  @keyframes pa-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+</style>
+</helmet>
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--surface-page);color:var(--text-body);display:flex;flex-direction:column;font-size:15px;line-height:1.6" data-screen-label="Onboarding">
+
+  <!-- topbar -->
+  <div style="height:60px;border-bottom:1px solid var(--border-hairline);display:flex;align-items:center;justify-content:space-between;padding:0 28px;flex:none">
+    <span style="font-family:var(--font-display);font-weight:800;letter-spacing:-0.02em;color:var(--text-strong);font-size:13px">PRESSTRONIC <span style="color:var(--cyan-400)">ACADEMY</span></span>
+    <div style="display:flex;align-items:center;gap:14px">
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)">Calibration · {{ stepLabel }}</span>
+      <a href="ui_kits/academy/index.html#dashboard" style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)" style-hover="{color:'var(--text-accent)'}">Skip for now</a>
+    </div>
+  </div>
+
+  <!-- progress -->
+  <div style="height:3px;background:var(--surface-inset);flex:none" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+    <div style="height:100%;width:{{ progressPct }};background:var(--cyan-500);transition:width .3s cubic-bezier(0.19,1,0.22,1)"></div>
+  </div>
+
+  <!-- body -->
+  <div style="flex:1;display:flex;align-items:flex-start;justify-content:center;padding:clamp(28px,4vh,56px) 24px">
+    <div style="width:100%;max-width:720px;display:flex;flex-direction:column;gap:28px;animation:pa-fade .3s cubic-bezier(0.19,1,0.22,1)">
+
+      <!-- step header -->
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:28px;height:2px;background:var(--cyan-500)"></span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)">{{ eyebrow }}</span></div>
+        <h1 style="font-family:var(--font-display);font-weight:700;letter-spacing:-0.025em;color:var(--text-strong);line-height:1.1;margin:0;font-size:clamp(26px,3vw,34px)">{{ heading }}</h1>
+        <p style="margin:0;font-size:15px;color:var(--text-body);max-width:560px">{{ sub }}</p>
+      </div>
+
+      <!-- STEP 1: track -->
+      <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px" role="radiogroup" aria-label="Choose your track">
+          <sc-for list="{{ tracks }}" as="t" hint-placeholder-count="4">
+            <button onClick="{{ t.pick }}" role="radio" aria-checked="{{ t.selected }}" style="{{ t.style }}" style-hover="{{ t.hoverStyle }}">
+              <span style="display:flex;align-items:center;gap:12px;width:100%">
+                <span style="width:40px;height:40px;flex:none;display:inline-flex;align-items:center;justify-content:center;background:var(--tint-cyan);border:1px solid var(--border-accent);color:var(--accent-fg-cyan)">{{ t.iconEl }}</span>
+                <span style="display:flex;flex-direction:column;gap:2px;text-align:left;min-width:0">
+                  <span style="font-family:var(--font-display);font-weight:600;font-size:16px;color:var(--text-strong);letter-spacing:-0.01em">{{ t.name }}</span>
+                  <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)">{{ t.meta }}</span>
+                </span>
+                <span style="flex:1"></span>
+                <span style="{{ t.markStyle }}">{{ t.mark }}</span>
+              </span>
+              <span style="font-size:13px;line-height:1.55;color:var(--text-body);text-align:left">{{ t.blurb }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- STEP 2: skill check -->
+      <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:14px" role="radiogroup" aria-label="Experience level">
+          <sc-for list="{{ levels }}" as="l" hint-placeholder-count="4">
+            <button onClick="{{ l.pick }}" role="radio" aria-checked="{{ l.selected }}" style="{{ l.style }}" style-hover="{{ l.hoverStyle }}">
+              <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--accent-fg-volt);flex:none;width:28px">[{{ l.key }}]</span>
+              <span style="display:flex;flex-direction:column;gap:3px;text-align:left;flex:1;min-width:0">
+                <span style="font-size:14px;color:var(--text-strong);font-weight:500">{{ l.label }}</span>
+                <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)">{{ l.hint }}</span>
+              </span>
+              <span style="{{ l.markStyle }}">{{ l.mark }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- STEP 3: cadence -->
+      <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px" role="radiogroup" aria-label="Weekly time commitment">
+          <sc-for list="{{ cadences }}" as="c" hint-placeholder-count="3">
+            <button onClick="{{ c.pick }}" role="radio" aria-checked="{{ c.selected }}" style="{{ c.style }}" style-hover="{{ c.hoverStyle }}">
+              <span style="font-family:var(--font-mono);font-size:22px;color:var(--text-strong)">{{ c.hours }}</span>
+              <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">{{ c.label }}</span>
+              <span style="font-size:13px;color:var(--text-body);line-height:1.5">{{ c.blurb }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- STEP 4: result -->
+      <sc-if value="{{ isStep4 }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="position:relative;overflow:hidden;background:var(--surface-card);border:1px solid var(--border-accent);border-top:2px solid var(--cyan-500);padding:24px;display:flex;flex-direction:column;gap:14px;box-shadow:inset 0 1px 0 color-mix(in oklab,var(--cyan-500) 30%,transparent)">
+            <div style="position:absolute;top:-1px;right:-1px;width:14px;height:14px;border-top:2px solid var(--mag-500);border-right:2px solid var(--mag-500);pointer-events:none"></div>
+            <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-fg-cyan)">// ASSIGNMENT CALIBRATED</span>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Your starting point</span>
+              <span style="font-family:var(--font-display);font-weight:700;font-size:22px;color:var(--text-strong);letter-spacing:-0.015em">{{ result.title }}</span>
+            </div>
+            <p style="margin:0;font-size:14px;line-height:1.65;color:var(--text-body)">{{ result.blurb }}</p>
+            <div style="display:flex;gap:18px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">
+              <span>{{ result.track }}</span><span style="color:var(--accent-fg-volt)">{{ result.pace }}</span><span style="color:var(--accent-fg-mag)">{{ result.xp }}</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a href="ui_kits/academy/index.html#dashboard" style="display:inline-flex;align-items:center;gap:9px;background:var(--cyan-500);color:var(--text-on-accent);border:1px solid var(--cyan-500);padding:13px 22px;font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;clip-path:var(--notch);box-shadow:var(--glow-cyan);text-decoration:none" style-hover="{background:'var(--cyan-600)',borderColor:'var(--cyan-600)',color:'var(--text-on-accent)'}">Deploy to dashboard {{ arrowIcon }}</a>
+            <a href="Catalog.dc.html" style="display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--text-accent);border:1px solid var(--border-strong);padding:13px 22px;font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none" style-hover="{borderColor:'var(--border-accent)',background:'var(--tint-cyan)'}">Browse the catalog</a>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- footer nav -->
+      <sc-if value="{{ showFooterNav }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--border-hairline);padding-top:20px">
+          <button onClick="{{ back }}" style="{{ backStyle }}" style-hover="{{ backHover }}">{{ backIcon }}Back</button>
+          <button onClick="{{ next }}" disabled="{{ nextDisabled }}" style="{{ nextStyle }}" style-hover="{{ nextHover }}">Continue {{ arrowIcon2 }}</button>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark' | 'light'&quot;,&quot;section&quot;:&quot;Appearance&quot;}}">
+const ICON_NAMES = ['server','layout-template','shield','container','check','arrow-right','arrow-left'];
+
+const TRACKS = [
+  { id: 'backend', name: 'Backend engineering', icon: 'server', meta: '9 paths \u00b7 40h', blurb: 'Queues, data modeling, and resilience. Systems that survive production.' },
+  { id: 'frontend', name: 'Frontend engineering', icon: 'layout-template', meta: '8 paths \u00b7 36h', blurb: 'State, rendering, and interface craft from first principles.' },
+  { id: 'security', name: 'Security operations', icon: 'shield', meta: '7 paths \u00b7 44h', blurb: 'Threat modeling, incident response, hardening real systems.' },
+  { id: 'devops', name: 'Platform & DevOps', icon: 'container', meta: '8 paths \u00b7 38h', blurb: 'Pipelines, orchestration, and observability that survive 3am.' },
+];
+
+const LEVELS = [
+  { key: 'A', label: 'New to this track', hint: 'I\u2019m starting from fundamentals' },
+  { key: 'B', label: 'I can ship with guidance', hint: '1\u20132 years \u00b7 comfortable with the basics' },
+  { key: 'C', label: 'I ship independently', hint: '3+ years \u00b7 want production-grade depth' },
+  { key: 'D', label: 'I lead others', hint: 'Senior \u00b7 here for architecture and edge cases' },
+];
+
+const CADENCES = [
+  { id: 'light', hours: '2\u20133h', label: 'per week \u00b7 steady', blurb: 'One story beat at a time. ~12 weeks per path.' },
+  { id: 'focused', hours: '5\u20137h', label: 'per week \u00b7 focused', blurb: 'A chapter per sitting. ~6 weeks per path.' },
+  { id: 'intense', hours: '10h+', label: 'per week \u00b7 immersion', blurb: 'Full missions back to back. ~3 weeks per path.' },
+];
+
+const RESULTS = {
+  backend:  { title: 'The Broken Pipeline', blurb: 'A silent job is eating messages and the client demo is in six hours. Your calibration puts you right at the heart of production debugging \u2014 queues, workers, and hard choices.' },
+  frontend: { title: 'Ghost in the Interface', blurb: 'A component re-renders itself into oblivion. Your calibration starts you inside the render tree \u2014 state, timing, and the discipline to trace what you can\u2019t see.' },
+  security: { title: 'Zero Day', blurb: 'A live exploit is walking through your services. Your calibration drops you into containment \u2014 reading attacker intent while the clock runs.' },
+  devops:   { title: 'The Cache Heist', blurb: 'Stale reads are leaking one customer\u2019s data to another. Your calibration starts at the infrastructure layer \u2014 finding the poisoned key before legal does.' },
+};
+
+const TRACK_NAMES = { backend: 'Backend engineering', frontend: 'Frontend engineering', security: 'Security operations', devops: 'Platform & DevOps' };
+
+class Component extends DCLogic {
+  state = { step: 1, track: null, level: null, cadence: null };
+
+  componentDidMount() { this.iconMap = {}; this.buildIcons(); }
+
+  buildIcons(tries) {
+    tries = tries || 0;
+    if (!window.lucide || !window.lucide.createIcons) {
+      if (tries < 40) setTimeout(() => this.buildIcons(tries + 1), 120);
+      return;
+    }
+    const holder = document.createElement('div');
+    holder.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none';
+    holder.innerHTML = ICON_NAMES.map(n => '<i data-lucide="' + n + '"></i>').join('');
+    document.body.appendChild(holder);
+    try { window.lucide.createIcons({ nameAttr: 'data-lucide' }); } catch (e) {}
+    const svgs = holder.querySelectorAll('svg');
+    const map = {};
+    svgs.forEach((svg, i) => { map[ICON_NAMES[i]] = svg.outerHTML; });
+    document.body.removeChild(holder);
+    this.iconMap = map;
+    this.forceUpdate();
+  }
+
+  icon(name, size, color) {
+    const raw = this.iconMap && this.iconMap[name];
+    if (!raw) return React.createElement('span', { style: { display: 'inline-flex', width: size || 16, height: size || 16, flex: 'none' } });
+    const s = size || 16;
+    const html = raw.replace('width="24"', 'width="' + s + '"').replace('height="24"', 'height="' + s + '"');
+    return React.createElement('span', { style: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', lineHeight: 0, color: color || 'currentColor', flex: 'none' }, dangerouslySetInnerHTML: { __html: html } });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const step = s.step;
+
+    const cardBase = { display: 'flex', flexDirection: 'column', gap: '12px', background: 'var(--surface-card)', border: '1px solid var(--border-hairline)', borderLeft: '2px solid transparent', padding: '18px', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', color: 'inherit', fontSize: 'inherit' };
+    const cardSel = { borderColor: 'var(--border-accent)', borderLeft: '2px solid var(--cyan-500)', background: 'var(--surface-overlay)' };
+    const markBase = { width: '18px', height: '18px', flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-strong)', background: 'transparent' };
+    const markSel = { border: '1px solid var(--cyan-500)', background: 'var(--cyan-500)' };
+
+    const tracks = TRACKS.map(t => {
+      const sel = s.track === t.id;
+      return { name: t.name, meta: t.meta, blurb: t.blurb, selected: sel,
+        iconEl: this.icon(t.icon, 18),
+        style: sel ? Object.assign({}, cardBase, cardSel) : cardBase,
+        hoverStyle: sel ? {} : { borderColor: 'var(--border-strong)', background: 'var(--surface-overlay)' },
+        markStyle: sel ? Object.assign({}, markBase, markSel) : markBase,
+        mark: sel ? this.icon('check', 12, 'var(--text-on-accent)') : null,
+        pick: () => this.setState({ track: t.id }),
+      };
+    });
+
+    const levelBase = { display: 'flex', alignItems: 'center', gap: '14px', background: 'var(--surface-card)', border: '1px solid var(--border-hairline)', borderLeft: '2px solid transparent', padding: '16px 18px', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', color: 'inherit', fontSize: 'inherit', width: '100%' };
+    const levels = LEVELS.map(l => {
+      const sel = s.level === l.key;
+      return { key: l.key, label: l.label, hint: l.hint, selected: sel,
+        style: sel ? Object.assign({}, levelBase, cardSel) : levelBase,
+        hoverStyle: sel ? {} : { borderColor: 'var(--border-strong)', background: 'var(--surface-overlay)' },
+        markStyle: sel ? Object.assign({}, markBase, markSel) : markBase,
+        mark: sel ? this.icon('check', 12, 'var(--text-on-accent)') : null,
+        pick: () => this.setState({ level: l.key }),
+      };
+    });
+
+    const cadBase = { display: 'flex', flexDirection: 'column', gap: '8px', background: 'var(--surface-card)', border: '1px solid var(--border-hairline)', borderTop: '2px solid transparent', padding: '20px 18px', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', color: 'inherit', fontSize: 'inherit' };
+    const cadSel = { borderColor: 'var(--border-accent)', borderTop: '2px solid var(--cyan-500)', background: 'var(--surface-overlay)' };
+    const cadences = CADENCES.map(c => {
+      const sel = s.cadence === c.id;
+      return { hours: c.hours, label: c.label, blurb: c.blurb, selected: sel,
+        style: sel ? Object.assign({}, cadBase, cadSel) : cadBase,
+        hoverStyle: sel ? {} : { borderColor: 'var(--border-strong)', background: 'var(--surface-overlay)' },
+        pick: () => this.setState({ cadence: c.id }),
+      };
+    });
+
+    const copy = {
+      1: { eyebrow: '// CALIBRATION 01 — TRACK', heading: 'Pick your discipline.', sub: 'This sets your starting curriculum. You can run missions from any track later \u2014 this is just where you deploy first.' },
+      2: { eyebrow: '// CALIBRATION 02 — EXPERIENCE', heading: 'How much have you shipped?', sub: 'Honest answers get better missions. We place you by what you\u2019ve done, not what you\u2019ve watched.' },
+      3: { eyebrow: '// CALIBRATION 03 — CADENCE', heading: 'How much time can you commit?', sub: 'Missions are paced to fit. You can change this any time from your profile.' },
+      4: { eyebrow: '// CALIBRATION COMPLETE', heading: 'You\u2019re cleared for duty.', sub: 'Based on your track, experience, and cadence, here\u2019s where your story starts.' },
+    }[step];
+
+    const canNext = (step === 1 && s.track) || (step === 2 && s.level) || (step === 3 && s.cadence);
+
+    const navBtn = { display: 'inline-flex', alignItems: 'center', gap: '8px', fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', padding: '11px 20px', cursor: 'pointer', border: '1px solid' };
+    const nextStyle = canNext
+      ? Object.assign({}, navBtn, { background: 'var(--cyan-500)', color: 'var(--text-on-accent)', borderColor: 'var(--cyan-500)', clipPath: 'var(--notch)' })
+      : Object.assign({}, navBtn, { background: 'transparent', color: 'var(--text-muted)', borderColor: 'var(--border-hairline)', cursor: 'not-allowed' });
+    const backVisible = step > 1;
+    const backStyle = Object.assign({}, navBtn, { background: 'transparent', color: backVisible ? 'var(--text-body)' : 'transparent', borderColor: backVisible ? 'var(--border-strong)' : 'transparent', pointerEvents: backVisible ? 'auto' : 'none' });
+
+    const res = RESULTS[s.track || 'backend'];
+    const cad = CADENCES.find(c => c.id === s.cadence) || CADENCES[1];
+
+    return {
+      theme: this.props.theme || 'dark',
+      stepLabel: step < 4 ? ('STEP ' + step + ' OF 3') : 'COMPLETE',
+      progressPct: (step === 4 ? 100 : Math.round(((step - 1) / 3) * 100)) + '%',
+      eyebrow: copy.eyebrow, heading: copy.heading, sub: copy.sub,
+      isStep1: step === 1, isStep2: step === 2, isStep3: step === 3, isStep4: step === 4,
+      showFooterNav: step < 4,
+      tracks: tracks, levels: levels, cadences: cadences,
+      result: {
+        title: res.title, blurb: res.blurb,
+        track: (TRACK_NAMES[s.track] || 'Backend engineering').toUpperCase(),
+        pace: cad.hours + ' / WEEK',
+        xp: '+1,200 XP ON COMPLETION',
+      },
+      next: () => { if (canNext) this.setState({ step: step + 1 }); },
+      back: () => { if (step > 1) this.setState({ step: step - 1 }); },
+      nextDisabled: !canNext,
+      nextStyle: nextStyle, nextHover: canNext ? { background: 'var(--cyan-600)', borderColor: 'var(--cyan-600)' } : {},
+      backStyle: backStyle, backHover: backVisible ? { borderColor: 'var(--border-accent)', color: 'var(--text-strong)' } : {},
+      arrowIcon: this.icon('arrow-right', 15), arrowIcon2: this.icon('arrow-right', 14), backIcon: this.icon('arrow-left', 14),
+    };
+  }
+}
+</script>
+</body>
+</html>

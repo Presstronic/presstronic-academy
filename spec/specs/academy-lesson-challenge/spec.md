@@ -107,7 +107,12 @@ AND allows the learner to edit the code.
 GIVEN the lesson screen is displayed
 WHEN the code pane renders
 THEN the system uses dark terminal styling
-AND includes scanline styling.
+AND may include subtle scanline styling.
+
+#### Scenario: Code typography
+GIVEN the code workspace renders
+WHEN typography is applied
+THEN code, line numbers, test labels, and terminal output use mono typography.
 
 ### Requirement: Test Run
 WHEN the user runs or resets tests,
@@ -277,3 +282,26 @@ GIVEN the AI mentor panel is displayed
 WHEN the prompt area renders
 THEN the system explains that the mentor receives the lesson, current code, latest test results, and conversation context
 AND does not send unrelated learner profile, billing, or private account data.
+
+### Requirement: Lesson Visual Design
+WHERE the lesson challenge screen renders briefing, editor, tests, and mentor panels,
+the system SHALL preserve the Academy terminal-workbench visual language.
+
+#### Scenario: Terminal treatment restraint
+GIVEN the code pane or test output pane renders
+WHEN cyberpunk treatment is applied
+THEN scanlines are limited to dark terminal panes
+AND the same element does not also receive HUD corners, neon top edge, hazard stripes, and glow.
+
+#### Scenario: Test status color
+GIVEN test results are displayed
+WHEN result styling is applied
+THEN passing results use the Academy success color
+AND failing results use the Academy destructive color
+AND waiting or pending results use neutral or cyan status treatment.
+
+#### Scenario: No movement hover
+GIVEN a lesson action, test row, checklist row, or mentor chip is interactive
+WHEN hover or press styling is applied
+THEN the system changes color, fill, border, or opacity only
+AND does not lift, translate, or scale the element.

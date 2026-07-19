@@ -30,6 +30,29 @@ GIVEN the authentication screen is displayed
 WHEN the user views the area below the panel
 THEN the system displays the security footer text `PROTECTED BY RATE LIMITING · JWT + REFRESH · TLS 1.3`.
 
+### Requirement: Auth Visual Design
+WHERE the authentication screen is displayed,
+the system SHALL use the Academy visual design contract for the public auth surface.
+
+#### Scenario: Auth background treatment
+GIVEN the authentication screen is displayed
+WHEN background styling is applied
+THEN the system may use the approved 48px grid
+AND may use one soft cyan radial glow
+AND does not stack additional decorative background effects.
+
+#### Scenario: Auth brand lockup
+GIVEN the authentication screen is displayed
+WHEN the Academy brand lockup renders
+THEN the lockup uses the approved type-lockup treatment until a real mark is provided
+AND does not use emoji, decorative script, or unapproved SVG artwork.
+
+#### Scenario: Auth panel geometry
+GIVEN the authentication panel renders
+WHEN geometry is applied
+THEN the panel uses zero-radius square geometry
+AND may use the signature notch only if no other element class on the screen uses it.
+
 ### Requirement: Auth Mode Tabs
 WHERE the authentication screen is displayed,
 the system SHALL provide Sign in and Enroll tabs for switching between login and registration modes.

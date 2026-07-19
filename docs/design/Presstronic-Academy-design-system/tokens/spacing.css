@@ -1,0 +1,70 @@
+/* ============================================================
+   Presstronic Academy — Spacing, layout, radii, borders,
+   elevation, motion.
+   Corners are SQUARE by design (radius 0). The signature card
+   motif is a single notched corner via --notch clip-path.
+   ============================================================ */
+
+:root {
+  /* 4px base scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-28: 112px; /* section rhythm */
+
+  /* Layout */
+  --container-max: 1280px;
+  --sidebar-w: 264px;
+
+  /* Radii — square system */
+  --radius-0: 0px;
+  --radius: 0px;          /* shadcn alias */
+  --radius-pill: 999px;   /* NOT used; kept only so ports don't break */
+
+  /* Signature notch (apply as clip-path on cards/CTAs, sparingly) */
+  --notch-size: 12px;
+  --notch: polygon(
+    0 0,
+    calc(100% - var(--notch-size)) 0,
+    100% var(--notch-size),
+    100% 100%,
+    0 100%
+  );
+
+  /* Borders */
+  --border-w: 1px;
+  --border-w-strong: 2px;
+
+  /* Elevation (dark-first: deep diffuse, no ambient glow) */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-2: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-3: 0 16px 48px rgba(0, 0, 0, 0.55);
+
+  /* Accent edge-glows (CTAs, focused terminals) — subtle */
+  --glow-cyan: 0 0 0 1px color-mix(in oklab, var(--cyan-500) 40%, transparent),
+    0 0 24px color-mix(in oklab, var(--cyan-500) 18%, transparent);
+  --glow-mag: 0 0 0 1px color-mix(in oklab, var(--mag-500) 38%, transparent),
+    0 0 24px color-mix(in oklab, var(--mag-500) 16%, transparent);
+  --glow-volt: 0 0 0 1px color-mix(in oklab, var(--volt-500) 40%, transparent),
+    0 0 24px color-mix(in oklab, var(--volt-500) 16%, transparent);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+
+  /* Z-index */
+  --z-nav: 100;
+  --z-overlay: 400;
+  --z-toast: 500;
+}

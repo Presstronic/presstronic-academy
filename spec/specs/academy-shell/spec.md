@@ -219,8 +219,7 @@ AND sets `data-theme` on the document element to `dark`.
 GIVEN the application has initialized
 AND no saved learner theme preference exists
 WHEN the system resolves the active theme
-THEN the active theme follows the browser color-scheme preference when available
-AND otherwise defaults to dark.
+THEN the active theme defaults to dark.
 
 #### Scenario: Restore saved theme
 GIVEN the learner has a saved theme preference
@@ -249,6 +248,33 @@ WHEN the top bar renders
 THEN the top bar displays online status
 AND displays the user's current streak in days
 AND displays the user's current XP total.
+
+### Requirement: Shell Visual Design
+WHERE the app shell is visible,
+the system SHALL follow the Academy visual design contract for app chrome, spacing, active state, typography, and iconography.
+
+#### Scenario: Expanded sidebar width
+GIVEN the app shell is visible on a desktop viewport
+AND the sidebar is expanded
+WHEN layout renders
+THEN the sidebar uses the Academy app chrome width of approximately 264px.
+
+#### Scenario: Active navigation styling
+GIVEN a sidebar navigation entry is active
+WHEN the entry renders
+THEN the system displays a 2px cyan left edge
+AND applies matching selected background tint.
+
+#### Scenario: Shell typography
+GIVEN shell navigation, telemetry, or status labels render
+WHEN text styling is applied
+THEN labels, data, numbers, and status readouts use mono typography
+AND screen headings and body text use the Academy display and body typography roles.
+
+#### Scenario: Shell icons
+GIVEN shell navigation or status icons render
+WHEN iconography is applied
+THEN icons use Lucide outline icons with currentColor.
 
 ### Requirement: Screen Render Side Effects
 WHEN the application renders or changes screens,

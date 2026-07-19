@@ -96,6 +96,12 @@ THEN the system displays the choice key
 AND displays the choice label
 AND displays the choice hint.
 
+#### Scenario: Choice visual styling
+GIVEN branch choices are displayed
+WHEN a choice renders
+THEN the system uses volt as the story-choice accent
+AND uses a 2px left edge or equivalent Academy selected-state treatment for selected choices.
+
 #### Scenario: Choice prompt hidden after selection
 GIVEN the user has selected a branch choice
 WHEN the story screen renders below the narrative pane
@@ -285,6 +291,28 @@ GIVEN a video beat cannot load
 WHEN the story beat renders
 THEN the system displays a recoverable media error
 AND provides access to the transcript or equivalent lesson text.
+
+### Requirement: Story Visual and Motion Design
+WHERE the story screen renders narrative, decisions, maps, and telemetry,
+the system SHALL use the Academy story visual language without over-decorating the surface.
+
+#### Scenario: Decision treatment
+GIVEN a story decision point is displayed
+WHEN visual emphasis is applied
+THEN the system may use the approved volt hazard treatment
+AND does not use volt as unrelated decoration outside story-critical or caution moments.
+
+#### Scenario: Type-on narration
+GIVEN type-on narration is enabled for the learner
+WHEN narrative text enters the story pane
+THEN the system may type text at the approved narration speed
+AND disables or minimizes the effect when reduced motion is preferred.
+
+#### Scenario: Story pane decoration
+GIVEN a story or terminal pane uses scanline styling
+WHEN the pane renders
+THEN scanlines remain subtle
+AND the pane does not stack scanlines with multiple other decorative treatments on the same element.
 
 ### Requirement: Branch Consistency
 WHERE a learner makes or rewinds a branch decision,

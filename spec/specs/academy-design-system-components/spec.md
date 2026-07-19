@@ -4,7 +4,7 @@
 
 Define the reusable Presstronic Academy UI components.
 
-This specification captures component props, states, visual variants, local interaction behavior, accessibility expectations, and composition boundaries for the UI kit components used by the Academy screens. It does not specify package distribution, server integration, or persistence.
+This specification captures component props, states, visual variants, local interaction behavior, accessibility expectations, visual-design fidelity, and composition boundaries for the UI kit components used by the Academy screens. It does not specify package distribution, server integration, or persistence.
 
 ## Requirements
 
@@ -58,7 +58,8 @@ THEN the system applies the variant hover styling.
 #### Scenario: Press enabled button
 GIVEN a Button is enabled
 WHEN the pointer presses the button
-THEN the system applies the pressed transform.
+THEN the system applies pressed color or border styling
+AND does not move, lift, translate, or scale the button.
 
 #### Scenario: Leave button
 GIVEN a Button is in hover or pressed local state
@@ -91,12 +92,13 @@ THEN the button has an accessible name.
 
 ### Requirement: Button Shape Effects
 WHERE a Button component is rendered,
-the system SHALL support optional notched shape and glow effects.
+the system SHALL support optional notched shape and glow effects while respecting Academy-wide geometry constraints.
 
 #### Scenario: Notched button
 GIVEN a Button is rendered with notch enabled
 WHEN the button appears
-THEN the system applies the Academy notch clipping shape.
+THEN the system applies the Academy notch clipping shape
+AND consuming screens ensure the notch is used on at most one element class per screen.
 
 #### Scenario: Primary glow
 GIVEN a Button is rendered with glow enabled
@@ -109,6 +111,12 @@ GIVEN a Button is rendered with glow enabled
 AND the button variant is not primary
 WHEN the button appears
 THEN the system does not apply cyan glow styling.
+
+#### Scenario: Button typography
+GIVEN a Button label is rendered
+WHEN the button appears
+THEN the system uses mono uppercase styling for compact command buttons where appropriate
+AND uses sentence case when the button is a longer plain-language action.
 
 ### Requirement: Badge Tone and Variant
 WHERE a Badge component is rendered,
@@ -175,7 +183,8 @@ AND displays a volt left edge.
 #### Scenario: Notched card
 GIVEN a Card is rendered with notch enabled
 WHEN the card appears
-THEN the system applies the Academy notch clipping shape.
+THEN the system applies the Academy notch clipping shape
+AND consuming screens ensure the notch is used on at most one element class per screen.
 
 ### Requirement: Progress Indicator
 WHERE a Progress component is rendered,
@@ -422,7 +431,8 @@ WHEN it renders
 THEN the system displays a fixed backdrop
 AND displays a notched modal panel
 AND displays its children
-AND exposes modal semantics to assistive technology.
+AND exposes modal semantics to assistive technology
+AND consuming screens treat the active dialog as the screen's notched element class while it is open.
 
 #### Scenario: Optional dialog header
 GIVEN a Dialog has eyebrow and title props
@@ -564,7 +574,26 @@ THEN the system references Academy CSS custom properties for visual styling.
 #### Scenario: Square component geometry
 GIVEN a Button, Badge, Card, Input, Select, Dialog, Checkbox, or Switch renders
 WHEN component geometry is applied
-THEN the system uses square or notched geometry rather than rounded corners.
+THEN the system uses zero-radius square or notched geometry rather than rounded corners
+AND does not render pills.
+
+#### Scenario: Approved component colors
+GIVEN an Academy design-system component renders
+WHEN color is applied
+THEN the system uses the Academy graphite, cyan, volt, magenta, green, and red token palette
+AND does not introduce unapproved hues.
+
+#### Scenario: Component motion
+GIVEN a component uses hover, press, focus, open, close, or status transitions
+WHEN motion is applied
+THEN the transition uses Academy timing between 120 and 320 milliseconds
+AND avoids bouncy movement, lift, translate, or scale effects.
+
+#### Scenario: Icon source
+GIVEN a component includes an icon
+WHEN the icon renders
+THEN the icon uses Lucide outline styling with currentColor
+AND does not use emoji or decorative hand-authored SVGs.
 
 ### Requirement: Component Responsibility Boundary
 WHERE Academy design-system components handle interaction,

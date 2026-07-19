@@ -1,0 +1,41 @@
+<!-- @dsCard group="Academy" viewport="1280x800" subtitle="Interactive click-through: landing → auth → dashboard → story → challenge → progression → profile" name="Academy app" -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Presstronic Academy — UI kit</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="academy.css" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js" crossorigin="anonymous"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script>
+    // Resolve the compiled design-system namespace regardless of its generated name.
+    window.__DS = (function () {
+      for (const k of Object.keys(window)) {
+        try {
+          const v = window[k];
+          if (v && typeof v === 'object' && v.Button && v.Card && v.Input) return v;
+        } catch (e) {}
+      }
+      return {};
+    })();
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" src="data.jsx"></script>
+  <script type="text/babel" src="screens-landing.jsx"></script>
+  <script type="text/babel" src="screens-auth.jsx"></script>
+  <script type="text/babel" src="screens-app.jsx"></script>
+  <script type="text/babel" src="screens-story.jsx"></script>
+  <script type="text/babel" src="screens-lesson.jsx"></script>
+  <script type="text/babel" src="shell.jsx"></script>
+  <script type="text/babel">
+    ReactDOM.createRoot(document.getElementById('root')).render(<window.AcademyUI.App />);
+  </script>
+</body>
+</html>

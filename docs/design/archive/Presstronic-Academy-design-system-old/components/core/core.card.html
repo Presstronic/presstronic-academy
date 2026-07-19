@@ -1,0 +1,47 @@
+<!-- @dsCard group="Components" viewport="700x360" subtitle="Button, Badge, Card, Tabs, Progress" name="Core" -->
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--surface-page);font-family:var(--font-body);color:var(--text-body);}</style>
+<div id="root"></div>
+<script type="text/babel">
+const NS = window[Object.keys(window).find(k => { try { return window[k] && typeof window[k] === 'object' && (window[k].Button || window[k].Input || window[k].Dialog); } catch(e){ return false; } })] || {};
+
+const { Button, Badge, Card, Tabs, Progress } = NS;
+function Demo() {
+  return (
+    <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 18 }}>
+      <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+        <Button notch>Begin mission</Button>
+        <Button variant="secondary">Continue</Button>
+        <Button variant="ghost">View syllabus</Button>
+        <Button variant="destructive" size="sm">Abandon</Button>
+        <Button disabled>Locked</Button>
+      </div>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <Badge tone="cyan">In progress</Badge>
+        <Badge tone="volt">Checkpoint</Badge>
+        <Badge tone="green">Complete</Badge>
+        <Badge tone="red">Failed</Badge>
+        <Badge>Draft</Badge>
+        <Badge tone="cyan" variant="solid">Live</Badge>
+        <Badge tone="volt" variant="solid">Story</Badge>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+        <Card notch><div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--cyan-400)', marginBottom: 6 }}>// NOTCHED</div><div style={{ fontSize: 13 }}>Feature card</div></Card>
+        <Card interactive><div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>INTERACTIVE</div><div style={{ fontSize: 13 }}>Hover me</div></Card>
+        <Card selected selectedTone="volt"><div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--volt-300)', marginBottom: 6 }}>SELECTED</div><div style={{ fontSize: 13 }}>Story choice</div></Card>
+      </div>
+      <Tabs items={['Overview', 'Objectives', 'Mission log']} />
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <Progress label="XP to next clearance" value={2140} max={3000} showValue />
+        <Progress label="Path complete" tone="volt" value={7} max={12} showValue />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+
+</script>

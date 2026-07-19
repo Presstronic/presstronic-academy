@@ -1,0 +1,187 @@
+/* ============================================================
+   PRESSTRONIC — COLOR TOKENS
+   Palette inspired by RSI / Star Citizen Galactapedia:
+     cornflower blue  #53AEF7  (the signature instrument accent)
+     hit gray         #A9B3BD  (cool blue-gray secondary text)
+     firefly          #0B1D29  (deep navy-black canvas)
+   Coral is kept as the single warm reserve accent.
+   ============================================================ */
+
+:root {
+  /* --- Blue: the GALACTAPEDIA signature accent ----------------- */
+  /* RSI "Cornflower Blue" #53AEF7 anchors the scale at -400 (the
+     bright glow on dark). Token stem kept as --aqua-* for stability
+     across downstream Station CSS; values are now cornflower blue. */
+  --aqua-50:  #EAF4FE;
+  --aqua-100: #CFE6FD;
+  --aqua-200: #A6D2FB;
+  --aqua-300: #7CBEF9;
+  --aqua-400: #53AEF7; /* RSI Cornflower Blue — bright accent / glow */
+  --aqua-500: #2E96EE; /* deeper solid for light-mode fills */
+  --aqua-600: #1E7FD6;
+  --aqua-700: #1865AB;
+  --aqua-800: #154F84;
+  --aqua-900: #133E66;
+
+  /* --- Ink: cool navy / blue-gray neutral ramp ----------------- */
+  /* Anchored on Firefly #0B1D29 (deepest) and Hit Gray #A9B3BD. */
+  --ink-950: #0B1D29; /* Firefly — deepest navy-black canvas */
+  --ink-900: #142A37; /* primary text on light / darkest surface */
+  --ink-800: #1C3340; /* dark surface */
+  --ink-700: #2C414E;
+  --ink-600: #415562;
+  --ink-500: #5C6F7C; /* muted text */
+  --ink-400: #7E909C; /* faint text */
+  --ink-300: #A9B3BD; /* Hit Gray — cool blue-gray */
+  --ink-200: #C9D0D7;
+  --ink-100: #E2E7EB;
+  --ink-50:  #F1F4F6;
+  --white:   #FFFFFF;
+
+  /* --- Steel: muted desaturated secondary blue ----------------- */
+  /* For quiet data accents, charts, secondary chips. Sits beneath
+     the cornflower primary without competing. */
+  --teal-300: #8FA8BC;
+  --teal-400: #6789A3;
+  --teal-500: #4A6E89; /* muted steel-blue */
+  --teal-600: #3A5970;
+  --teal-700: #2E475A;
+  --teal-800: #243847;
+
+  /* --- Coral: the single warm reserve accent (Presstronic) ----- */
+  --coral-50:  #FFF2EF;
+  --coral-100: #FFE1DB;
+  --coral-200: #FFC4B8;
+  --coral-300: #FB9E8C;
+  --coral-400: #F57962;
+  --coral-500: #F05A45; /* legacy Presstronic coral */
+  --coral-600: #DC4329;
+  --coral-700: #B7331C;
+  --coral-800: #8C2716;
+  --coral-900: #5F1B10;
+
+  /* --- Semantic status (harmonised to the cool blue world) ----- */
+  --success-500: #1F8A5B;
+  --success-100: #DCF3E8;
+  --warning-500: #E0961A;
+  --warning-100: #FBEBCF;
+  --danger-500:  #C5341F;
+  --danger-100:  #FADAD3;
+  --info-500:    var(--aqua-600);
+  --info-100:    var(--aqua-50);
+
+  /* ============================================================
+     SEMANTIC ALIASES — reach for these in product UI
+     ============================================================ */
+
+  /* Brand — cornflower blue is now the system primary */
+  --brand:           var(--aqua-600);
+  --brand-hover:     var(--aqua-700);
+  --brand-active:    var(--aqua-800);
+  --brand-subtle:    var(--aqua-50);
+  --brand-contrast:  var(--white);
+
+  /* Text */
+  --text-strong:     var(--ink-900);
+  --text-body:       var(--ink-700);
+  --text-muted:      var(--ink-500);
+  --text-faint:      var(--ink-400);
+  --text-on-brand:   var(--white);
+  --text-on-dark:    var(--white);
+  --text-on-dark-muted: rgba(255, 255, 255, 0.72);
+  --text-link:       var(--aqua-600);
+
+  /* Surfaces */
+  --surface-page:    var(--white);
+  --surface-card:    var(--white);
+  --surface-sunken:  var(--ink-50);
+  --surface-raised:  var(--white);
+  --surface-dark:    var(--ink-800);
+  --surface-darker:  var(--ink-950);
+  --surface-brand:   var(--aqua-600);
+
+  /* Borders & lines */
+  --border-subtle:   var(--ink-100);
+  --border-default:  var(--ink-200);
+  --border-strong:   var(--ink-300);
+  --border-brand:    var(--aqua-500);
+
+  /* Focus ring */
+  --focus-ring:      var(--aqua-400);
+
+  /* ============================================================
+     STATION SUB-BRAND — cornflower-blue accent, coral as warm.
+     Used by the Station product website / app surfaces.
+     ============================================================ */
+  --station-accent:        var(--aqua-500);
+  --station-accent-bright: var(--aqua-400); /* glow on dark */
+  --station-accent-hover:  var(--aqua-600);
+  --station-accent-subtle: var(--aqua-50);
+  --station-warm:          var(--coral-500); /* warm pop / treasury accent */
+  --station-warm-bright:   var(--coral-400);
+  --station-teal:          var(--teal-500);  /* muted steel-blue secondary */
+}
+
+/* ============================================================
+   DARK THEME — "DEEPWATER". Scope: [data-theme="dark"]
+   Saturated ocean blues on a deep teal-black canvas; ocean-blue
+   accent; coral reserved for primary actions (--station-warm).
+   Variable names unchanged — values only.
+   ============================================================ */
+[data-theme="dark"] {
+  --text-strong:        #EAF4FB;
+  --text-body:          rgba(191, 227, 247, 0.82);
+  --text-muted:         rgba(169, 195, 212, 0.66);
+  --text-faint:         rgba(169, 195, 212, 0.42);
+  --text-link:          #6FB5DE;
+
+  /* Deepwater surfaces — teal-black canvas, ocean-blue cards */
+  --surface-page:       #1A2731; /* deep teal canvas — lightened per review */
+  --surface-card:       #14304A; /* saturated ocean panel */
+  --surface-sunken:     #121D25;
+  --surface-raised:     #1B3E5C;
+  --surface-dark:       #0A0F14;
+  --surface-brand:      #3D8FC4;
+
+  --border-subtle:      rgba(127, 192, 232, 0.08);
+  --border-default:     rgba(127, 192, 232, 0.16);
+  --border-strong:      rgba(127, 192, 232, 0.30);
+  --border-brand:       #3D8FC4;
+
+  --brand:              #3D8FC4; /* Deepwater ocean blue */
+  --brand-hover:        #5FA9D6;
+  --brand-active:       #2E7BAD;
+  --brand-subtle:       rgba(61, 143, 196, 0.16);
+  --brand-contrast:     #07131C;
+
+  --focus-ring:         #7FC0E8;
+
+  /* Deepwater-tuned aqua ramp — keeps gradients/glows that reference
+     --aqua-* primitives on-theme. Names unchanged, values only. */
+  --aqua-50:  #EAF4FB;
+  --aqua-100: #CFE7F7;
+  --aqua-200: #A5D3EF;
+  --aqua-300: #7FC0E8;
+  --aqua-400: #5FA9D6;
+  --aqua-500: #3D8FC4;
+  --aqua-600: #2E7BAD;
+  --aqua-700: #246390;
+  --aqua-800: #1B4C70;
+  --aqua-900: #14394F;
+
+  /* Station sub-brand follows the Deepwater accent on dark */
+  --station-accent:        #3D8FC4;
+  --station-accent-bright: #7FC0E8; /* glow on dark */
+  --station-accent-hover:  #2E7BAD;
+  --station-accent-subtle: rgba(61, 143, 196, 0.14);
+  --station-warm:          #F9545B; /* red-salmon — primary actions only */
+  --station-warm-bright:   #FF7A7F;
+  --station-teal:          #6789A3;
+
+  /* Tag palette — bright complementary hues for category chips */
+  --tag-1: #41D6D0; /* cyan */
+  --tag-2: #4FC97E; /* green */
+  --tag-3: #F2B544; /* gold */
+  --tag-4: #9D8BEF; /* lavender */
+  --tag-5: #F57962; /* coral-rose */
+}

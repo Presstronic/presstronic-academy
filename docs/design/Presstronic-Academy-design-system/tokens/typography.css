@@ -1,0 +1,51 @@
+/* ============================================================
+   Presstronic Academy — Typography tokens
+   Display + body: Archivo. Data/labels/code: IBM Plex Mono.
+   ============================================================ */
+
+:root {
+  --font-display: 'Archivo', 'Helvetica Neue', sans-serif;
+  --font-body: 'Archivo', 'Helvetica Neue', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Type scale */
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 17px;
+  --text-lg: 20px;
+  --text-xl: 25px;
+  --text-2xl: 32px;
+  --text-3xl: 42px;
+  --text-4xl: 56px;
+  --text-5xl: 72px;
+
+  /* Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 800;
+
+  /* Tracking */
+  --tracking-display: -0.025em; /* Archivo display headings */
+  --tracking-body: 0;
+  --tracking-mono-label: 0.12em; /* uppercase mono eyebrows/labels */
+
+  /* Leading */
+  --leading-display: 1.05;
+  --leading-heading: 1.15;
+  --leading-body: 1.6;
+  --leading-mono: 1.5;
+
+  /* Semantic roles */
+  --type-hero: var(--weight-bold) var(--text-4xl) / var(--leading-display) var(--font-display);
+  --type-h1: var(--weight-bold) var(--text-3xl) / var(--leading-display) var(--font-display);
+  --type-h2: var(--weight-semibold) var(--text-2xl) / var(--leading-heading) var(--font-display);
+  --type-h3: var(--weight-semibold) var(--text-xl) / var(--leading-heading) var(--font-display);
+  --type-h4: var(--weight-semibold) var(--text-lg) / var(--leading-heading) var(--font-display);
+  --type-body: var(--weight-regular) var(--text-base) / var(--leading-body) var(--font-body);
+  --type-body-sm: var(--weight-regular) var(--text-sm) / var(--leading-body) var(--font-body);
+  --type-label: var(--weight-medium) var(--text-xs) / 1.2 var(--font-mono); /* + uppercase + tracking */
+  --type-data: var(--weight-regular) var(--text-sm) / var(--leading-mono) var(--font-mono);
+}

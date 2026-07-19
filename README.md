@@ -64,5 +64,5 @@ The development server runs at `http://localhost:5173`.
 
 - [Agent instructions](./AGENTS.md)
 - [Domain context](./CONTEXT.md)
-- [Multi-tenancy ADR](./docs/adr/0001-multi-tenancy.md)
+- [Multi-tenancy ADR](docs/archive/adr/0001-multi-tenancy.md)
 - Product mockups: `docs/pa-mockup-*.html`

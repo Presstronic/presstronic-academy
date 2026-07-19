@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="./styles.css" />
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js" crossorigin="anonymous"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0a0b0c; }
+  body { font-family: 'Archivo','Helvetica Neue',sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--text-accent); text-decoration: none; }
+  a:hover { color: var(--cyan-300); }
+  ::selection { background: color-mix(in oklab, var(--cyan-500) 35%, transparent); }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--cyan-400); outline-offset: 2px; }
+</style>
+</helmet>
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--surface-page);color:var(--text-body);display:grid;grid-template-columns:264px 1fr;font-size:15px;line-height:1.6">
+
+  <!-- NAV SIDEBAR -->
+  <aside style="background:var(--surface-raised);border-right:1px solid var(--border-hairline);display:flex;flex-direction:column;padding:20px 0;gap:4px;position:sticky;top:0;height:100vh;overflow:hidden" data-screen-label="Nav">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 20px 18px;border-bottom:1px solid var(--border-hairline);margin-bottom:12px">
+      <a href="ui_kits/academy/index.html#dashboard" style="font-family:var(--font-display);font-weight:800;letter-spacing:-0.02em;color:var(--text-strong);font-size:14px;line-height:1.15;text-decoration:none">PRESSTRONIC<br /><span style="color:var(--cyan-400)">ACADEMY</span></a>
+    </div>
+    <sc-for list="{{ nav }}" as="item" hint-placeholder-count="7">
+      <a href="{{ item.href }}" style="{{ item.style }}" style-hover="{{ item.hoverStyle }}">
+        {{ item.iconEl }}<span style="flex:1">{{ item.label }}</span>
+        <sc-if value="{{ item.badge }}" hint-placeholder-val="{{ false }}"><span style="font-family:var(--font-mono);font-size:9px;background:var(--tint-mag);border:1px solid color-mix(in oklab, var(--mag-500) 40%, transparent);color:var(--accent-fg-mag);padding:1px 6px">{{ item.badge }}</span></sc-if>
+      </a>
+    </sc-for>
+    <div style="flex:1"></div>
+    <div style="padding:14px 20px;border-top:1px solid var(--border-hairline);display:flex;gap:10px;align-items:center">
+      <div style="width:30px;height:30px;flex:none;background:var(--tint-cyan);border:1px solid var(--border-accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:11px;color:var(--accent-fg-cyan)">RV</div>
+      <div style="min-width:0">
+        <div style="font-size:12px;font-weight:600;color:var(--text-strong);white-space:nowrap">R. Vasquez</div>
+        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;color:var(--text-muted)">CLEARANCE 03</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div style="min-width:0" data-screen-label="Mission log">
+    <div style="height:56px;border-bottom:1px solid var(--border-hairline);display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:var(--surface-page);position:sticky;top:0;z-index:50">
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)">// MISSION LOG</span>
+      <div style="display:flex;gap:16px;align-items:center">
+        <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent-fg-volt)">11d STREAK</span>
+        <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;background:var(--tint-cyan);border:1px solid var(--border-accent);color:var(--accent-fg-cyan);padding:4px 9px">2,140 XP</span>
+      </div>
+    </div>
+
+    <div style="padding:clamp(24px,2.6vw,44px);display:flex;flex-direction:column;gap:24px;max-width:860px;margin:0 auto;width:100%">
+
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:28px;height:2px;background:var(--cyan-500)"></span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)">// TRANSMISSIONS</span></div>
+          <h1 style="font-family:var(--font-display);font-weight:700;letter-spacing:-0.025em;color:var(--text-strong);line-height:1.05;margin:0;font-size:32px">Mission log.</h1>
+        </div>
+        <button onClick="{{ markAllRead }}" style="background:transparent;border:1px solid var(--border-strong);color:var(--text-accent);font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:9px 16px;cursor:pointer" style-hover="{borderColor:'var(--border-accent)',background:'var(--tint-cyan)'}">Mark all read</button>
+      </div>
+
+      <!-- filter tabs -->
+      <div style="display:flex;gap:2px;border-bottom:1px solid var(--border-hairline)">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+          <button onClick="{{ t.onClick }}" style="{{ t.style }}" style-hover="{{ t.hoverStyle }}">{{ t.label }} <span style="opacity:.6">{{ t.count }}</span></button>
+        </sc-for>
+      </div>
+
+      <!-- log entries grouped by day -->
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)">{{ g.day }}</span>
+          <sc-for list="{{ g.items }}" as="n" hint-placeholder-count="3">
+            <div onClick="{{ n.open }}" style="{{ n.style }}" style-hover="{{ n.hoverStyle }}">
+              <span style="width:36px;height:36px;flex:none;display:inline-flex;align-items:center;justify-content:center;background:{{ n.tint }};border:1px solid {{ n.border }};color:{{ n.color }}">{{ n.iconEl }}</span>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ n.color }}">{{ n.kind }}</span>
+                  <sc-if value="{{ n.unread }}" hint-placeholder-val="{{ false }}"><span style="width:6px;height:6px;background:var(--cyan-400);flex:none" aria-label="unread"></span></sc-if>
+                </div>
+                <span style="font-size:14px;color:var(--text-strong);font-weight:500">{{ n.title }}</span>
+                <span style="font-size:13px;color:var(--text-muted);line-height:1.5">{{ n.body }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none">
+                <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">{{ n.time }}</span>
+                <sc-if value="{{ n.actionLabel }}" hint-placeholder-val="{{ false }}">
+                  <a href="{{ n.actionHref }}" style="font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-accent);white-space:nowrap" style-hover="{color:'var(--cyan-300)'}">{{ n.actionLabel }} →</a>
+                </sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-for>
+
+      <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:56px 20px;border:1px dashed var(--border-strong);text-align:center">
+          <div style="color:var(--text-muted)">{{ emptyIcon }}</div>
+          <div style="font-family:var(--font-display);font-weight:600;font-size:17px;color:var(--text-strong)">Channel clear.</div>
+          <div style="font-size:14px;color:var(--text-muted)">No transmissions in this category.</div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1360,&quot;height&quot;:960},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark' | 'light'&quot;,&quot;section&quot;:&quot;Appearance&quot;}}">
+const ICON_NAMES = ['compass','layout-dashboard','git-branch','terminal','trophy','user','bell','zap','calendar','flag','messages-square','award','inbox'];
+
+const KIND_META = {
+  mission:  { label: 'Mission',  icon: 'git-branch',      color: 'var(--accent-fg-volt)', tint: 'var(--tint-volt)', border: 'color-mix(in oklab, var(--volt-500) 40%, transparent)' },
+  cohort:   { label: 'Cohort',   icon: 'calendar',        color: 'var(--accent-fg-cyan)', tint: 'var(--tint-cyan)', border: 'var(--border-accent)' },
+  progress: { label: 'Progress', icon: 'award',           color: 'var(--accent-fg-mag)',  tint: 'var(--tint-mag)',  border: 'color-mix(in oklab, var(--mag-500) 40%, transparent)' },
+  system:   { label: 'System',   icon: 'flag',            color: 'var(--text-muted)',     tint: 'var(--muted)',     border: 'var(--border-hairline)' },
+};
+
+const LOG = [
+  { day: 'Today', items: [
+    { id: 1, kind: 'mission', title: 'Checkpoint reached \u2014 The Broken Pipeline', body: 'Act II checkpoint saved. Your branch choice [B] is now graded: the proper fix held under replay.', time: '09:41', unread: true, action: ['Resume', 'ui_kits/academy/index.html#story'] },
+    { id: 2, kind: 'cohort', title: 'Your cohort\u2019s term starts Monday', body: 'Security Operations Track \u00b7 next term. 14 operatives enrolled. First transmission drops 09:00 UTC.', time: '08:15', unread: true, action: ['View track', 'Path Detail.dc.html'] },
+    { id: 3, kind: 'progress', title: 'Streak at risk', body: 'You\u2019re 11 days in. One story beat today keeps it alive \u2014 shortest open beat is 12 minutes.', time: '07:00', unread: true, action: ['Open dashboard', 'ui_kits/academy/index.html#dashboard'] },
+  ]},
+  { day: 'Yesterday', items: [
+    { id: 4, kind: 'progress', title: '+320 XP \u2014 Dead-letter Queues cleared', body: 'Challenge graded: 3/3 objectives. Idempotent Consumers is now recommended as your next challenge.', time: '18:22', unread: false, action: ['Next challenge', 'Catalog.dc.html'] },
+    { id: 5, kind: 'mission', title: 'New decision point unlocked', body: 'Ghost in the Interface \u2014 Act I ends in a branch. Two paths, one render tree.', time: '12:03', unread: false, action: ['Choose', 'ui_kits/academy/index.html#story'] },
+  ]},
+  { day: 'This week', items: [
+    { id: 6, kind: 'cohort', title: 'Discussion reply \u2014 The Broken Pipeline', body: 'k.osei replied to your retro post: "The fast patch was defensible \u2014 but your rollback plan sold it."', time: 'Mon', unread: false, action: ['Open thread', 'ui_kits/academy/index.html#story'] },
+    { id: 7, kind: 'system', title: 'Clearance review scheduled', body: 'You\u2019re 480 XP from Clearance 04. Zero Day and Shard the Monolith unlock at that level.', time: 'Mon', unread: false, action: ['See progression', 'ui_kits/academy/index.html#progression'] },
+  ]},
+];
+
+class Component extends DCLogic {
+  state = { tab: 'all', read: [] };
+
+  componentDidMount() { this.iconMap = {}; this.buildIcons(); }
+
+  buildIcons(tries) {
+    tries = tries || 0;
+    if (!window.lucide || !window.lucide.createIcons) {
+      if (tries < 40) setTimeout(() => this.buildIcons(tries + 1), 120);
+      return;
+    }
+    const holder = document.createElement('div');
+    holder.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none';
+    holder.innerHTML = ICON_NAMES.map(n => '<i data-lucide="' + n + '"></i>').join('');
+    document.body.appendChild(holder);
+    try { window.lucide.createIcons({ nameAttr: 'data-lucide' }); } catch (e) {}
+    const svgs = holder.querySelectorAll('svg');
+    const map = {};
+    svgs.forEach((svg, i) => { map[ICON_NAMES[i]] = svg.outerHTML; });
+    document.body.removeChild(holder);
+    this.iconMap = map;
+    this.forceUpdate();
+  }
+
+  icon(name, size, color) {
+    const raw = this.iconMap && this.iconMap[name];
+    if (!raw) return React.createElement('span', { style: { display: 'inline-flex', width: size || 16, height: size || 16, flex: 'none' } });
+    const s = size || 16;
+    const html = raw.replace('width="24"', 'width="' + s + '"').replace('height="24"', 'height="' + s + '"');
+    return React.createElement('span', { style: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', lineHeight: 0, color: color || 'currentColor', flex: 'none' }, dangerouslySetInnerHTML: { __html: html } });
+  }
+
+  isUnread(n) { return n.unread && this.state.read.indexOf(n.id) < 0; }
+
+  renderVals() {
+    const s = this.state;
+
+    // nav
+    const navBase = { display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 20px', fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase', textDecoration: 'none', cursor: 'pointer', borderLeft: '2px solid transparent', color: 'var(--text-muted)' };
+    const navActive = { color: 'var(--accent-foreground)', background: 'var(--tint-cyan)', borderLeftColor: 'var(--cyan-500)' };
+    const unreadCount = LOG.reduce((n, g) => n + g.items.filter(i => this.isUnread(i)).length, 0);
+    const NAV = [
+      ['dashboard', 'Dashboard', 'layout-dashboard', 'ui_kits/academy/index.html#dashboard'],
+      ['catalog', 'Catalog', 'compass', 'Catalog.dc.html'],
+      ['log', 'Mission log', 'bell', 'Mission Log.dc.html'],
+      ['story', 'Story', 'git-branch', 'ui_kits/academy/index.html#story'],
+      ['lesson', 'Challenges', 'terminal', 'ui_kits/academy/index.html#lesson'],
+      ['progression', 'Progression', 'trophy', 'ui_kits/academy/index.html#progression'],
+      ['profile', 'Profile', 'user', 'ui_kits/academy/index.html#profile'],
+    ];
+    const nav = NAV.map(x => {
+      const active = x[0] === 'log';
+      return { label: x[1], iconEl: this.icon(x[2], 15), href: x[3],
+        badge: x[0] === 'log' && unreadCount > 0 ? String(unreadCount) : null,
+        style: active ? Object.assign({}, navBase, navActive) : navBase,
+        hoverStyle: active ? {} : { color: 'var(--text-strong)', background: 'var(--surface-card)' } };
+    });
+
+    // tabs
+    const tabBase = { background: 'transparent', border: 'none', borderBottom: '2px solid transparent', fontFamily: 'var(--font-mono)', fontSize: '12px', letterSpacing: '.06em', padding: '8px 14px', cursor: 'pointer', color: 'var(--text-muted)', marginBottom: '-1px' };
+    const tabActive = { color: 'var(--text-strong)', borderBottomColor: 'var(--cyan-500)' };
+    const allItems = LOG.reduce((a, g) => a.concat(g.items), []);
+    const mkTab = (v, label) => {
+      const active = s.tab === v;
+      const count = v === 'all' ? allItems.length : (v === 'unread' ? allItems.filter(i => this.isUnread(i)).length : allItems.filter(i => i.kind === v).length);
+      return { label: label, count: count, onClick: () => this.setState({ tab: v }), style: active ? Object.assign({}, tabBase, tabActive) : tabBase, hoverStyle: active ? {} : { color: 'var(--text-body)' } };
+    };
+    const tabs = [mkTab('all', 'All'), mkTab('unread', 'Unread'), mkTab('mission', 'Missions'), mkTab('cohort', 'Cohort'), mkTab('progress', 'Progress')];
+
+    // groups
+    const rowBase = { display: 'flex', gap: '14px', alignItems: 'flex-start', background: 'var(--surface-card)', border: '1px solid var(--border-hairline)', borderLeft: '2px solid transparent', padding: '14px 16px', cursor: 'pointer' };
+    const groups = LOG.map(g => {
+      const items = g.items
+        .filter(n => s.tab === 'all' || (s.tab === 'unread' ? this.isUnread(n) : n.kind === s.tab))
+        .map(n => {
+          const km = KIND_META[n.kind];
+          const unread = this.isUnread(n);
+          return {
+            kind: km.label.toUpperCase(), title: n.title, body: n.body, time: n.time, unread: unread,
+            iconEl: this.icon(km.icon, 16), color: km.color, tint: km.tint, border: km.border,
+            actionLabel: n.action ? n.action[0] : null, actionHref: n.action ? n.action[1] : '#',
+            open: () => this.setState(st => ({ read: st.read.indexOf(n.id) > -1 ? st.read : st.read.concat([n.id]) })),
+            style: unread ? Object.assign({}, rowBase, { borderLeft: '2px solid var(--cyan-500)', background: 'var(--surface-overlay)' }) : rowBase,
+            hoverStyle: { borderColor: 'var(--border-strong)', background: 'var(--surface-overlay)' },
+          };
+        });
+      return { day: g.day.toUpperCase(), items: items };
+    }).filter(g => g.items.length > 0);
+
+    return {
+      theme: this.props.theme || 'dark',
+      nav: nav, tabs: tabs, groups: groups,
+      isEmpty: groups.length === 0,
+      markAllRead: () => this.setState({ read: allItems.map(i => i.id) }),
+      emptyIcon: this.icon('inbox', 32),
+    };
+  }
+}
+</script>
+</body>
+</html>

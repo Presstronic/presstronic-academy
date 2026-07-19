@@ -1,0 +1,52 @@
+<!-- @dsCard group="Academy" viewport="1280x800" subtitle="Interactive click-through: landing → auth → dashboard → story → challenge → progression → profile" name="Academy app" -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Presstronic Academy — UI kit</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="academy.css" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js" crossorigin="anonymous"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script>
+    // Resolve the compiled design-system namespace regardless of its generated name.
+    window.__DS = (function () {
+      for (const k of Object.keys(window)) {
+        try {
+          const v = window[k];
+          if (v && typeof v === 'object' && v.Button && v.Card && v.Input) return v;
+        } catch (e) {}
+      }
+      return {};
+    })();
+  </script>
+</head>
+<body>
+  <template id="__bundler_thumbnail" data-bg-color="#0a0b0c">
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1200" height="800" fill="#0a0b0c"/>
+      <g transform="translate(600 360)">
+        <path d="M-90 -70 L0 -120 L90 -70 L90 70 L0 120 L-90 70 Z" fill="none" stroke="#22d3ee" stroke-width="10"/>
+        <path d="M-14 -50 L36 -50 M-30 -14 L20 -14 M-46 22 L4 22" stroke="#e879f9" stroke-width="11" stroke-linecap="square"/>
+      </g>
+      <text x="600" y="560" text-anchor="middle" font-family="monospace" font-size="34" letter-spacing="8" fill="#e6e8ea">PRESSTRONIC ACADEMY</text>
+    </svg>
+  </template>
+  <div id="root"></div>
+  <script type="text/babel" src="data.jsx"></script>
+  <script type="text/babel" src="screens-landing.jsx"></script>
+  <script type="text/babel" src="screens-auth.jsx"></script>
+  <script type="text/babel" src="screens-app.jsx"></script>
+  <script type="text/babel" src="screens-story.jsx"></script>
+  <script type="text/babel" src="screens-lesson.jsx"></script>
+  <script type="text/babel" src="screens-extra.jsx"></script>
+  <script type="text/babel" src="shell.jsx"></script>
+  <script type="text/babel">
+    ReactDOM.createRoot(document.getElementById('root')).render(<window.AcademyUI.App />);
+  </script>
+</body>
+</html>

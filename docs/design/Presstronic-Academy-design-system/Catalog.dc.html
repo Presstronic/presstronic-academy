@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="./styles.css" />
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js" crossorigin="anonymous"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0a0b0c; }
+  body { font-family: 'Archivo','Helvetica Neue',sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--text-accent); text-decoration: none; }
+  a:hover { color: var(--cyan-300); }
+  ::selection { background: color-mix(in oklab, var(--cyan-500) 35%, transparent); }
+  input::placeholder { color: var(--text-muted); }
+  select { -webkit-appearance: none; appearance: none; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); }
+  ::-webkit-scrollbar-track { background: transparent; }
+  @keyframes pa-pulse { 50% { box-shadow: 0 0 16px color-mix(in oklab, var(--volt-500) 70%, transparent); } }
+  @keyframes pa-toast { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+</style>
+</helmet>
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--surface-page);color:var(--text-body);display:grid;grid-template-columns:264px 1fr;font-size:15px;line-height:1.6">
+
+  <!-- ===================== NAV SIDEBAR ===================== -->
+  <aside style="background:var(--surface-raised);border-right:1px solid var(--border-hairline);display:flex;flex-direction:column;padding:20px 0;gap:4px;position:sticky;top:0;height:100vh;overflow:hidden" data-screen-label="Nav">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 20px 18px;border-bottom:1px solid var(--border-hairline);margin-bottom:12px">
+      <a href="ui_kits/academy/index.html#dashboard" style="font-family:var(--font-display);font-weight:800;letter-spacing:-0.02em;color:var(--text-strong);font-size:14px;line-height:1.15;cursor:pointer;text-decoration:none">PRESSTRONIC<br /><span style="color:var(--cyan-400)">ACADEMY</span></a>
+    </div>
+    <sc-for list="{{ nav }}" as="item" hint-placeholder-count="6">
+      <a href="{{ item.href }}" onClick="{{ item.onClick }}" style="{{ item.style }}" style-hover="{{ item.hoverStyle }}">
+        {{ item.iconEl }}<span>{{ item.label }}</span>
+      </a>
+    </sc-for>
+    <div style="flex:1"></div>
+    <div style="padding:14px 20px;border-top:1px solid var(--border-hairline);display:flex;gap:10px;align-items:center">
+      <div style="width:30px;height:30px;flex:none;background:var(--tint-cyan);border:1px solid var(--border-accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:11px;color:var(--accent-fg-cyan)">RV</div>
+      <div style="min-width:0">
+        <div style="font-size:12px;font-weight:600;color:var(--text-strong);white-space:nowrap">R. Vasquez</div>
+        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;color:var(--text-muted)">CLEARANCE 03</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <div style="min-width:0">
+    <!-- topbar -->
+    <div style="height:56px;border-bottom:1px solid var(--border-hairline);display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:var(--surface-page);position:sticky;top:0;z-index:50">
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)">// CATALOG</span>
+      <div style="display:flex;gap:16px;align-items:center">
+        <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;color:var(--accent-fg-green)">● ONLINE</span>
+        <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent-fg-volt)">11d STREAK</span>
+        <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;background:var(--tint-cyan);border:1px solid var(--border-accent);color:var(--accent-fg-cyan);padding:4px 9px">2,140 XP</span>
+      </div>
+    </div>
+
+    <div style="padding:clamp(24px,2.6vw,44px);display:flex;flex-direction:column;gap:32px;max-width:1500px;margin:0 auto;width:100%">
+
+      <!-- page head -->
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:28px;height:2px;background:var(--cyan-500)"></span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)">// MISSION CATALOG</span></div>
+          <h1 style="font-family:var(--font-display);font-weight:700;letter-spacing:-0.025em;color:var(--text-strong);line-height:1.05;margin:0;font-size:36px">Choose your next <span style="background:linear-gradient(100deg,var(--cyan-400) 15%,var(--mag-400) 85%);-webkit-background-clip:text;background-clip:text;color:transparent">assignment.</span></h1>
+          <p style="margin:0;max-width:560px;font-size:15px;color:var(--text-body)">Every path, track, and challenge on the grid — search it, filter it, and enroll to add it to your operative file.</p>
+        </div>
+        <div style="display:flex;gap:20px;align-items:flex-end">
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-mono);font-size:22px;color:var(--text-strong)">{{ stats.enrolled }}</span><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Enrolled</span></div>
+          <div style="width:1px;height:38px;background:var(--border-hairline)"></div>
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-mono);font-size:22px;color:var(--text-strong)">{{ stats.total }}</span><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Offerings</span></div>
+        </div>
+      </div>
+
+      <!-- ===== slim resume / dashboard bar ===== -->
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--surface-card);border:1px solid var(--border-hairline);border-left:2px solid var(--cyan-500);padding:12px 16px">
+        <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-fg-volt);white-space:nowrap">{{ stats.inProgress }} in progress</span>
+        <span style="width:1px;height:16px;background:var(--border-hairline)"></span>
+        <span style="font-size:13px;color:var(--text-body);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Resume <span style="color:var(--text-strong);font-weight:600">{{ resume.short }}</span> · {{ resume.progressLabel }}</span>
+        <span style="flex:1;min-width:12px"></span>
+        <button onClick="{{ openDashboard }}" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text-accent);border:1px solid var(--border-strong);padding:8px 14px;font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap" style-hover="{borderColor:'var(--border-accent)',background:'var(--tint-cyan)',color:'var(--accent-fg-cyan)'}">Open dashboard {{ arrowRightDark }}</button>
+      </div>
+
+      <!-- ===== recommended ===== -->
+      <sc-if value="{{ showRecommended }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:28px;height:2px;background:var(--mag-500)"></span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)">// RECOMMENDED FOR YOU</span></div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px">
+            <sc-for list="{{ featured }}" as="c" hint-placeholder-count="2">
+              <div style="position:relative;overflow:hidden;background:var(--surface-card);border:1px solid var(--border-hairline);padding:22px;display:flex;flex-direction:column;gap:14px" style-hover="{borderColor:'var(--border-strong)',background:'var(--surface-overlay)'}">
+                <div style="position:absolute;top:0;right:0;width:0;height:0;border-top:34px solid {{ c.typeColorSoft }};border-left:34px solid transparent"></div>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:42px;height:42px;flex:none;display:flex;align-items:center;justify-content:center;background:{{ c.typeTint }};border:1px solid {{ c.typeBorder }};color:{{ c.typeColor }}">{{ c.iconEl }}</div>
+                  <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+                    <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ c.typeColor }}">{{ c.typeLabel }}</span>
+                    <span style="font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--text-strong);letter-spacing:-0.015em">{{ c.title }}</span>
+                  </div>
+                </div>
+                <p style="margin:0;font-size:14px;color:var(--text-body);line-height:1.55">{{ c.blurb }}</p>
+                <div style="display:flex;gap:14px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">
+                  <span style="display:inline-flex;align-items:center;gap:5px">{{ c.clearanceEl }}Clr {{ c.clearancePad }}</span>
+                  <span style="display:inline-flex;align-items:center;gap:5px">{{ c.clockEl }}{{ c.durLabel }}</span>
+                  <span style="display:inline-flex;align-items:center;gap:5px;color:var(--accent-fg-mag)">{{ c.zapEl }}{{ c.xpLabel }} XP</span>
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <sc-for list="{{ c.tags }}" as="t" hint-placeholder-count="3"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--text-muted);border:1px solid var(--border-hairline);padding:3px 8px">{{ t }}</span></sc-for>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:2px">
+                  <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)">{{ c.track }}</span>
+                  <button onClick="{{ c.cta.onClick }}" style="{{ c.cta.style }}" style-hover="{{ c.cta.hoverStyle }}">{{ c.cta.iconEl }}{{ c.cta.label }}</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== catalog: filters + results ===== -->
+      <div style="display:grid;grid-template-columns:240px 1fr;gap:28px;align-items:start" data-screen-label="Catalog body">
+
+        <!-- FILTER SIDEBAR -->
+        <aside style="position:sticky;top:80px;display:flex;flex-direction:column;gap:22px;border:1px solid var(--border-hairline);background:var(--surface-raised);padding:20px 18px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <span style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-strong)">{{ filterIcon }}Filters</span>
+            <button onClick="{{ clearAll }}" style="background:none;border:none;font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;padding:0" style-hover="{color:'var(--text-accent)'}">Reset</button>
+          </div>
+          <sc-for list="{{ facetGroups }}" as="g" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column;gap:11px">
+              <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)">{{ g.label }}</span>
+              <sc-for list="{{ g.options }}" as="o" hint-placeholder-count="4">
+                <div onClick="{{ o.toggle }}" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:1px 0" style-hover="{}">
+                  <span style="{{ o.boxStyle }}">{{ o.mark }}</span>
+                  <span style="flex:1;font-family:var(--font-mono);font-size:12px;color:{{ o.textColor }};min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ o.label }}</span>
+                  <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">{{ o.count }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </aside>
+
+        <!-- RESULTS -->
+        <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+          <!-- search + sort -->
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <div style="position:relative;flex:1;min-width:240px">
+              <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);display:inline-flex">{{ searchIcon }}</span>
+              <input value="{{ query }}" onInput="{{ onSearch }}" placeholder="Search paths, tracks, challenges, tech…" style="width:100%;background:var(--surface-inset);border:1px solid var(--border-strong);color:var(--text-strong);font-family:var(--font-body);font-size:14px;padding:11px 14px 11px 38px;outline:none" />
+            </div>
+            <div style="position:relative">
+              <select value="{{ sort }}" onChange="{{ onSort }}" style="background:var(--surface-inset);border:1px solid var(--border-strong);color:var(--text-strong);font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;padding:11px 34px 11px 14px;cursor:pointer;outline:none">
+                <option value="recommended">Recommended</option>
+                <option value="newest">Newest</option>
+                <option value="xp">Most XP</option>
+                <option value="duration">Shortest</option>
+              </select>
+              <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none;display:inline-flex">{{ chevronDown }}</span>
+            </div>
+          </div>
+
+          <!-- content-type tabs + count -->
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border-hairline);padding-bottom:2px">
+            <div style="display:flex;gap:2px">
+              <sc-for list="{{ typeTabs }}" as="t" hint-placeholder-count="4">
+                <button onClick="{{ t.onClick }}" style="{{ t.style }}" style-hover="{{ t.hoverStyle }}">{{ t.label }} <span style="opacity:.6">{{ t.count }}</span></button>
+              </sc-for>
+            </div>
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">{{ resultCount }} results</span>
+          </div>
+
+          <!-- active chips -->
+          <sc-if value="{{ hasChips }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Active</span>
+              <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="2">
+                <button onClick="{{ ch.remove }}" style="display:inline-flex;align-items:center;gap:7px;background:var(--tint-cyan);border:1px solid var(--border-accent);color:var(--accent-fg-cyan);font-family:var(--font-mono);font-size:11px;padding:5px 10px;cursor:pointer" style-hover="{background:'color-mix(in oklab, var(--cyan-500) 18%, transparent)'}">{{ ch.label }}{{ ch.xEl }}</button>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <!-- grid -->
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax({{ cardMin }},1fr));gap:{{ gridGap }}">
+            <sc-for list="{{ results }}" as="c" hint-placeholder-count="6">
+              <div style="{{ c.cardStyle }}" style-hover="{{ c.cardHover }}">
+                <div style="display:flex;align-items:flex-start;gap:12px">
+                  <div style="width:38px;height:38px;flex:none;display:flex;align-items:center;justify-content:center;background:{{ c.typeTint }};border:1px solid {{ c.typeBorder }};color:{{ c.typeColor }}">{{ c.iconEl }}</div>
+                  <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                    <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ c.typeColor }}">{{ c.typeLabel }}</span>
+                    <a href="Path Detail.dc.html" style="font-family:var(--font-display);font-weight:600;font-size:16px;color:var(--text-strong);letter-spacing:-0.01em;line-height:1.2;text-decoration:none" style-hover="{color:'var(--cyan-300)'}">{{ c.title }}</a>
+                  </div>
+                  <span style="{{ c.badgeStyle }}">{{ c.badgeLabel }}</span>
+                </div>
+                <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ c.blurb }}</p>
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                  <sc-for list="{{ c.tags }}" as="t" hint-placeholder-count="3"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.04em;color:var(--text-muted);border:1px solid var(--border-hairline);padding:2px 7px">{{ t }}</span></sc-for>
+                </div>
+                <div style="display:flex;gap:14px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-top:2px">
+                  <span style="display:inline-flex;align-items:center;gap:5px">{{ c.shieldEl }}Clr {{ c.clearancePad }}</span>
+                  <span style="display:inline-flex;align-items:center;gap:5px">{{ c.clockEl }}{{ c.durLabel }}</span>
+                  <span style="display:inline-flex;align-items:center;gap:5px;color:var(--accent-fg-mag)">{{ c.zapEl }}{{ c.xpLabel }} XP</span>
+                </div>
+                <sc-if value="{{ c.showProgress }}" hint-placeholder-val="{{ false }}">
+                  <div style="height:5px;background:var(--surface-inset);border:1px solid var(--border-hairline);overflow:hidden"><div style="height:100%;width:{{ c.progressPct }};background:var(--cyan-500)"></div></div>
+                </sc-if>
+                <div style="flex:1"></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--border-hairline);padding-top:14px;margin-top:4px">
+                  <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.track }}</span>
+                  <button onClick="{{ c.cta.onClick }}" style="{{ c.cta.style }}" style-hover="{{ c.cta.hoverStyle }}">{{ c.cta.iconEl }}{{ c.cta.label }}</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- empty state -->
+          <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:56px 20px;border:1px dashed var(--border-strong);text-align:center">
+              <div style="color:var(--text-muted)">{{ emptyIcon }}</div>
+              <div style="font-family:var(--font-display);font-weight:600;font-size:18px;color:var(--text-strong)">No offerings match those filters.</div>
+              <div style="font-size:14px;color:var(--text-muted);max-width:360px">Widen your search or reset the filters to see the full catalog.</div>
+              <button onClick="{{ clearAll }}" style="background:none;border:1px solid var(--border-strong);color:var(--text-accent);font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:10px 18px;cursor:pointer" style-hover="{borderColor:'var(--border-accent)',background:'var(--tint-cyan)'}">Reset filters</button>
+            </div>
+            <sc-if value="{{ hasSuggestions }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div style="display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:28px;height:2px;background:var(--volt-500)"></span><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)">// NEAREST MATCHES</span></div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px">
+                  <sc-for list="{{ suggestions }}" as="c" hint-placeholder-count="3">
+                    <div style="{{ c.cardStyle }}" style-hover="{{ c.cardHover }}">
+                      <div style="display:flex;align-items:flex-start;gap:12px">
+                        <div style="width:38px;height:38px;flex:none;display:flex;align-items:center;justify-content:center;background:{{ c.typeTint }};border:1px solid {{ c.typeBorder }};color:{{ c.typeColor }}">{{ c.iconEl }}</div>
+                        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                          <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ c.typeColor }}">{{ c.typeLabel }}</span>
+                          <a href="Path Detail.dc.html" style="font-family:var(--font-display);font-weight:600;font-size:16px;color:var(--text-strong);letter-spacing:-0.01em;line-height:1.2;text-decoration:none" style-hover="{color:'var(--cyan-300)'}">{{ c.title }}</a>
+                        </div>
+                      </div>
+                      <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ c.blurb }}</p>
+                      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--border-hairline);padding-top:14px;margin-top:4px">
+                        <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.track }}</span>
+                        <button onClick="{{ c.cta.onClick }}" style="{{ c.cta.style }}" style-hover="{{ c.cta.hoverStyle }}">{{ c.cta.iconEl }}{{ c.cta.label }}</button>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- toast -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:500;display:flex;align-items:center;gap:10px;background:var(--surface-overlay);border:1px solid var(--border-accent);border-left:2px solid var(--cyan-500);color:var(--text-strong);font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;padding:12px 18px;box-shadow:var(--shadow-3);animation:pa-toast .28s cubic-bezier(0.19,1,0.22,1)">{{ toastIcon }}{{ toast }}</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1000},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark' | 'light'&quot;,&quot;section&quot;:&quot;Appearance&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;comfortable&quot;,&quot;tsType&quot;:&quot;'comfortable' | 'compact'&quot;,&quot;section&quot;:&quot;Appearance&quot;},&quot;showRecommended&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+const ICON_NAMES = ['compass','layout-dashboard','bell','git-branch','terminal','trophy','user','search','sliders-horizontal','x','chevron-down','arrow-right','plus','check','shield','clock','zap','lock','layers','rotate-ccw','circle-check','bookmark-plus','search-x'];
+
+const OFFERINGS = [
+  { id:'broken-pipeline', type:'story', title:'The Broken Pipeline', track:'Backend engineering', blurb:'A silent job is eating messages and the client demo is in six hours. Patch it fast, or do it right.', tags:['NestJS','PostgreSQL','Redis'], term:'Current term', clearance:2, durMin:360, durLabel:'6h', xp:1200, status:'progress', progress:58, added:9, featured:true },
+  { id:'ghost-interface', type:'story', title:'Ghost in the Interface', track:'Frontend engineering', blurb:'A component re-renders itself into oblivion. Trace the ghost through the render tree before the launch.', tags:['React','TypeScript'], term:'Current term', clearance:2, durMin:300, durLabel:'5h', xp:900, status:'progress', progress:22, added:8, featured:true },
+  { id:'zero-day', type:'story', title:'Zero Day', track:'Security', blurb:'A live exploit is walking through your services. Contain the breach and read the attacker\u2019s intent.', tags:['Docker','Linux'], term:'Current term', clearance:4, durMin:480, durLabel:'8h', xp:1600, status:'locked', progress:0, added:7 },
+  { id:'silent-migration', type:'story', title:'Silent Migration', track:'Backend engineering', blurb:'A schema change ships clean, then production quietly diverges. Reconcile two truths without downtime.', tags:['PostgreSQL','TypeScript'], term:'Next term', clearance:3, durMin:420, durLabel:'7h', xp:1400, status:'new', progress:0, added:6 },
+  { id:'cache-heist', type:'story', title:'The Cache Heist', track:'Backend engineering', blurb:'Stale reads are leaking one customer\u2019s data to another. Find the poisoned key before legal does.', tags:['Redis','Go'], term:'Self-paced', clearance:3, durMin:240, durLabel:'4h', xp:1100, status:'new', progress:0, added:5 },
+  { id:'backend-track', type:'track', title:'Backend Engineering Path', track:'Backend engineering', blurb:'The full curated program: queues, data modeling, resilience, and shipping under fire. Nine story arcs.', tags:['NestJS','PostgreSQL','Redis','Docker'], term:'Current term', clearance:1, durMin:2400, durLabel:'40h', xp:6000, status:'progress', progress:35, added:9 },
+  { id:'frontend-track', type:'track', title:'Frontend Engineering Path', track:'Frontend engineering', blurb:'State, rendering, and interface craft from first principles to production-grade component systems.', tags:['React','TypeScript','GraphQL'], term:'Current term', clearance:1, durMin:2160, durLabel:'36h', xp:5400, status:'new', progress:0, added:8 },
+  { id:'security-track', type:'track', title:'Security Operations Track', track:'Security', blurb:'Threat modeling, incident response, and hardening real systems against real attackers. Clearance 03+.', tags:['Docker','Linux','PostgreSQL'], term:'Next term', clearance:3, durMin:2640, durLabel:'44h', xp:6800, status:'new', progress:0, added:6 },
+  { id:'devops-track', type:'track', title:'Platform & DevOps Track', track:'DevOps', blurb:'Build the ground you stand on \u2014 pipelines, orchestration, and observability that survive 3am.', tags:['Docker','Kubernetes','Go'], term:'Self-paced', clearance:2, durMin:2280, durLabel:'38h', xp:5600, status:'new', progress:0, added:4 },
+  { id:'dlq', type:'challenge', title:'Dead-letter Queues', track:'Backend engineering', blurb:'Refactor a worker so poison messages park after three retries instead of blocking the whole queue.', tags:['NestJS','Redis'], term:'Self-paced', clearance:2, durMin:45, durLabel:'45m', xp:320, status:'completed', progress:100, added:3 },
+  { id:'idempotent', type:'challenge', title:'Idempotent Consumers', track:'Backend engineering', blurb:'Make a consumer safe to replay. Same message twice, same result once \u2014 prove it with the harness.', tags:['TypeScript','PostgreSQL'], term:'Self-paced', clearance:2, durMin:40, durLabel:'40m', xp:280, status:'completed', progress:100, added:3 },
+  { id:'race-renderer', type:'challenge', title:'Race the Renderer', track:'Frontend engineering', blurb:'Two async updates land out of order and the UI lies. Serialize the truth without blocking paint.', tags:['React','TypeScript'], term:'Self-paced', clearance:2, durMin:35, durLabel:'35m', xp:260, status:'new', progress:0, added:5 },
+  { id:'injection-autopsy', type:'challenge', title:'Injection Autopsy', track:'Security', blurb:'Given a breached endpoint, reconstruct the injection, patch it, and write the postmortem in mono.', tags:['PostgreSQL','Docker'], term:'Current term', clearance:3, durMin:55, durLabel:'55m', xp:400, status:'new', progress:0, added:7 },
+  { id:'shard-monolith', type:'challenge', title:'Shard the Monolith', track:'Backend engineering', blurb:'Split a hot table across shards while live traffic reads it. No lost writes, no locked rows.', tags:['PostgreSQL','Go'], term:'Next term', clearance:4, durMin:60, durLabel:'60m', xp:480, status:'locked', progress:0, added:6 },
+];
+
+const TYPE_META = {
+  story:     { label:'Story path', icon:'git-branch', color:'var(--accent-fg-volt)', tint:'var(--tint-volt)', border:'color-mix(in oklab, var(--volt-500) 40%, transparent)', soft:'color-mix(in oklab, var(--volt-500) 22%, transparent)' },
+  track:     { label:'Track',      icon:'layers',     color:'var(--accent-fg-cyan)', tint:'var(--tint-cyan)', border:'var(--border-accent)', soft:'color-mix(in oklab, var(--cyan-500) 22%, transparent)' },
+  challenge: { label:'Challenge',  icon:'terminal',   color:'var(--accent-fg-mag)',  tint:'var(--tint-mag)',  border:'color-mix(in oklab, var(--mag-500) 40%, transparent)', soft:'color-mix(in oklab, var(--mag-500) 22%, transparent)' },
+};
+
+const FACETS = [
+  { key:'track', label:'Track', values:['Backend engineering','Frontend engineering','Security','DevOps'] },
+  { key:'tech', label:'Tech / stack', values:['React','TypeScript','NestJS','PostgreSQL','Redis','Docker','Go','GraphQL','Kubernetes','Linux'] },
+  { key:'term', label:'Term', values:['Current term','Next term','Self-paced'] },
+  { key:'clearance', label:'Clearance required', values:[1,2,3,4] },
+];
+
+const USER_CLEARANCE = 3;
+
+class Component extends DCLogic {
+  state = {
+    query: '', sort: 'recommended', type: 'all',
+    f: { track: [], tech: [], term: [], clearance: [] },
+    enrolled: OFFERINGS.filter(o => o.status === 'progress' || o.status === 'completed').map(o => o.id),
+    toast: null,
+    activeNav: 'catalog',
+  };
+
+  componentDidMount() { this.iconMap = {}; this.buildIcons(); }
+
+  buildIcons(tries) {
+    tries = tries || 0;
+    if (!window.lucide || !window.lucide.createIcons) {
+      if (tries < 40) setTimeout(() => this.buildIcons(tries + 1), 120);
+      return;
+    }
+    const holder = document.createElement('div');
+    holder.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none';
+    holder.innerHTML = ICON_NAMES.map(n => '<i data-lucide="' + n + '"></i>').join('');
+    document.body.appendChild(holder);
+    try { window.lucide.createIcons({ nameAttr: 'data-lucide' }); } catch (e) {}
+    const svgs = holder.querySelectorAll('svg');
+    const map = {};
+    svgs.forEach((svg, i) => { map[ICON_NAMES[i]] = svg.outerHTML; });
+    document.body.removeChild(holder);
+    this.iconMap = map;
+    this.forceUpdate();
+  }
+
+  icon(name, size, color) {
+    const raw = this.iconMap && this.iconMap[name];
+    if (!raw) return React.createElement('span', { style: { display: 'inline-flex', width: size || 16, height: size || 16, flex: 'none' } });
+    const s = size || 16;
+    const html = raw.replace('width="24"', 'width="' + s + '"').replace('height="24"', 'height="' + s + '"');
+    return React.createElement('span', { style: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', lineHeight: 0, color: color || 'currentColor', flex: 'none' }, dangerouslySetInnerHTML: { __html: html } });
+  }
+
+  showToast(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this._toastT);
+    this._toastT = setTimeout(() => this.setState({ toast: null }), 2600);
+  }
+
+  toggleFacet(group, value) {
+    this.setState(s => {
+      const arr = s.f[group];
+      const next = arr.includes(value) ? arr.filter(v => v !== value) : arr.concat([value]);
+      return { f: Object.assign({}, s.f, { [group]: next }) };
+    });
+  }
+
+  clearAll = () => this.setState({ query: '', type: 'all', f: { track: [], tech: [], term: [], clearance: [] } });
+
+  toggleEnroll(o) {
+    this.setState(s => {
+      const has = s.enrolled.includes(o.id);
+      const next = has ? s.enrolled.filter(id => id !== o.id) : s.enrolled.concat([o.id]);
+      return { enrolled: next };
+    }, () => {
+      const has = this.state.enrolled.includes(o.id);
+      this.showToast(has ? ('Added to your file \u2014 ' + o.title) : ('Removed \u2014 ' + o.title));
+    });
+  }
+
+  ctaFor(o) {
+    const base = { display: 'inline-flex', alignItems: 'center', gap: '7px', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', padding: '9px 14px', cursor: 'pointer', whiteSpace: 'nowrap', border: '1px solid' };
+    const enrolled = this.state.enrolled.includes(o.id);
+    if (o.status === 'locked') {
+      return { label: 'Clearance 0' + o.clearance, iconEl: this.icon('lock', 13), onClick: () => this.showToast('Locked \u2014 reach clearance 0' + o.clearance + ' to unlock ' + o.title),
+        style: Object.assign({}, base, { background: 'transparent', color: 'var(--text-muted)', borderColor: 'var(--border-hairline)', cursor: 'not-allowed' }), hoverStyle: {} };
+    }
+    if (o.status === 'progress') {
+      return { label: 'Resume', iconEl: this.icon('arrow-right', 13), onClick: () => this.showToast('Resuming \u2014 ' + o.title),
+        style: Object.assign({}, base, { background: 'var(--cyan-500)', color: 'var(--text-on-accent)', borderColor: 'var(--cyan-500)' }), hoverStyle: { background: 'var(--cyan-600)', borderColor: 'var(--cyan-600)' } };
+    }
+    if (o.status === 'completed') {
+      return { label: 'Review', iconEl: this.icon('rotate-ccw', 13), onClick: () => this.showToast('Reviewing \u2014 ' + o.title),
+        style: Object.assign({}, base, { background: 'transparent', color: 'var(--text-accent)', borderColor: 'var(--border-strong)' }), hoverStyle: { borderColor: 'var(--border-accent)', background: 'var(--tint-cyan)' } };
+    }
+    if (enrolled) {
+      return { label: 'Start now', iconEl: this.icon('arrow-right', 13), onClick: () => this.showToast('Starting \u2014 ' + o.title),
+        style: Object.assign({}, base, { background: 'var(--cyan-500)', color: 'var(--text-on-accent)', borderColor: 'var(--cyan-500)' }), hoverStyle: { background: 'var(--cyan-600)', borderColor: 'var(--cyan-600)' } };
+    }
+    return { label: 'Enroll', iconEl: this.icon('plus', 14), onClick: () => this.toggleEnroll(o),
+      style: Object.assign({}, base, { background: 'var(--cyan-500)', color: 'var(--text-on-accent)', borderColor: 'var(--cyan-500)' }), hoverStyle: { background: 'var(--cyan-600)', borderColor: 'var(--cyan-600)' } };
+  }
+
+  badgeFor(o) {
+    const enrolled = this.state.enrolled.includes(o.id);
+    const base = { fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '.1em', textTransform: 'uppercase', padding: '4px 8px', flex: 'none', border: '1px solid', whiteSpace: 'nowrap' };
+    if (o.status === 'locked') return { label: 'Locked', style: Object.assign({}, base, { color: 'var(--text-muted)', borderColor: 'var(--border-hairline)', background: 'var(--muted)' }) };
+    if (o.status === 'progress') return { label: 'In progress', style: Object.assign({}, base, { color: 'var(--accent-fg-cyan)', borderColor: 'var(--border-accent)', background: 'var(--tint-cyan)' }) };
+    if (o.status === 'completed') return { label: 'Completed', style: Object.assign({}, base, { color: 'var(--accent-fg-green)', borderColor: 'color-mix(in oklab, var(--green-500) 40%, transparent)', background: 'var(--tint-green)' }) };
+    if (enrolled) return { label: 'Enrolled', style: Object.assign({}, base, { color: 'var(--accent-fg-volt)', borderColor: 'color-mix(in oklab, var(--volt-500) 45%, transparent)', background: 'var(--tint-volt)' }) };
+    return { label: 'New', style: Object.assign({}, base, { color: 'var(--text-muted)', borderColor: 'var(--border-hairline)', background: 'transparent' }) };
+  }
+
+  decorate(o) {
+    const tm = TYPE_META[o.type];
+    const cta = this.ctaFor(o);
+    const badge = this.badgeFor(o);
+    return {
+      id: o.id, title: o.title, blurb: o.blurb, track: o.track, tags: o.tags,
+      typeLabel: tm.label, typeColor: tm.color, typeTint: tm.tint, typeBorder: tm.border, typeColorSoft: tm.soft,
+      iconEl: this.icon(tm.icon, 18, tm.color),
+      clearancePad: '0' + o.clearance, clearanceEl: this.icon('shield', 12), shieldEl: this.icon('shield', 12),
+      clockEl: this.icon('clock', 12), zapEl: this.icon('zap', 12),
+      durLabel: o.durLabel, xpLabel: o.xp.toLocaleString(),
+      showProgress: o.progress > 0 && o.status !== 'completed', progressPct: o.progress + '%',
+      cta: cta, badgeLabel: badge.label, badgeStyle: badge.style,
+      cardStyle: { position: 'relative', overflow: 'hidden', background: 'var(--surface-card)', border: '1px solid var(--border-hairline)', padding: '18px', display: 'flex', flexDirection: 'column', gap: '11px', opacity: o.status === 'locked' ? 0.62 : 1, minHeight: 0 },
+      cardHover: { borderColor: 'var(--border-strong)', background: 'var(--surface-overlay)' },
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const f = s.f;
+
+    // ---- facet counts (from full set) ----
+    const countFor = (key, val) => OFFERINGS.filter(o => {
+      if (key === 'track') return o.track === val;
+      if (key === 'tech') return o.tags.indexOf(val) > -1;
+      if (key === 'term') return o.term === val;
+      if (key === 'clearance') return o.clearance === val;
+      return false;
+    }).length;
+
+    const facetGroups = FACETS.map(g => ({
+      key: g.key, label: g.label,
+      options: g.values.map(v => {
+        const checked = f[g.key].indexOf(v) > -1;
+        return {
+          value: v,
+          label: g.key === 'clearance' ? ('Clearance 0' + v) : v,
+          count: countFor(g.key, v),
+          checked: checked,
+          textColor: checked ? 'var(--text-strong)' : 'var(--text-body)',
+          boxStyle: { width: '15px', height: '15px', flex: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: '1px solid ' + (checked ? 'var(--cyan-500)' : 'var(--border-strong)'), background: checked ? 'var(--cyan-500)' : 'transparent' },
+          mark: checked ? this.icon('check', 11, 'var(--text-on-accent)') : null,
+          toggle: () => this.toggleFacet(g.key, v),
+        };
+      }),
+    }));
+
+    // ---- filter + search + sort ----
+    const q = s.query.trim().toLowerCase();
+    let list = OFFERINGS.filter(o => {
+      if (s.type !== 'all' && o.type !== s.type) return false;
+      if (f.track.length && f.track.indexOf(o.track) < 0) return false;
+      if (f.tech.length && !o.tags.some(t => f.tech.indexOf(t) > -1)) return false;
+      if (f.term.length && f.term.indexOf(o.term) < 0) return false;
+      if (f.clearance.length && f.clearance.indexOf(o.clearance) < 0) return false;
+      if (q) {
+        const hay = (o.title + ' ' + o.blurb + ' ' + o.track + ' ' + o.tags.join(' ')).toLowerCase();
+        if (hay.indexOf(q) < 0) return false;
+      }
+      return true;
+    });
+
+    const rank = { progress: 0, new: 1, completed: 2, locked: 3 };
+    if (s.sort === 'recommended') list = list.slice().sort((a, b) => (rank[a.status] - rank[b.status]) || (b.added - a.added));
+    else if (s.sort === 'newest') list = list.slice().sort((a, b) => b.added - a.added);
+    else if (s.sort === 'xp') list = list.slice().sort((a, b) => b.xp - a.xp);
+    else if (s.sort === 'duration') list = list.slice().sort((a, b) => a.durMin - b.durMin);
+
+    const results = list.map(o => this.decorate(o));
+
+    // ---- type tabs ----
+    const tabBase = { background: 'transparent', border: 'none', borderBottom: '2px solid transparent', fontFamily: 'var(--font-mono)', fontSize: '12px', letterSpacing: '.06em', padding: '8px 14px', cursor: 'pointer', color: 'var(--text-muted)', marginBottom: '-2px' };
+    const tabActive = { color: 'var(--text-strong)', borderBottomColor: 'var(--cyan-500)' };
+    const mkTab = (v, label) => {
+      const active = s.type === v;
+      const count = v === 'all' ? OFFERINGS.length : OFFERINGS.filter(o => o.type === v).length;
+      return { label: label, count: count, onClick: () => this.setState({ type: v }), style: active ? Object.assign({}, tabBase, tabActive) : tabBase, hoverStyle: active ? {} : { color: 'var(--text-body)' } };
+    };
+    const typeTabs = [mkTab('all', 'All'), mkTab('story', 'Story paths'), mkTab('track', 'Tracks'), mkTab('challenge', 'Challenges')];
+
+    // ---- active chips ----
+    const chips = [];
+    if (q) chips.push({ label: '"' + s.query.trim() + '"', xEl: this.icon('x', 12), remove: () => this.setState({ query: '' }) });
+    FACETS.forEach(g => f[g.key].forEach(v => {
+      chips.push({ label: g.key === 'clearance' ? ('Clearance 0' + v) : v, xEl: this.icon('x', 12), remove: () => this.toggleFacet(g.key, v) });
+    }));
+
+    // ---- nearest-match suggestions for empty results ----
+    let suggestions = [];
+    if (results.length === 0) {
+      const score = (o) => {
+        let n = 0;
+        if (s.type !== 'all' && o.type === s.type) n += 3;
+        if (f.track.length && f.track.indexOf(o.track) > -1) n += 2;
+        if (f.tech.length && o.tags.some(t => f.tech.indexOf(t) > -1)) n += 2;
+        if (f.term.length && f.term.indexOf(o.term) > -1) n += 1;
+        if (f.clearance.length && f.clearance.indexOf(o.clearance) > -1) n += 1;
+        if (q) {
+          const words = q.split(/\s+/);
+          const hay = (o.title + ' ' + o.blurb + ' ' + o.track + ' ' + o.tags.join(' ')).toLowerCase();
+          words.forEach(w => { if (w.length > 2 && hay.indexOf(w) > -1) n += 2; });
+        }
+        return n;
+      };
+      suggestions = OFFERINGS
+        .map(o => ({ o: o, n: score(o) }))
+        .sort((a, b) => (b.n - a.n) || (b.o.added - a.o.added))
+        .slice(0, 3)
+        .map(x => this.decorate(x.o));
+    }
+
+    // ---- featured ----
+    const featured = OFFERINGS.filter(o => o.featured).map(o => this.decorate(o));
+
+    // ---- resume band ----
+    const inProg = OFFERINGS.filter(o => o.status === 'progress');
+    const resumeSrc = inProg[0] || OFFERINGS[0];
+    const resume = { title: resumeSrc.title + ' \u2014 continue', short: resumeSrc.title, blurb: resumeSrc.blurb, progressPct: resumeSrc.progress + '%', progressLabel: resumeSrc.progress + '% complete' };
+
+    // ---- nav ----
+    const navBase = { display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 20px', fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase', textDecoration: 'none', cursor: 'pointer', borderLeft: '2px solid transparent', color: 'var(--text-muted)' };
+    const navActive = { color: 'var(--accent-foreground)', background: 'var(--tint-cyan)', borderLeftColor: 'var(--cyan-500)' };
+    const NAV_HREF = { catalog: 'Catalog.dc.html', log: 'Mission Log.dc.html', dashboard: 'ui_kits/academy/index.html#dashboard', story: 'ui_kits/academy/index.html#story', lesson: 'ui_kits/academy/index.html#lesson', progression: 'ui_kits/academy/index.html#progression', profile: 'ui_kits/academy/index.html#profile' };
+    const mkNav = (id, label, ic) => {
+      const active = s.activeNav === id;
+      return { label: label, iconEl: this.icon(ic, 15), href: NAV_HREF[id],
+        onClick: () => { this.setState({ activeNav: id }); },
+        style: active ? Object.assign({}, navBase, navActive) : navBase, hoverStyle: active ? {} : { color: 'var(--text-strong)', background: 'var(--surface-card)' } };
+    };
+    const nav = [
+      mkNav('dashboard', 'Dashboard', 'layout-dashboard'),
+      mkNav('catalog', 'Catalog', 'compass'),
+      mkNav('log', 'Mission log', 'bell'),
+      mkNav('story', 'Story', 'git-branch'),
+      mkNav('lesson', 'Challenges', 'terminal'),
+      mkNav('progression', 'Progression', 'trophy'),
+      mkNav('profile', 'Profile', 'user'),
+    ];
+
+    const density = this.props.density || 'comfortable';
+
+    return {
+      theme: this.props.theme || 'dark',
+      showRecommended: this.props.showRecommended !== false,
+      nav: nav,
+      facetGroups: facetGroups,
+      results: results,
+      featured: featured,
+      typeTabs: typeTabs,
+      chips: chips, hasChips: chips.length > 0,
+      resume: resume,
+      resultCount: results.length,
+      isEmpty: results.length === 0,
+      suggestions: suggestions,
+      hasSuggestions: suggestions.length > 0,
+      query: s.query, sort: s.sort,
+      toast: s.toast,
+      stats: { enrolled: s.enrolled.length, total: OFFERINGS.length, inProgress: inProg.length },
+      cardMin: density === 'compact' ? '260px' : '300px',
+      gridGap: density === 'compact' ? '12px' : '16px',
+      onSearch: (e) => this.setState({ query: e.target.value }),
+      onSort: (e) => this.setState({ sort: e.target.value }),
+      clearAll: this.clearAll,
+      openDashboard: () => { window.location.href = 'ui_kits/academy/index.html#dashboard'; },
+      // static UI icons
+      searchIcon: this.icon('search', 16), filterIcon: this.icon('sliders-horizontal', 14),
+      chevronDown: this.icon('chevron-down', 14), arrowRightDark: this.icon('arrow-right', 15),
+      emptyIcon: this.icon('search-x', 34), toastIcon: this.icon('circle-check', 15, 'var(--accent-fg-cyan)'),
+    };
+  }
+}
+</script>
+</body>
+</html>
