@@ -1,0 +1,32 @@
+<!-- @dsCard group="Components" viewport="700x300" subtitle="Input, Select, Checkbox, Switch" name="Forms" -->
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--surface-page);font-family:var(--font-body);color:var(--text-body);}</style>
+<div id="root"></div>
+<script type="text/babel">
+const NS = window[Object.keys(window).find(k => { try { return window[k] && typeof window[k] === 'object' && (window[k].Button || window[k].Input || window[k].Dialog); } catch(e){ return false; } })] || {};
+
+const { Input, Select, Checkbox, Switch } = NS;
+function Demo() {
+  return (
+    <div style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 18 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
+        <Input label="Callsign" placeholder="you@domain.dev" hint="We never share this." />
+        <Input label="Access key" type="password" defaultValue="secret" error="Access key expired." />
+        <Select label="Track" options={['Backend engineering', 'Frontend engineering', 'Security']} />
+      </div>
+      <div style={{ display: 'flex', gap: 28, alignItems: 'center', flexWrap: 'wrap' }}>
+        <Checkbox label="Remember this terminal" defaultChecked />
+        <Checkbox label="Send mission updates" />
+        <Switch label="Dark mode" defaultChecked />
+        <Switch label="Hard mode" />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+
+</script>

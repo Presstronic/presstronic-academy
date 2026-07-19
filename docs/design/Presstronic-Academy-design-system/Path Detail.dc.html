@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="./styles.css" />
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js" crossorigin="anonymous"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0a0b0c; }
+  body { font-family: 'Archivo','Helvetica Neue',sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--text-accent); text-decoration: none; }
+  a:hover { color: var(--cyan-300); }
+  ::selection { background: color-mix(in oklab, var(--cyan-500) 35%, transparent); }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--cyan-400); outline-offset: 2px; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); }
+  ::-webkit-scrollbar-track { background: transparent; }
+  @keyframes pa-toast { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+</style>
+</helmet>
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--surface-page);color:var(--text-body);display:grid;grid-template-columns:264px 1fr;font-size:15px;line-height:1.6">
+
+  <!-- ===================== NAV SIDEBAR ===================== -->
+  <aside style="background:var(--surface-raised);border-right:1px solid var(--border-hairline);display:flex;flex-direction:column;padding:20px 0;gap:4px;position:sticky;top:0;height:100vh;overflow:hidden" data-screen-label="Nav">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 20px 18px;border-bottom:1px solid var(--border-hairline);margin-bottom:12px">
+      <a href="ui_kits/academy/index.html#dashboard" style="font-family:var(--font-display);font-weight:800;letter-spacing:-0.02em;color:var(--text-strong);font-size:14px;line-height:1.15;text-decoration:none">PRESSTRONIC<br /><span style="color:var(--cyan-400)">ACADEMY</span></a>
+    </div>
+    <sc-for list="{{ nav }}" as="item" hint-placeholder-count="6">
+      <a href="{{ item.href }}" style="{{ item.style }}" style-hover="{{ item.hoverStyle }}">
+        {{ item.iconEl }}<span>{{ item.label }}</span>
+      </a>
+    </sc-for>
+    <div style="flex:1"></div>
+    <div style="padding:14px 20px;border-top:1px solid var(--border-hairline);display:flex;gap:10px;align-items:center">
+      <div style="width:30px;height:30px;flex:none;background:var(--tint-cyan);border:1px solid var(--border-accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:11px;color:var(--accent-fg-cyan)">RV</div>
+      <div style="min-width:0">
+        <div style="font-size:12px;font-weight:600;color:var(--text-strong);white-space:nowrap">R. Vasquez</div>
+        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;color:var(--text-muted)">CLEARANCE 03</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <div style="min-width:0" data-screen-label="Path detail">
+    <!-- topbar -->
+    <div style="height:56px;border-bottom:1px solid var(--border-hairline);display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:var(--surface-page);position:sticky;top:0;z-index:50">
+      <nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;min-width:0">
+        <a href="Catalog.dc.html" style="color:var(--text-muted)" style-hover="{color:'var(--text-accent)'}">// CATALOG</a>
+        <span style="color:var(--text-muted)">/</span>
+        <span style="color:var(--text-accent);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ path.title }}</span>
+      </nav>
+      <div style="display:flex;gap:16px;align-items:center;flex:none">
+        <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent-fg-volt)">11d STREAK</span>
+        <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;background:var(--tint-cyan);border:1px solid var(--border-accent);color:var(--accent-fg-cyan);padding:4px 9px">2,140 XP</span>
+      </div>
+    </div>
+
+    <div style="padding:clamp(24px,2.6vw,44px);display:flex;flex-direction:column;gap:28px;max-width:1360px;margin:0 auto;width:100%">
+
+      <!-- ===== hero ===== -->
+      <header style="position:relative;overflow:hidden;background:var(--surface-card);border:1px solid var(--border-hairline);padding:clamp(24px,2.6vw,40px)">
+        <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse 70% 90% at 18% 15%,black 10%,transparent 70%);mask-image:radial-gradient(ellipse 70% 90% at 18% 15%,black 10%,transparent 70%)"></div>
+        <div style="position:absolute;top:-1px;left:-1px;width:16px;height:16px;border-top:2px solid var(--cyan-500);border-left:2px solid var(--cyan-500);pointer-events:none"></div>
+        <div style="position:absolute;bottom:-1px;right:-1px;width:16px;height:16px;border-bottom:2px solid var(--mag-500);border-right:2px solid var(--mag-500);pointer-events:none"></div>
+        <div style="position:relative;display:flex;flex-direction:column;gap:16px;max-width:760px">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-fg-volt);background:var(--tint-volt);border:1px solid color-mix(in oklab, var(--volt-500) 40%, transparent);padding:5px 10px">{{ typeIcon }}Story path</span>
+            <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)">{{ path.track }}</span>
+          </div>
+          <h1 style="font-family:var(--font-display);font-weight:700;letter-spacing:-0.025em;color:var(--text-strong);line-height:1.05;margin:0;font-size:clamp(32px,3.4vw,46px)">{{ path.title }}</h1>
+          <p style="margin:0;font-size:16px;line-height:1.7;color:var(--text-body)">{{ path.hook }}</p>
+          <div style="display:flex;gap:20px;flex-wrap:wrap;font-family:var(--font-mono);font-size:12px;color:var(--text-muted);margin-top:4px">
+            <span style="display:inline-flex;align-items:center;gap:7px">{{ shieldIcon }}Clearance {{ path.clearance }}</span>
+            <span style="display:inline-flex;align-items:center;gap:7px">{{ clockIcon }}{{ path.duration }}</span>
+            <span style="display:inline-flex;align-items:center;gap:7px;color:var(--accent-fg-mag)">{{ zapIcon }}{{ path.xp }} XP</span>
+            <span style="display:inline-flex;align-items:center;gap:7px">{{ calIcon }}{{ path.term }}</span>
+            <span style="display:inline-flex;align-items:center;gap:7px">{{ branchIcon }}{{ path.decisions }} decision points</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== body: main + rail ===== -->
+      <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
+
+        <!-- MAIN COLUMN -->
+        <div style="display:flex;flex-direction:column;gap:32px;flex:1 1 520px;min-width:0">
+
+          <!-- mission arc -->
+          <section aria-label="Mission arc" style="display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:28px;height:2px;background:var(--cyan-500)"></span><h2 style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:0;font-weight:500">// MISSION ARC — {{ arcSummary }}</h2></div>
+            <sc-for list="{{ acts }}" as="act" hint-placeholder-count="3">
+              <div style="border:1px solid var(--border-hairline);background:var(--surface-card)">
+                <button onClick="{{ act.toggle }}" aria-expanded="{{ act.open }}" style="width:100%;display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;background:transparent;border:none;padding:16px 18px;cursor:pointer;text-align:left" style-hover="{background:'var(--surface-overlay)'}">
+                  <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--accent-fg-cyan);flex:none">{{ act.num }}</span>
+                  <span style="font-family:var(--font-display);font-weight:600;font-size:16px;color:var(--text-strong);letter-spacing:-0.01em;flex:1 1 auto;min-width:180px">{{ act.name }}</span>
+                  <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);flex:0 1 auto;white-space:nowrap">{{ act.meta }}</span>
+                  <span style="color:var(--text-muted);flex:none;transform:{{ act.chevRot }};transition:transform .18s var(--ease-out, ease-out)">{{ chevronIcon }}</span>
+                </button>
+                <sc-if value="{{ act.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="border-top:1px solid var(--border-hairline);display:flex;flex-direction:column">
+                    <sc-for list="{{ act.chapters }}" as="ch" hint-placeholder-count="3">
+                      <div style="display:flex;align-items:center;gap:14px;padding:12px 18px 12px 44px;border-bottom:1px solid var(--border-hairline)">
+                        <span style="color:{{ ch.iconColor }};flex:none;display:inline-flex">{{ ch.iconEl }}</span>
+                        <span style="flex:1;min-width:0;font-size:14px;color:var(--text-body);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ ch.title }}</span>
+                        <span style="{{ ch.kindStyle }}">{{ ch.kind }}</span>
+                        <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);flex:none;width:42px;text-align:right">{{ ch.dur }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </section>
+
+          <!-- what you'll be able to do -->
+          <section aria-label="Outcomes" style="display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:28px;height:2px;background:var(--mag-500)"></span><h2 style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:0;font-weight:500">// DEBRIEF — WHAT YOU WALK AWAY WITH</h2></div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
+              <sc-for list="{{ outcomes }}" as="o" hint-placeholder-count="4">
+                <div style="display:flex;gap:12px;align-items:flex-start;background:var(--surface-card);border:1px solid var(--border-hairline);padding:16px">
+                  <span style="color:var(--accent-fg-cyan);flex:none;display:inline-flex;margin-top:2px">{{ checkIcon }}</span>
+                  <span style="font-size:14px;line-height:1.6;color:var(--text-body)">{{ o }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+
+          <!-- decision engine explainer -->
+          <section aria-label="How branching works" style="display:flex;gap:16px;align-items:flex-start;border:1px solid color-mix(in oklab, var(--volt-500) 35%, transparent);background:var(--tint-volt);padding:18px 20px">
+            <span style="color:var(--accent-fg-volt);flex:none;display:inline-flex;margin-top:2px">{{ branchIconLg }}</span>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <h2 style="font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--text-strong);margin:0;letter-spacing:-0.01em">Your choices write the path.</h2>
+              <p style="margin:0;font-size:14px;line-height:1.65;color:var(--text-body)">At each of the {{ path.decisions }} decision points, the story branches. Patch fast under pressure or rebuild it right — both are valid engineering, and both are graded. You can rewind to any checkpoint and take the other branch.</p>
+            </div>
+          </section>
+        </div>
+
+        <!-- RIGHT RAIL: enroll card -->
+        <aside style="position:sticky;top:80px;display:flex;flex-direction:column;gap:16px;flex:1 1 300px;max-width:360px;min-width:280px">
+          <div style="background:var(--surface-card);border:1px solid var(--border-accent);border-top:2px solid var(--cyan-500);padding:20px;display:flex;flex-direction:column;gap:16px;box-shadow:inset 0 1px 0 color-mix(in oklab,var(--cyan-500) 30%,transparent)">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)">Included in your plan</span>
+              <span style="font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--text-strong);letter-spacing:-0.015em">{{ enrollHeading }}</span>
+            </div>
+            <button onClick="{{ enrollAction }}" style="{{ enrollBtnStyle }}" style-hover="{{ enrollBtnHover }}">{{ enrollBtnIcon }}{{ enrollBtnLabel }}</button>
+            <sc-if value="{{ isEnrolled }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ unenroll }}" style="background:transparent;border:none;color:var(--text-muted);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:0;align-self:center" style-hover="{color:'var(--red-500, #e14b4b)'}">Remove from my file</button>
+            </sc-if>
+            <div style="height:1px;background:var(--border-hairline)"></div>
+            <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ includes }}" as="inc" hint-placeholder-count="4">
+                <li style="display:flex;gap:10px;align-items:center;font-size:13px;color:var(--text-body)"><span style="color:var(--accent-fg-cyan);display:inline-flex;flex:none">{{ inc.iconEl }}</span>{{ inc.label }}</li>
+              </sc-for>
+            </ul>
+          </div>
+
+          <!-- prerequisites -->
+          <div style="background:var(--surface-card);border:1px solid var(--border-hairline);padding:20px;display:flex;flex-direction:column;gap:14px">
+            <h2 style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:0;font-weight:500">// PREREQUISITES</h2>
+            <sc-for list="{{ prereqs }}" as="p" hint-placeholder-count="2">
+              <div style="display:flex;gap:10px;align-items:center">
+                <span style="color:{{ p.color }};display:inline-flex;flex:none">{{ p.iconEl }}</span>
+                <span style="flex:1;font-size:13px;color:var(--text-body);min-width:0">{{ p.label }}</span>
+                <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:{{ p.color }};flex:none">{{ p.status }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- tech stack -->
+          <div style="background:var(--surface-card);border:1px solid var(--border-hairline);padding:20px;display:flex;flex-direction:column;gap:12px">
+            <h2 style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:0;font-weight:500">// TECH STACK</h2>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <sc-for list="{{ path.tags }}" as="t" hint-placeholder-count="3"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;color:var(--text-body);border:1px solid var(--border-hairline);padding:4px 10px">{{ t }}</span></sc-for>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- related -->
+      <sc-if value="{{ showRelated }}" hint-placeholder-val="{{ true }}">
+        <section aria-label="Related missions" style="display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--border-hairline);padding-top:28px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <h2 style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:0;font-weight:500">// OPERATIVES ALSO RAN</h2>
+            <a href="Catalog.dc.html" style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase">Full catalog →</a>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+            <sc-for list="{{ related }}" as="r" hint-placeholder-count="3">
+              <a href="Catalog.dc.html" style="display:flex;flex-direction:column;gap:8px;background:var(--surface-card);border:1px solid var(--border-hairline);padding:16px;text-decoration:none" style-hover="{borderColor:'var(--border-strong)',background:'var(--surface-overlay)'}">
+                <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ r.typeColor }}">{{ r.typeLabel }}</span>
+                <span style="font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--text-strong);letter-spacing:-0.01em">{{ r.title }}</span>
+                <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">{{ r.meta }}</span>
+              </a>
+            </sc-for>
+          </div>
+        </section>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- toast -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:500;display:flex;align-items:center;gap:10px;background:var(--surface-overlay);border:1px solid var(--border-accent);border-left:2px solid var(--cyan-500);color:var(--text-strong);font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;padding:12px 18px;box-shadow:var(--shadow-3);animation:pa-toast .28s cubic-bezier(0.19,1,0.22,1)">{{ toastIcon }}{{ toast }}</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1000},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark' | 'light'&quot;,&quot;section&quot;:&quot;Appearance&quot;},&quot;showRelated&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+const ICON_NAMES = ['compass','layout-dashboard','bell','git-branch','terminal','trophy','user','shield','clock','zap','calendar','chevron-down','check','circle-check','circle','lock','play','plus','arrow-right','video','file-code','flag','rotate-ccw','book-open','award','messages-square'];
+
+const PATH = {
+  title: 'The Broken Pipeline',
+  track: 'Backend engineering',
+  hook: 'A silent job is eating messages and the client demo is in six hours. You\u2019re the operative on call. Trace the failure through queues, workers, and a database that\u2019s hiding something \u2014 then decide: patch it fast, or do it right. Both paths teach. Only one survives the retro.',
+  clearance: '02', duration: '~6h', xp: '1,200', term: 'Current term', decisions: 4,
+  tags: ['NestJS', 'PostgreSQL', 'Redis'],
+};
+
+const ACTS = [
+  { num: 'ACT I', name: 'The Silent Failure', dur: '1h 40m', chapters: [
+    { title: 'Cold open \u2014 the pager goes off', kind: 'story', dur: '12m' },
+    { title: 'Reading the queue telemetry', kind: 'lesson', dur: '25m' },
+    { title: 'First decision \u2014 restart or investigate', kind: 'decision', dur: '\u2014' },
+    { title: 'Challenge: reproduce the failure locally', kind: 'challenge', dur: '45m' },
+    { title: 'Checkpoint \u2014 what the logs won\u2019t tell you', kind: 'story', dur: '15m' },
+  ]},
+  { num: 'ACT II', name: 'Two Ways to Fix It', dur: '2h 30m', chapters: [
+    { title: 'The poison message', kind: 'story', dur: '10m' },
+    { title: 'Dead-letter queues in practice', kind: 'lesson', dur: '35m' },
+    { title: 'Second decision \u2014 patch fast vs. rebuild right', kind: 'decision', dur: '\u2014' },
+    { title: 'Challenge: implement the fix on your branch', kind: 'challenge', dur: '60m' },
+    { title: 'Third decision \u2014 who do you tell?', kind: 'decision', dur: '\u2014' },
+    { title: 'Consequences compile', kind: 'story', dur: '18m' },
+  ]},
+  { num: 'ACT III', name: 'The Retro', dur: '1h 45m', chapters: [
+    { title: 'The demo \u2014 live traffic, no rehearsal', kind: 'story', dur: '15m' },
+    { title: 'Challenge: idempotent consumers under replay', kind: 'challenge', dur: '50m' },
+    { title: 'Final decision \u2014 own it or bury it', kind: 'decision', dur: '\u2014' },
+    { title: 'Debrief and clearance review', kind: 'story', dur: '20m' },
+  ]},
+];
+
+const OUTCOMES = [
+  'Diagnose failing message queues from production telemetry, not guesswork.',
+  'Implement dead-letter queues and retry policies that fail loudly, not silently.',
+  'Make consumers idempotent so replays are safe by construction.',
+  'Argue a fast patch vs. a proper fix under real deadline pressure \u2014 and defend it in a retro.',
+];
+
+const PREREQS = [
+  { label: 'Clearance 02', met: true },
+  { label: 'Challenge: Dead-letter Queues', met: true },
+  { label: 'Comfortable with TypeScript + SQL', met: true },
+];
+
+const INCLUDES = [
+  { icon: 'video', label: '9 lesson transmissions' },
+  { icon: 'terminal', label: '3 graded coding challenges' },
+  { icon: 'git-branch', label: '4 branching decision points' },
+  { icon: 'rotate-ccw', label: 'Rewind to any checkpoint' },
+  { icon: 'award', label: 'Completion record + 1,200 XP' },
+  { icon: 'messages-square', label: 'Cohort discussion channel' },
+];
+
+const RELATED = [
+  { title: 'Silent Migration', typeLabel: 'Story path', typeColor: 'var(--accent-fg-volt)', meta: 'Clr 03 \u00b7 7h \u00b7 1,400 XP' },
+  { title: 'The Cache Heist', typeLabel: 'Story path', typeColor: 'var(--accent-fg-volt)', meta: 'Clr 03 \u00b7 4h \u00b7 1,100 XP' },
+  { title: 'Backend Engineering Path', typeLabel: 'Track', typeColor: 'var(--accent-fg-cyan)', meta: 'Clr 01 \u00b7 40h \u00b7 6,000 XP' },
+];
+
+const KIND_META = {
+  story:     { icon: 'play',       color: 'var(--text-muted)',      label: 'Story' },
+  lesson:    { icon: 'book-open',  color: 'var(--accent-fg-cyan)',  label: 'Lesson' },
+  decision:  { icon: 'git-branch', color: 'var(--accent-fg-volt)',  label: 'Decision' },
+  challenge: { icon: 'terminal',   color: 'var(--accent-fg-mag)',   label: 'Challenge' },
+};
+
+class Component extends DCLogic {
+  state = { openActs: [0], enrolled: false, toast: null };
+
+  componentDidMount() { this.iconMap = {}; this.buildIcons(); }
+
+  buildIcons(tries) {
+    tries = tries || 0;
+    if (!window.lucide || !window.lucide.createIcons) {
+      if (tries < 40) setTimeout(() => this.buildIcons(tries + 1), 120);
+      return;
+    }
+    const holder = document.createElement('div');
+    holder.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none';
+    holder.innerHTML = ICON_NAMES.map(n => '<i data-lucide="' + n + '"></i>').join('');
+    document.body.appendChild(holder);
+    try { window.lucide.createIcons({ nameAttr: 'data-lucide' }); } catch (e) {}
+    const svgs = holder.querySelectorAll('svg');
+    const map = {};
+    svgs.forEach((svg, i) => { map[ICON_NAMES[i]] = svg.outerHTML; });
+    document.body.removeChild(holder);
+    this.iconMap = map;
+    this.forceUpdate();
+  }
+
+  icon(name, size, color) {
+    const raw = this.iconMap && this.iconMap[name];
+    if (!raw) return React.createElement('span', { style: { display: 'inline-flex', width: size || 16, height: size || 16, flex: 'none' } });
+    const s = size || 16;
+    const html = raw.replace('width="24"', 'width="' + s + '"').replace('height="24"', 'height="' + s + '"');
+    return React.createElement('span', { style: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', lineHeight: 0, color: color || 'currentColor', flex: 'none' }, dangerouslySetInnerHTML: { __html: html } });
+  }
+
+  showToast(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this._toastT);
+    this._toastT = setTimeout(() => this.setState({ toast: null }), 2600);
+  }
+
+  renderVals() {
+    const s = this.state;
+
+    // nav
+    const navBase = { display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 20px', fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase', textDecoration: 'none', cursor: 'pointer', borderLeft: '2px solid transparent', color: 'var(--text-muted)' };
+    const navActive = { color: 'var(--accent-foreground)', background: 'var(--tint-cyan)', borderLeftColor: 'var(--cyan-500)' };
+    const NAV_HREF = { catalog: 'Catalog.dc.html', log: 'Mission Log.dc.html', dashboard: 'ui_kits/academy/index.html#dashboard', story: 'ui_kits/academy/index.html#story', lesson: 'ui_kits/academy/index.html#lesson', progression: 'ui_kits/academy/index.html#progression', profile: 'ui_kits/academy/index.html#profile' };
+    const mkNav = (id, label, ic) => {
+      const active = id === 'catalog';
+      return { label: label, iconEl: this.icon(ic, 15), href: NAV_HREF[id],
+        style: active ? Object.assign({}, navBase, navActive) : navBase, hoverStyle: active ? {} : { color: 'var(--text-strong)', background: 'var(--surface-card)' } };
+    };
+    const nav = [
+      mkNav('dashboard', 'Dashboard', 'layout-dashboard'),
+      mkNav('catalog', 'Catalog', 'compass'),
+      mkNav('log', 'Mission log', 'bell'),
+      mkNav('story', 'Story', 'git-branch'),
+      mkNav('lesson', 'Challenges', 'terminal'),
+      mkNav('progression', 'Progression', 'trophy'),
+      mkNav('profile', 'Profile', 'user'),
+    ];
+
+    // acts
+    const kindBadgeBase = { fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '.1em', textTransform: 'uppercase', padding: '3px 8px', flex: 'none', border: '1px solid var(--border-hairline)' };
+    const acts = ACTS.map((a, i) => {
+      const open = s.openActs.indexOf(i) > -1;
+      return {
+        num: a.num, name: a.name, open: open,
+        meta: a.chapters.length + ' beats \u00b7 ' + a.dur,
+        chevRot: open ? 'rotate(180deg)' : 'rotate(0deg)',
+        toggle: () => this.setState(st => ({ openActs: st.openActs.indexOf(i) > -1 ? st.openActs.filter(x => x !== i) : st.openActs.concat([i]) })),
+        chapters: a.chapters.map(c => {
+          const km = KIND_META[c.kind];
+          return { title: c.title, dur: c.dur, kind: km.label, iconEl: this.icon(km.icon, 14), iconColor: km.color,
+            kindStyle: Object.assign({}, kindBadgeBase, { color: km.color }) };
+        }),
+      };
+    });
+    const totalBeats = ACTS.reduce((n, a) => n + a.chapters.length, 0);
+
+    // enroll CTA
+    const btnBase = { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '9px', padding: '13px 20px', fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', cursor: 'pointer', border: '1px solid', width: '100%', clipPath: 'var(--notch)' };
+    const enrolled = s.enrolled;
+    const enrollBtnStyle = enrolled
+      ? Object.assign({}, btnBase, { background: 'transparent', color: 'var(--accent-fg-cyan)', borderColor: 'var(--border-accent)' })
+      : Object.assign({}, btnBase, { background: 'var(--cyan-500)', color: 'var(--text-on-accent)', borderColor: 'var(--cyan-500)', boxShadow: 'var(--glow-cyan)' });
+    const enrollBtnHover = enrolled ? { background: 'var(--tint-cyan)' } : { background: 'var(--cyan-600)', borderColor: 'var(--cyan-600)' };
+
+    // prereqs
+    const prereqs = PREREQS.map(p => ({
+      label: p.label,
+      status: p.met ? 'Met' : 'Missing',
+      color: p.met ? 'var(--accent-fg-green)' : 'var(--accent-fg-volt)',
+      iconEl: this.icon(p.met ? 'circle-check' : 'circle', 15),
+    }));
+
+    return {
+      theme: this.props.theme || 'dark',
+      showRelated: this.props.showRelated !== false,
+      nav: nav,
+      path: PATH,
+      acts: acts,
+      arcSummary: '3 ACTS \u00b7 ' + totalBeats + ' BEATS',
+      outcomes: OUTCOMES,
+      prereqs: prereqs,
+      includes: INCLUDES.map(i => ({ label: i.label, iconEl: this.icon(i.icon, 14) })),
+      related: RELATED,
+      isEnrolled: enrolled,
+      enrollHeading: enrolled ? 'You\u2019re enrolled.' : 'Ready when you are.',
+      enrollBtnLabel: enrolled ? 'Start Act I' : 'Enroll in this path',
+      enrollBtnIcon: this.icon(enrolled ? 'arrow-right' : 'plus', 15),
+      enrollBtnStyle: enrollBtnStyle,
+      enrollBtnHover: enrollBtnHover,
+      enrollAction: enrolled
+        ? () => this.showToast('Deploying \u2014 Act I: The Silent Failure')
+        : () => this.setState({ enrolled: true }, () => this.showToast('Added to your file \u2014 The Broken Pipeline')),
+      unenroll: () => this.setState({ enrolled: false }, () => this.showToast('Removed \u2014 The Broken Pipeline')),
+      toast: s.toast,
+      // static icons
+      typeIcon: this.icon('git-branch', 13),
+      shieldIcon: this.icon('shield', 13), clockIcon: this.icon('clock', 13), zapIcon: this.icon('zap', 13),
+      calIcon: this.icon('calendar', 13), branchIcon: this.icon('git-branch', 13), branchIconLg: this.icon('git-branch', 20),
+      chevronIcon: this.icon('chevron-down', 16), checkIcon: this.icon('circle-check', 16),
+      toastIcon: this.icon('circle-check', 15, 'var(--accent-fg-cyan)'),
+    };
+  }
+}
+</script>
+</body>
+</html>

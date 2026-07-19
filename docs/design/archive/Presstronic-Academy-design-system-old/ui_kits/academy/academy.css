@@ -1,0 +1,181 @@
+/* Presstronic Academy UI kit — screen styles (composes tokens from ../../styles.css) */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  background: var(--surface-page);
+  color: var(--text-body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--text-accent); text-decoration: none; }
+a:hover { color: var(--cyan-300); }
+::selection { background: color-mix(in oklab, var(--cyan-500) 35%, transparent); }
+
+.mono { font-family: var(--font-mono); }
+.eyebrow {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: var(--tracking-mono-label); text-transform: uppercase;
+  color: var(--text-accent);
+}
+.eyebrow.volt { color: var(--accent-fg-volt); }
+.eyebrow.dim { color: var(--text-muted); }
+.display {
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: var(--tracking-display); color: var(--text-strong);
+  line-height: var(--leading-display); margin: 0;
+}
+svg.lucide { width: 1em; height: 1em; stroke-width: 2; }
+
+/* ---------- Backgrounds ---------- */
+.grid-bg { position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 65% 80% at 50% 30%, black 25%, transparent 72%);
+  mask-image: radial-gradient(ellipse 65% 80% at 50% 30%, black 25%, transparent 72%);
+}
+[data-theme='light'] .grid-bg {
+  background-image: linear-gradient(rgba(10,15,20,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,15,20,0.06) 1px, transparent 1px);
+}
+.hero-glow { position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 42% 50% at 42% 26%, color-mix(in oklab, var(--cyan-500) 13%, transparent), transparent 70%),
+    radial-gradient(ellipse 34% 44% at 68% 40%, color-mix(in oklab, var(--mag-500) 9%, transparent), transparent 72%);
+}
+/* Gradient ink for one emphasized word per hero — cyan into magenta */
+.ink-signal { background: linear-gradient(100deg, var(--cyan-400) 15%, var(--mag-400) 85%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+/* Neon edge — top border signal strip for hero cards */
+.neon-top { border-top: 2px solid var(--cyan-500);
+  box-shadow: inset 0 1px 0 color-mix(in oklab, var(--cyan-500) 35%, transparent), inset 0 18px 32px -24px color-mix(in oklab, var(--cyan-500) 45%, transparent); }
+
+/* ---------- Landing nav ---------- */
+.ld-nav { position: sticky; top: 0; z-index: var(--z-nav);
+  background: color-mix(in oklab, var(--surface-page) 85%, transparent);
+  backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-hairline); }
+.ld-nav-in { max-width: var(--container-max); margin: 0 auto; padding: 0 24px;
+  height: 64px; display: flex; align-items: center; gap: 32px; }
+.ld-link { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text-muted); cursor: pointer; transition: color var(--dur-fast) var(--ease-out); }
+.ld-link:hover { color: var(--text-strong); }
+
+.lockup { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.02em;
+  color: var(--text-strong); white-space: nowrap; cursor: pointer; }
+.lockup em { font-style: normal; color: var(--cyan-400); }
+
+/* ---------- Sections ---------- */
+.section { max-width: var(--container-max); margin: 0 auto; padding: 0 24px; }
+
+/* ---------- App shell ---------- */
+.app { display: grid; grid-template-columns: var(--sidebar-w) 1fr; min-height: 100vh; }
+.side { background: var(--surface-raised); border-right: 1px solid var(--border-hairline);
+  display: flex; flex-direction: column; padding: 20px 0; gap: 4px; position: sticky; top: 0; height: 100vh; }
+.side-item { display: flex; align-items: center; gap: 12px; padding: 10px 20px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-muted); cursor: pointer; border-left: 2px solid transparent;
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out); }
+.side-item:hover { color: var(--text-strong); background: var(--surface-card); }
+.side-item.active { color: var(--accent-foreground); background: var(--tint-cyan); border-left-color: var(--cyan-500);
+  box-shadow: inset 12px 0 20px -14px color-mix(in oklab, var(--cyan-500) 55%, transparent); }
+.side-item svg { width: 15px; height: 15px; }
+.main { min-width: 0; }
+.topbar { height: 56px; border-bottom: 1px solid var(--border-hairline); display: flex;
+  align-items: center; justify-content: space-between; padding: 0 28px;
+  background: var(--surface-page); }
+
+/* ---------- Story ---------- */
+.beat { border-left: 2px solid var(--border-strong); padding: 4px 0 4px 20px; margin-left: 4px; }
+.beat.decision { border-left-color: var(--volt-500); }
+.choice { display: flex; gap: 14px; align-items: flex-start; text-align: left; width: 100%;
+  background: var(--surface-card); border: 1px solid var(--border-hairline);
+  border-left: 2px solid var(--volt-500); padding: 16px 18px; cursor: pointer;
+  color: var(--text-body); font-family: var(--font-body); font-size: 14px;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out); }
+.choice:hover { background: var(--tint-volt); border-color: color-mix(in oklab, var(--volt-500) 55%, transparent);
+  box-shadow: -6px 0 18px -8px color-mix(in oklab, var(--volt-500) 55%, transparent); }
+.choice .key { font-family: var(--font-mono); font-size: 11px; color: var(--accent-fg-volt);
+  border: 1px solid color-mix(in oklab, var(--volt-500) 45%, transparent);
+  padding: 3px 7px; flex: none; }
+
+/* ---------- Branch map ---------- */
+.node { width: 12px; height: 12px; border: 1px solid var(--border-strong);
+  background: var(--surface-card); flex: none; }
+.node.done { background: var(--cyan-500); border-color: var(--cyan-500); }
+.node.now { background: var(--volt-500); border-color: var(--volt-500);
+  box-shadow: 0 0 10px color-mix(in oklab, var(--volt-500) 45%, transparent); }
+.node.locked { opacity: .35; }
+
+/* ---------- Code pane ---------- */
+/* Code pane is always a dark terminal, regardless of theme */
+.code-pane { background: var(--gray-950); border: 1px solid var(--border-hairline);
+  color: var(--gray-300);
+  font-family: var(--font-mono); font-size: 13px; line-height: 1.75; overflow: auto; }
+.code-pane .ln { display: flex; gap: 18px; padding: 0 16px; white-space: pre; }
+.code-pane .ln:hover { background: rgba(255,255,255,0.03); }
+.code-pane .no { color: var(--gray-600); width: 22px; text-align: right; flex: none; user-select: none; }
+.tok-k { color: var(--mag-300); } .tok-s { color: var(--green-400); }
+.tok-fn { color: var(--cyan-300); }
+.tok-c { color: var(--gray-600); } .tok-f { color: var(--volt-300); }
+
+/* ---------- Misc ---------- */
+.stat { display: flex; flex-direction: column; gap: 6px; }
+.stat .v { font-family: var(--font-mono); font-size: 22px; color: var(--text-strong); }
+.stat .k { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text-muted); }
+.log-row { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border-hairline);
+  font-family: var(--font-mono); font-size: 12px; }
+.log-row .t { color: var(--gray-600); flex: none; }
+.fade-in { animation: fadeIn var(--dur-slow) var(--ease-out) both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .fade-in { animation: none; } }
+
+/* ---------- Cyberpunk dress (level 2) ---------- */
+[data-theme='light'] a:hover { color: var(--cyan-600); }
+.dark .grid-bg {
+  background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+}
+
+/* Scanline overlay — terminal panes only. Never combine with .hud on one element. */
+.scanlines { position: relative; }
+.scanlines::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.028) 0 1px, transparent 1px 3px); }
+[data-theme='light'] .scanlines::after { display: none; }
+[data-theme='light'] .dark.scanlines::after,
+[data-theme='light'] .dark .scanlines::after { display: block; }
+
+/* HUD corner brackets — one hero surface per screen */
+.hud { position: relative; }
+.hud::before, .hud::after { content: ''; position: absolute; width: 16px; height: 16px; pointer-events: none; z-index: 1; }
+.hud::before { top: -1px; left: -1px; border-top: 2px solid var(--cyan-500); border-left: 2px solid var(--cyan-500); }
+.hud::after { bottom: -1px; right: -1px; border-bottom: 2px solid var(--mag-500); border-right: 2px solid var(--mag-500); }
+
+/* Volt hazard divider — decision points only */
+.hazard { height: 4px; opacity: .55; flex: none;
+  background: repeating-linear-gradient(-45deg, var(--volt-500) 0 10px, transparent 10px 20px); }
+
+/* Signal dashes — tiny decorative rules flanking eyebrows */
+.sig-dash { display: inline-block; width: 28px; height: 2px; background: var(--cyan-500); flex: none; }
+.sig-dash.mag { background: var(--mag-500); }
+
+.blink { animation: pa-blink 1.1s steps(1) infinite; }
+@keyframes pa-blink { 50% { opacity: 0; } }
+.node.now { animation: pa-pulse 2s var(--ease-in-out) infinite; }
+@keyframes pa-pulse { 50% { box-shadow: 0 0 16px color-mix(in oklab, var(--volt-500) 70%, transparent); } }
+@media (prefers-reduced-motion: reduce) { .blink, .node.now { animation: none; } }
+
+/* ---------- Responsive app grids ---------- */
+.lesson-grid { display: grid; grid-template-columns: minmax(260px, 340px) minmax(0, 1fr) minmax(280px, 360px); gap: 24px; align-items: start; }
+.story-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 28px; align-items: start; }
+@media (max-width: 1460px) {
+  .lesson-grid { grid-template-columns: minmax(240px, 300px) minmax(0, 1fr); }
+  .lesson-grid .ai-panel { grid-column: 1 / -1; min-height: 0 !important; }
+}
+@media (max-width: 1080px) {
+  .lesson-grid { grid-template-columns: minmax(0, 1fr); }
+  .story-grid { grid-template-columns: minmax(0, 1fr); }
+  .story-grid .story-rail { position: static !important; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+}

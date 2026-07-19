@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="./styles.css" />
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js" crossorigin="anonymous"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0a0b0c; }
+  body { font-family: 'Archivo','Helvetica Neue',sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--text-accent); text-decoration: none; }
+  a:hover { color: var(--cyan-300); }
+  ::selection { background: color-mix(in oklab, var(--cyan-500) 35%, transparent); }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--cyan-400); outline-offset: 2px; }
+  @keyframes pa-toast { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+</style>
+</helmet>
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--surface-page);color:var(--text-body);display:flex;flex-direction:column;font-size:15px;line-height:1.6" data-screen-label="Certificate">
+
+  <!-- topbar -->
+  <div style="height:56px;border-bottom:1px solid var(--border-hairline);display:flex;align-items:center;justify-content:space-between;padding:0 28px;flex:none">
+    <a href="ui_kits/academy/index.html#dashboard" style="font-family:var(--font-display);font-weight:800;letter-spacing:-0.02em;color:var(--text-strong);font-size:13px;text-decoration:none">PRESSTRONIC <span style="color:var(--cyan-400)">ACADEMY</span></a>
+    <nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase">
+      <a href="ui_kits/academy/index.html#progression" style="color:var(--text-muted)" style-hover="{color:'var(--text-accent)'}">// PROGRESSION</a>
+      <span style="color:var(--text-muted)">/</span>
+      <span style="color:var(--text-accent)">COMPLETION RECORD</span>
+    </nav>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:28px;padding:clamp(28px,4vh,56px) 24px">
+
+    <!-- ===== the certificate ===== -->
+    <div style="position:relative;overflow:hidden;width:100%;max-width:860px;background:var(--surface-card);border:1px solid var(--border-accent);box-shadow:var(--shadow-3)" data-om-raster>
+      <!-- grid dressing -->
+      <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse 80% 90% at 50% 0%,black 10%,transparent 75%);mask-image:radial-gradient(ellipse 80% 90% at 50% 0%,black 10%,transparent 75%)"></div>
+      <!-- hud corners -->
+      <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:2px solid var(--cyan-500);border-left:2px solid var(--cyan-500);pointer-events:none"></div>
+      <div style="position:absolute;top:-1px;right:-1px;width:18px;height:18px;border-top:2px solid var(--mag-500);border-right:2px solid var(--mag-500);pointer-events:none"></div>
+      <div style="position:absolute;bottom:-1px;left:-1px;width:18px;height:18px;border-bottom:2px solid var(--mag-500);border-left:2px solid var(--mag-500);pointer-events:none"></div>
+      <div style="position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-bottom:2px solid var(--cyan-500);border-right:2px solid var(--cyan-500);pointer-events:none"></div>
+
+      <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:22px;padding:clamp(32px,5vw,60px) clamp(24px,5vw,64px);text-align:center">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+          <span style="font-family:var(--font-display);font-weight:800;letter-spacing:-0.02em;color:var(--text-strong);font-size:14px">PRESSTRONIC <span style="color:var(--cyan-400)">ACADEMY</span></span>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="display:inline-block;width:24px;height:2px;background:var(--cyan-500)"></span>
+            <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted)">// COMPLETION RECORD</span>
+            <span style="display:inline-block;width:24px;height:2px;background:var(--mag-500)"></span>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+          <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)">This certifies that operative</span>
+          <span style="font-family:var(--font-display);font-weight:700;font-size:clamp(28px,4vw,40px);letter-spacing:-0.025em;color:var(--text-strong);line-height:1.1">{{ cert.name }}</span>
+          <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--text-muted)">CALLSIGN {{ cert.callsign }}</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+          <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)">completed the story path</span>
+          <span style="font-family:var(--font-display);font-weight:700;font-size:clamp(20px,2.6vw,26px);letter-spacing:-0.02em;color:var(--accent-fg-cyan)">{{ cert.path }}</span>
+          <span style="font-size:14px;color:var(--text-body);max-width:520px">{{ cert.line }}</span>
+        </div>
+
+        <div style="display:flex;gap:clamp(16px,3vw,36px);flex-wrap:wrap;justify-content:center;border-top:1px solid var(--border-hairline);border-bottom:1px solid var(--border-hairline);padding:16px 8px;width:100%">
+          <sc-for list="{{ cert.stats }}" as="st" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column;gap:3px;align-items:center">
+              <span style="font-family:var(--font-mono);font-size:18px;color:var(--text-strong)">{{ st.value }}</span>
+              <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)">{{ st.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;width:100%;gap:16px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:3px;text-align:left">
+            <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--text-muted)">ISSUED {{ cert.date }}</span>
+            <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--text-muted)">RECORD {{ cert.recordId }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;text-align:right;align-items:flex-end">
+            <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--accent-fg-green)">● VERIFIABLE</span>
+            <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--text-muted)">verify.presstronic.com/{{ cert.recordId }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== actions ===== -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+      <button onClick="{{ copyLink }}" style="display:inline-flex;align-items:center;gap:9px;background:var(--cyan-500);color:var(--text-on-accent);border:1px solid var(--cyan-500);padding:12px 20px;font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;clip-path:var(--notch);box-shadow:var(--glow-cyan)" style-hover="{background:'var(--cyan-600)',borderColor:'var(--cyan-600)'}">{{ linkIcon }}Copy share link</button>
+      <button onClick="{{ download }}" style="display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--text-accent);border:1px solid var(--border-strong);padding:12px 20px;font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="{borderColor:'var(--border-accent)',background:'var(--tint-cyan)'}">{{ downloadIcon }}Download PDF</button>
+      <button onClick="{{ shareLinkedIn }}" style="display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--text-accent);border:1px solid var(--border-strong);padding:12px 20px;font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="{borderColor:'var(--border-accent)',background:'var(--tint-cyan)'}">{{ shareIcon }}Add to LinkedIn</button>
+    </div>
+
+    <!-- next mission nudge -->
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;border:1px solid var(--border-hairline);background:var(--surface-card);padding:14px 20px;max-width:860px;width:100%">
+      <span style="color:var(--accent-fg-volt);display:inline-flex;flex:none">{{ branchIcon }}</span>
+      <span style="font-size:14px;color:var(--text-body);flex:1;min-width:200px">Your clearance review is 480 XP away. <span style="color:var(--text-strong);font-weight:600">Silent Migration</span> picks up where this story left off.</span>
+      <a href="Path Detail.dc.html" style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap">Next mission →</a>
+    </div>
+  </div>
+
+  <!-- toast -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:500;display:flex;align-items:center;gap:10px;background:var(--surface-overlay);border:1px solid var(--border-accent);border-left:2px solid var(--cyan-500);color:var(--text-strong);font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;padding:12px 18px;box-shadow:var(--shadow-3);animation:pa-toast .28s cubic-bezier(0.19,1,0.22,1)">{{ toastIcon }}{{ toast }}</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark' | 'light'&quot;,&quot;section&quot;:&quot;Appearance&quot;},&quot;operativeName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Demian Seiler&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Record&quot;},&quot;callsign&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;GitAddRemote&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Record&quot;},&quot;pathTitle&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;The Broken Pipeline&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Record&quot;}}">
+const ICON_NAMES = ['link','download','linkedin','git-branch','circle-check'];
+
+class Component extends DCLogic {
+  state = { toast: null };
+
+  componentDidMount() { this.iconMap = {}; this.buildIcons(); }
+
+  buildIcons(tries) {
+    tries = tries || 0;
+    if (!window.lucide || !window.lucide.createIcons) {
+      if (tries < 40) setTimeout(() => this.buildIcons(tries + 1), 120);
+      return;
+    }
+    const holder = document.createElement('div');
+    holder.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none';
+    holder.innerHTML = ICON_NAMES.map(n => '<i data-lucide="' + n + '"></i>').join('');
+    document.body.appendChild(holder);
+    try { window.lucide.createIcons({ nameAttr: 'data-lucide' }); } catch (e) {}
+    const svgs = holder.querySelectorAll('svg');
+    const map = {};
+    svgs.forEach((svg, i) => { map[ICON_NAMES[i]] = svg.outerHTML; });
+    document.body.removeChild(holder);
+    this.iconMap = map;
+    this.forceUpdate();
+  }
+
+  icon(name, size, color) {
+    const raw = this.iconMap && this.iconMap[name];
+    if (!raw) return React.createElement('span', { style: { display: 'inline-flex', width: size || 16, height: size || 16, flex: 'none' } });
+    const s = size || 16;
+    const html = raw.replace('width="24"', 'width="' + s + '"').replace('height="24"', 'height="' + s + '"');
+    return React.createElement('span', { style: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', lineHeight: 0, color: color || 'currentColor', flex: 'none' }, dangerouslySetInnerHTML: { __html: html } });
+  }
+
+  showToast(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this._toastT);
+    this._toastT = setTimeout(() => this.setState({ toast: null }), 2600);
+  }
+
+  renderVals() {
+    const recordId = 'PA-2026-07-0412';
+    return {
+      theme: this.props.theme || 'dark',
+      cert: {
+        name: this.props.operativeName ?? 'R. Vasquez',
+        callsign: (this.props.callsign ?? 'rvasquez').toUpperCase(),
+        path: this.props.pathTitle ?? 'The Broken Pipeline',
+        line: 'Diagnosed a silent queue failure, implemented dead-letter handling under deadline pressure, and defended the fix in retro. All three challenges graded. All four decision points survived.',
+        date: '2026-07-12',
+        recordId: recordId,
+        stats: [
+          { value: '1,200', label: 'XP earned' },
+          { value: '3 / 3', label: 'Challenges' },
+          { value: '4 / 4', label: 'Decisions' },
+          { value: '02', label: 'Clearance' },
+        ],
+      },
+      copyLink: () => {
+        const url = 'https://verify.presstronic.com/' + recordId;
+        try { navigator.clipboard.writeText(url); } catch (e) {}
+        this.showToast('Share link copied \u2014 ' + url);
+      },
+      download: () => this.showToast('Preparing PDF \u2014 completion record ' + recordId),
+      shareLinkedIn: () => this.showToast('Opening LinkedIn certification form\u2026'),
+      toast: this.state.toast,
+      linkIcon: this.icon('link', 14), downloadIcon: this.icon('download', 14), shareIcon: this.icon('linkedin', 14),
+      branchIcon: this.icon('git-branch', 18),
+      toastIcon: this.icon('circle-check', 15, 'var(--accent-fg-cyan)'),
+    };
+  }
+}
+</script>
+</body>
+</html>

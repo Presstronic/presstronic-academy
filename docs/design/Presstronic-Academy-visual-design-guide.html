@@ -1,0 +1,1262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Presstronic Academy Visual Design Guide</title>
+    <style>
+      @import url("Presstronic-Academy-design-system/tokens/colors.css");
+      @import url("Presstronic-Academy-design-system/tokens/typography.css");
+      @import url("Presstronic-Academy-design-system/tokens/spacing.css");
+
+      @page {
+        size: 16in 9in;
+        margin: 0;
+      }
+
+      :root {
+        --guide-bg: #07090c;
+        --guide-bg-2: #0b0d10;
+        --guide-panel: #11141a;
+        --guide-panel-2: #16181b;
+        --guide-panel-3: #1c1f23;
+        --guide-border: rgba(255, 255, 255, 0.12);
+        --guide-border-strong: rgba(255, 255, 255, 0.22);
+        --guide-text: #eceef1;
+        --guide-body: #b4bac2;
+        --guide-muted: #8a929c;
+        --guide-dim: #5c646d;
+        --guide-cyan: #22c3d6;
+        --guide-cyan-hi: #7ee7f0;
+        --guide-cyan-dark: #0e8a9b;
+        --guide-mag: #cf3f9a;
+        --guide-mag-hi: #f087c8;
+        --guide-volt: #d4b52e;
+        --guide-volt-hi: #f0dd7c;
+        --guide-green: #46c97e;
+        --guide-red: #e14b4b;
+        --guide-paper: #f7f8f9;
+        --guide-paper-card: #ffffff;
+        --guide-light-text: #14171a;
+        --guide-light-body: #33393f;
+        --guide-light-muted: #5c646d;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        background: var(--guide-bg);
+        color: var(--guide-body);
+        font-family: var(--font-body);
+      }
+
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .page {
+        position: relative;
+        width: 16in;
+        height: 9in;
+        overflow: hidden;
+        page-break-after: always;
+        background:
+          linear-gradient(rgba(126, 231, 240, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(126, 231, 240, 0.035) 1px, transparent 1px),
+          radial-gradient(circle at 82% 8%, rgba(34, 195, 214, 0.12), transparent 24%),
+          radial-gradient(circle at 8% 96%, rgba(207, 63, 154, 0.08), transparent 26%),
+          var(--guide-bg);
+        background-size: 24px 24px, 24px 24px, auto, auto, auto;
+      }
+
+      .page::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        pointer-events: none;
+      }
+
+      .top-rail {
+        position: absolute;
+        inset: 0 0 auto;
+        height: 8px;
+        background: linear-gradient(90deg, var(--guide-cyan), var(--guide-volt) 55%, var(--guide-mag));
+      }
+
+      .page-mark {
+        position: absolute;
+        top: 34px;
+        right: 44px;
+        color: var(--guide-cyan-hi);
+        font: 600 11px/1 var(--font-mono);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .kicker {
+        margin: 0 0 9px;
+        color: var(--guide-cyan-hi);
+        font: 600 11px/1.2 var(--font-mono);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        color: var(--guide-text);
+        font: 700 60px/0.95 var(--font-display);
+        letter-spacing: -0.025em;
+      }
+
+      h2 {
+        color: var(--guide-text);
+        font: 700 30px/1.05 var(--font-display);
+        letter-spacing: -0.015em;
+      }
+
+      h3 {
+        color: var(--guide-text);
+        font: 600 18px/1.1 var(--font-display);
+      }
+
+      p,
+      li {
+        color: var(--guide-body);
+        font: 400 13px/1.45 var(--font-body);
+      }
+
+      .lead {
+        color: var(--guide-body);
+        font-size: 17px;
+        line-height: 1.42;
+      }
+
+      .mono {
+        font-family: var(--font-mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .tiny {
+        color: var(--guide-muted);
+        font: 500 10px/1.2 var(--font-mono);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .panel {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent), var(--guide-panel);
+        border: 1px solid var(--guide-border);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
+      }
+
+      .panel.soft {
+        background: var(--guide-panel-2);
+        box-shadow: none;
+      }
+
+      .notched {
+        clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        height: 28px;
+        padding: 0 11px;
+        border: 1px solid var(--guide-border-strong);
+        background: var(--guide-panel-2);
+        color: var(--guide-text);
+        font: 600 10px/1 var(--font-mono);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .tag.cyan {
+        background: var(--guide-cyan);
+        border-color: var(--guide-cyan);
+        color: #05181b;
+      }
+
+      .tag.volt {
+        background: var(--guide-volt-hi);
+        border-color: var(--guide-volt-hi);
+        color: #171503;
+      }
+
+      .tag.mag {
+        background: var(--guide-mag);
+        border-color: var(--guide-mag);
+        color: white;
+      }
+
+      .rule-card {
+        border: 1px solid var(--guide-border);
+        background: var(--guide-panel-2);
+        padding: 15px 16px 14px 18px;
+        min-height: 72px;
+        position: relative;
+      }
+
+      .rule-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 4px;
+        background: var(--accent, var(--guide-cyan));
+      }
+
+      .rule-card h3 {
+        margin-bottom: 8px;
+        font: 600 12px/1.1 var(--font-mono);
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .rule-card p {
+        color: var(--guide-muted);
+        font-size: 11px;
+        line-height: 1.32;
+      }
+
+      .cover {
+        padding: 54px 58px;
+      }
+
+      .cover-grid {
+        display: grid;
+        grid-template-columns: 1fr 430px;
+        gap: 54px;
+        height: 100%;
+        align-items: start;
+      }
+
+      .cover-title {
+        margin-top: 42px;
+        max-width: 850px;
+      }
+
+      .cover-title .lead {
+        max-width: 820px;
+        margin-top: 24px;
+      }
+
+      .tag-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+
+      .toc {
+        padding: 26px;
+        margin-top: 32px;
+      }
+
+      .toc-row {
+        display: grid;
+        grid-template-columns: 44px 122px 1fr;
+        gap: 14px;
+        align-items: center;
+        min-height: 42px;
+        border-top: 1px solid var(--guide-border);
+      }
+
+      .toc-row:first-of-type {
+        margin-top: 18px;
+      }
+
+      .toc-num {
+        color: var(--guide-cyan-hi);
+        font: 700 13px/1 var(--font-mono);
+      }
+
+      .toc-name {
+        color: var(--guide-text);
+        font: 600 13px/1 var(--font-body);
+      }
+
+      .toc-desc {
+        color: var(--guide-muted);
+        font: 400 12px/1.25 var(--font-body);
+      }
+
+      .mission-specimen {
+        margin-top: 34px;
+        padding: 24px;
+      }
+
+      .spec-window {
+        border: 1px solid var(--guide-border);
+        background: #060708;
+        min-height: 300px;
+      }
+
+      .spec-topbar {
+        height: 42px;
+        border-bottom: 1px solid var(--guide-border);
+        background: var(--guide-panel);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 14px;
+      }
+
+      .spec-body {
+        display: grid;
+        grid-template-columns: 144px 1fr;
+        gap: 22px;
+        padding: 20px;
+      }
+
+      .rail-nav {
+        display: grid;
+        gap: 10px;
+      }
+
+      .rail-item {
+        border: 1px solid var(--guide-border);
+        background: var(--guide-bg-2);
+        padding: 9px 10px;
+        color: var(--guide-muted);
+        font: 600 10px/1 var(--font-mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .rail-item.active {
+        color: var(--guide-cyan-hi);
+        border-color: rgba(126, 231, 240, 0.45);
+        background: rgba(34, 195, 214, 0.08);
+      }
+
+      .mission-card {
+        border: 1px solid var(--guide-border);
+        background: var(--guide-panel);
+        padding: 18px;
+      }
+
+      .bar {
+        height: 8px;
+        background: var(--guide-bg);
+        border: 1px solid var(--guide-border);
+        margin-top: 18px;
+      }
+
+      .bar span {
+        display: block;
+        height: 100%;
+        background: var(--guide-cyan);
+      }
+
+      .page-pad {
+        padding: 42px 48px;
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: end;
+        gap: 28px;
+        margin-bottom: 20px;
+      }
+
+      .section-head p {
+        max-width: 760px;
+      }
+
+      .principles {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-top: 22px;
+      }
+
+      .theme-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .theme-card {
+        border: 1px solid var(--guide-border);
+        min-height: 246px;
+        padding: 22px;
+      }
+
+      .theme-card.light {
+        background: var(--guide-paper);
+        border-color: rgba(20, 23, 26, 0.16);
+      }
+
+      .theme-card.light h3,
+      .theme-card.light p {
+        color: var(--guide-light-text);
+      }
+
+      .theme-card.light .tiny {
+        color: var(--guide-cyan-dark);
+      }
+
+      .theme-card h3 {
+        font-size: 24px;
+        margin-top: 24px;
+      }
+
+      .theme-row {
+        display: grid;
+        grid-template-columns: 118px 1fr;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .theme-nav {
+        display: grid;
+        gap: 8px;
+      }
+
+      .theme-nav div {
+        height: 28px;
+        border: 1px solid currentColor;
+        color: var(--guide-border-strong);
+      }
+
+      .theme-panel {
+        border: 1px solid var(--guide-border);
+        background: var(--guide-panel-2);
+        padding: 16px;
+      }
+
+      .light .theme-panel {
+        background: var(--guide-paper-card);
+        border-color: rgba(20, 23, 26, 0.16);
+      }
+
+      .colors {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 11px;
+      }
+
+      .chip-card {
+        border: 1px solid var(--guide-border);
+        background: var(--guide-panel-2);
+        min-height: 128px;
+        padding: 10px;
+      }
+
+      .paint {
+        height: 38px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        margin-bottom: 10px;
+      }
+
+      .chip-card code {
+        display: block;
+        color: var(--guide-text);
+        font: 600 10px/1.2 var(--font-mono);
+      }
+
+      .chip-card .hex {
+        display: block;
+        color: var(--guide-muted);
+        font: 500 9px/1.2 var(--font-mono);
+        margin: 4px 0 8px;
+      }
+
+      .chip-card strong {
+        display: block;
+        color: var(--guide-text);
+        font: 600 11px/1.2 var(--font-body);
+        margin-bottom: 4px;
+      }
+
+      .chip-card span:last-child {
+        display: block;
+        color: var(--guide-muted);
+        font: 400 9.5px/1.25 var(--font-body);
+      }
+
+      .type-table,
+      .map-table {
+        border: 1px solid var(--guide-border);
+      }
+
+      .table-row {
+        display: grid;
+        grid-template-columns: 180px 210px 1fr;
+        min-height: 34px;
+        border-top: 1px solid var(--guide-border);
+      }
+
+      .table-row:first-child {
+        border-top: 0;
+      }
+
+      .table-row div {
+        padding: 10px 12px;
+        border-left: 1px solid var(--guide-border);
+        font-size: 11px;
+        line-height: 1.2;
+      }
+
+      .table-row div:first-child {
+        border-left: 0;
+        color: var(--guide-cyan-hi);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .table-row div:nth-child(2) {
+        color: var(--guide-text);
+        font-family: var(--font-mono);
+      }
+
+      .table-row div:nth-child(3) {
+        color: var(--guide-muted);
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .component-board {
+        padding: 22px;
+      }
+
+      .button-row,
+      .badge-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .button {
+        display: inline-flex;
+        height: 38px;
+        min-width: 124px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--guide-border-strong);
+        background: var(--guide-panel-2);
+        color: var(--guide-text);
+        font: 600 10px/1 var(--font-mono);
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .button.primary {
+        background: var(--guide-cyan);
+        border-color: var(--guide-cyan);
+        color: #05181b;
+      }
+
+      .button.hover {
+        background: rgba(34, 195, 214, 0.1);
+        border-color: rgba(126, 231, 240, 0.45);
+        color: var(--guide-cyan-hi);
+      }
+
+      .button.focus {
+        outline: 2px solid var(--guide-cyan);
+        outline-offset: 2px;
+      }
+
+      .button.disabled {
+        opacity: 0.42;
+      }
+
+      .button.danger {
+        background: var(--guide-red);
+        border-color: var(--guide-red);
+        color: white;
+      }
+
+      .field-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .field label {
+        display: block;
+        color: var(--guide-cyan-hi);
+        font: 600 10px/1 var(--font-mono);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .input {
+        height: 38px;
+        border: 1px solid var(--guide-border-strong);
+        background: #060708;
+        color: var(--guide-text);
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        font-size: 12px;
+      }
+
+      .input.focus {
+        border-color: var(--guide-cyan);
+        box-shadow: 0 0 0 1px var(--guide-cyan);
+      }
+
+      .input.error {
+        border-color: var(--guide-red);
+        color: var(--guide-red);
+      }
+
+      .state-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .state {
+        display: grid;
+        grid-template-columns: 92px 1fr;
+        gap: 12px;
+        min-height: 32px;
+        align-items: center;
+        border: 1px solid var(--guide-border);
+        background: var(--guide-panel-2);
+        padding: 8px 10px;
+      }
+
+      .state b {
+        color: var(--state, var(--guide-cyan-hi));
+        font: 600 10px/1 var(--font-mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .state span {
+        color: var(--guide-muted);
+        font-size: 11px;
+        line-height: 1.2;
+      }
+
+      .screen-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .screen-card {
+        border: 1px solid var(--guide-border);
+        background: var(--guide-panel-2);
+        padding: 12px;
+        min-height: 150px;
+      }
+
+      .screen-card h3 {
+        color: var(--guide-cyan-hi);
+        font: 600 11px/1 var(--font-mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+
+      .wire {
+        display: grid;
+        grid-template-columns: 84px 1fr;
+        grid-template-rows: 24px 58px;
+        gap: 8px;
+      }
+
+      .wire div {
+        border: 1px solid var(--guide-border);
+        background: #060708;
+      }
+
+      .wire div:first-child {
+        grid-column: 1 / -1;
+      }
+
+      .screen-card p {
+        margin-top: 10px;
+        color: var(--guide-muted);
+        font-size: 10.5px;
+        line-height: 1.25;
+      }
+
+      .qa-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .check {
+        display: grid;
+        grid-template-columns: 58px 1fr;
+        gap: 10px;
+        align-items: center;
+        border: 1px solid var(--guide-border);
+        background: var(--guide-panel-2);
+        min-height: 34px;
+        padding: 8px 10px;
+      }
+
+      .check b {
+        color: var(--guide-green);
+        font: 700 9px/1 var(--font-mono);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .check span {
+        color: var(--guide-body);
+        font-size: 11px;
+        line-height: 1.2;
+      }
+
+      .source-note {
+        position: absolute;
+        left: 48px;
+        right: 48px;
+        bottom: 24px;
+        color: var(--guide-dim);
+        font: 500 9px/1.3 var(--font-mono);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="page cover">
+      <div class="top-rail"></div>
+      <div class="page-mark">00 / Contents</div>
+      <div class="cover-grid">
+        <div>
+          <p class="kicker">Presstronic Academy</p>
+          <div class="cover-title">
+            <h1>Frontend Visual Design Guide</h1>
+            <p class="lead">
+              Presentation-quality handoff for a React and shadcn implementation. This guide
+              defines the Academy UI language so engineers do not guess about color, typography,
+              layout density, component variants, interaction states, or screen structure.
+            </p>
+          </div>
+          <div class="tag-row">
+            <span class="tag cyan">Dark first</span>
+            <span class="tag">Light specified</span>
+            <span class="tag volt">shadcn/ui</span>
+            <span class="tag mag">Lucide icons</span>
+            <span class="tag">Radius 0</span>
+          </div>
+          <div class="mission-specimen panel notched">
+            <div class="spec-window">
+              <div class="spec-topbar">
+                <span class="tiny">Academy console specimen</span>
+                <span class="tiny">Checkpoint 04 / 78%</span>
+              </div>
+              <div class="spec-body">
+                <div class="rail-nav">
+                  <div class="rail-item active">Catalog</div>
+                  <div class="rail-item">Story</div>
+                  <div class="rail-item">Lesson</div>
+                  <div class="rail-item">Progress</div>
+                </div>
+                <div class="mission-card">
+                  <p class="tiny">Active path</p>
+                  <h2>Logic under pressure</h2>
+                  <p>
+                    The interface should feel like a technical instrument panel under narrative
+                    pressure: compact, sharp, useful, and never decorative for its own sake.
+                  </p>
+                  <div class="bar"><span style="width: 78%"></span></div>
+                  <div class="tag-row">
+                    <span class="tag cyan">Resume</span>
+                    <span class="tag">Trace</span>
+                    <span class="tag volt">Branch choice</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="toc panel">
+          <p class="kicker">Document map</p>
+          <h2>Table of contents</h2>
+          <p>Use this page as the first frame in design reviews and engineering handoff.</p>
+          <div class="toc-row">
+            <div class="toc-num">00</div>
+            <div class="toc-name">Foundations</div>
+            <div class="toc-desc">Principles, dark and light modes, paint chips, typography.</div>
+          </div>
+          <div class="toc-row">
+            <div class="toc-num">01</div>
+            <div class="toc-name">Components</div>
+            <div class="toc-desc">shadcn primitives, variants, fields, overlays, states.</div>
+          </div>
+          <div class="toc-row">
+            <div class="toc-num">02</div>
+            <div class="toc-name">Patterns</div>
+            <div class="toc-desc">Shells, screen blueprints, responsive rules, build contract.</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="page page-pad">
+      <div class="top-rail"></div>
+      <div class="page-mark">00 / Foundations</div>
+      <div class="section-head">
+        <div>
+          <p class="kicker">Foundation</p>
+          <h2>Night City at a desk job</h2>
+          <p>
+            Operational, dense, sharp, and legible. The product should feel like a learning
+            instrument panel, not a course marketplace, brochure, or generic SaaS dashboard.
+          </p>
+        </div>
+        <span class="tag cyan">Design law</span>
+      </div>
+      <div class="principles">
+        <div class="rule-card" style="--accent: var(--guide-cyan)">
+          <h3>Square geometry</h3>
+          <p>Radius is 0 by default. Use the notched top-right corner only for marquee panels and irreversible moments.</p>
+        </div>
+        <div class="rule-card" style="--accent: var(--guide-volt)">
+          <h3>Cyan does work</h3>
+          <p>Cyan owns primary actions, keyboard focus, active navigation, progress, and selected controls.</p>
+        </div>
+        <div class="rule-card" style="--accent: var(--guide-mag)">
+          <h3>Mono means system</h3>
+          <p>IBM Plex Mono is for labels, metadata, IDs, telemetry, code, state names, and compact controls.</p>
+        </div>
+        <div class="rule-card" style="--accent: var(--guide-green)">
+          <h3>No empty theatre</h3>
+          <p>Use compact panels, rows, grids, dividers, and anchored controls. Avoid giant blank space and hero-card staging.</p>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top: 22px; padding: 24px">
+        <div class="section-head" style="margin-bottom: 16px">
+          <div>
+            <p class="kicker">Themes</p>
+            <h2>Dark and light are both specified</h2>
+            <p>Dark is the default. Light is a full operational mapping, not an incomplete inversion.</p>
+          </div>
+          <span class="tag volt">Same semantics</span>
+        </div>
+        <div class="theme-grid">
+          <div class="theme-card">
+            <p class="tiny">Dark default</p>
+            <h3>Continue mission thread</h3>
+            <p>Graphite surfaces, cool borders, cyan focus rings, volt decisions, magenta story signal.</p>
+            <div class="theme-row">
+              <div class="theme-nav">
+                <div style="color: rgba(126, 231, 240, 0.5)"></div>
+                <div style="color: rgba(255, 255, 255, 0.14)"></div>
+                <div style="color: rgba(255, 255, 255, 0.14)"></div>
+              </div>
+              <div class="theme-panel">
+                <p class="tiny">Active path</p>
+                <p style="margin-top: 8px">Use <strong style="color: var(--guide-text)">--surface-card</strong> over <strong style="color: var(--guide-text)">--surface-page</strong>.</p>
+                <div class="bar"><span style="width: 62%"></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="theme-card light">
+            <p class="tiny">Light override</p>
+            <h3>Continue mission thread</h3>
+            <p>Paper surfaces, dark graphite text, subdued borders, identical accent meanings.</p>
+            <div class="theme-row">
+              <div class="theme-nav">
+                <div style="color: rgba(14, 138, 155, 0.45)"></div>
+                <div style="color: rgba(20, 23, 26, 0.16)"></div>
+                <div style="color: rgba(20, 23, 26, 0.16)"></div>
+              </div>
+              <div class="theme-panel">
+                <p class="tiny">Active path</p>
+                <p style="margin-top: 8px">Use <strong>--surface-card</strong> over <strong>--surface-page</strong>.</p>
+                <div class="bar" style="background: #eceef1"><span style="width: 62%"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top: 22px; padding: 24px">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Color system</p>
+            <h2>Paint chips and usage rules</h2>
+            <p>Each chip has a role. Engineers should choose semantic tokens, not nearby hues.</p>
+          </div>
+          <span class="tag">18 chips</span>
+        </div>
+        <div class="colors">
+          <div class="chip-card"><div class="paint" style="background:#0a0b0c"></div><code>--gray-950</code><span class="hex">#0A0B0C</span><strong>Page canvas</strong><span>Deepest app background and full-page wells.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#101214"></div><code>--gray-900</code><span class="hex">#101214</span><strong>Raised shell</strong><span>Sidebar, topbar, and quiet fixed regions.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#16181b"></div><code>--gray-850</code><span class="hex">#16181B</span><strong>Cards</strong><span>Default card and repeated item surface.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#1c1f23"></div><code>--gray-800</code><span class="hex">#1C1F23</span><strong>Hover fill</strong><span>Interactive panel hover and overlays.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#2a2e33"></div><code>--gray-700</code><span class="hex">#2A2E33</span><strong>Borders</strong><span>Strong dividers and control outlines.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#5c646d"></div><code>--gray-500</code><span class="hex">#5C646D</span><strong>Muted text</strong><span>Secondary labels and disabled context.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#eceef1"></div><code>--gray-100</code><span class="hex">#ECEEF1</span><strong>Dark text</strong><span>Primary headings on dark surfaces.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#f7f8f9"></div><code>--gray-50</code><span class="hex">#F7F8F9</span><strong>Light page</strong><span>Light-mode background only.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#22c3d6"></div><code>--cyan-500</code><span class="hex">#22C3D6</span><strong>Primary</strong><span>CTA, focus, active tab, progress.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#14a5b8"></div><code>--cyan-600</code><span class="hex">#14A5B8</span><strong>Pressed</strong><span>Pressed cyan and light-mode primary.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#d4b52e"></div><code>--volt-500</code><span class="hex">#D4B52E</span><strong>Decision</strong><span>Choice rows, caution, branch pressure.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#cf3f9a"></div><code>--mag-500</code><span class="hex">#CF3F9A</span><strong>Story</strong><span>Rare narrative accents and XP signal.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#46c97e"></div><code>--green-400</code><span class="hex">#46C97E</span><strong>Success</strong><span>Passed tests, completion, certificates.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#e14b4b"></div><code>--red-500</code><span class="hex">#E14B4B</span><strong>Danger</strong><span>Failed tests, destructive actions, errors.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#ffffff"></div><code>--surface-raised</code><span class="hex">#FFFFFF</span><strong>Light card</strong><span>Inputs, cards, and popovers in light mode.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#14171a"></div><code>--light-strong</code><span class="hex">#14171A</span><strong>Light text</strong><span>Headings and important text on light.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#f0dd7c"></div><code>--volt-300</code><span class="hex">#F0DD7C</span><strong>Volt foreground</strong><span>Readable warning foreground on dark tints.</span></div>
+          <div class="chip-card"><div class="paint" style="background:#7ee7f0"></div><code>--cyan-300</code><span class="hex">#7EE7F0</span><strong>Cyan foreground</strong><span>Readable accent text on dark tints.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page page-pad">
+      <div class="top-rail"></div>
+      <div class="page-mark">00 / Type</div>
+      <div class="section-head">
+        <div>
+          <p class="kicker">Typography and rhythm</p>
+          <h2>Archivo reads; IBM Plex Mono reports</h2>
+          <p>Use style tokens. Do not scale font size with viewport width. Keep body letter spacing at 0.</p>
+        </div>
+        <span class="tag">No guessing</span>
+      </div>
+      <div class="two-col">
+        <div class="panel" style="padding: 24px">
+          <div class="type-table">
+            <div class="table-row"><div>Display/Hero</div><div>Archivo Bold 56/60</div><div>Only guide covers and true first-viewport hero moments.</div></div>
+            <div class="table-row"><div>Display/H1</div><div>Archivo Bold 42/44</div><div>Top-level app page titles: Catalog, Mission Log, Certificates.</div></div>
+            <div class="table-row"><div>Heading/H2</div><div>Archivo Semibold 32/37</div><div>Major page sections and large panels.</div></div>
+            <div class="table-row"><div>Heading/H3</div><div>Archivo Semibold 25/29</div><div>Card groups, modal titles, lesson section headings.</div></div>
+            <div class="table-row"><div>Heading/H4</div><div>Archivo Semibold 20/23</div><div>Compact panel headings and card titles.</div></div>
+            <div class="table-row"><div>Body/Base</div><div>Archivo Regular 15/24</div><div>Default copy, instructions, course descriptions, dialog body.</div></div>
+            <div class="table-row"><div>Body/Small</div><div>Archivo Regular 13/21</div><div>Dense helper copy, descriptions in cards, empty-state text.</div></div>
+            <div class="table-row"><div>Label/Mono</div><div>IBM Plex Mono 12/14</div><div>Uppercase labels, filters, metadata, status, button labels.</div></div>
+            <div class="table-row"><div>Code/Base</div><div>IBM Plex Mono 13/20</div><div>Code editor, terminal output, IDs, telemetry values.</div></div>
+          </div>
+        </div>
+        <div class="panel notched" style="padding: 28px">
+          <p class="kicker">Type specimen</p>
+          <h1 style="font-size: 50px">Pressure makes the lesson visible.</h1>
+          <p class="lead" style="margin-top: 22px">
+            Body copy is practical and direct. It explains what changed, what matters, and what the learner can do next.
+          </p>
+          <p class="mono" style="margin-top: 30px; color: var(--guide-volt-hi); font-size: 12px">
+            STATE: ACTIVE / CHECKPOINT 04 / 78% / TESTS 8 OF 10
+          </p>
+          <div class="bar"><span style="width: 78%"></span></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top: 22px; padding: 24px">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Spacing, shape, and motion</p>
+            <h2>Compact, square, predictable</h2>
+            <p>Everything should feel engineered: clear rows, stable dimensions, visible focus, and short motion.</p>
+          </div>
+        </div>
+        <div class="principles">
+          <div class="rule-card" style="--accent: var(--guide-cyan)"><h3>8px grid</h3><p>Use 4, 8, 12, 16, 24, 32, 48, 64. Page padding is clamp(28px, 3vw, 48px).</p></div>
+          <div class="rule-card" style="--accent: var(--guide-volt)"><h3>Radius 0</h3><p>No rounded cards, pills, or soft SaaS capsules. The system is square by default.</p></div>
+          <div class="rule-card" style="--accent: var(--guide-mag)"><h3>Notch</h3><p>One clipped top-right corner for marquee panels, dangerous confirmation, or narrative gates.</p></div>
+          <div class="rule-card" style="--accent: var(--guide-green)"><h3>Motion</h3><p>120ms hover/focus, 180ms overlays, 220ms page transitions. Respect reduced motion.</p></div>
+        </div>
+      </div>
+      <div class="source-note">
+        Source: docs/scifi-mockups/Presstronic-Academy-design-system tokens, mockups, component cards, guidelines, and Academy HTML screens.
+      </div>
+    </section>
+
+    <section class="page page-pad">
+      <div class="top-rail"></div>
+      <div class="page-mark">01 / Components</div>
+      <div class="section-head">
+        <div>
+          <p class="kicker">Components</p>
+          <h2>shadcn primitives, Academy variants</h2>
+          <p>Use shadcn for behavior and accessibility. Use Academy tokens for visual decisions.</p>
+        </div>
+        <span class="tag cyan">React ready</span>
+      </div>
+      <div class="panel component-board">
+        <p class="kicker">Actions</p>
+        <h2>Buttons, badges, progress</h2>
+        <p style="margin: 8px 0 18px">Command labels are compact, uppercase, mono, and consistent across action, toast, and result.</p>
+        <div class="button-row">
+          <span class="button primary">Resume</span>
+          <span class="button hover">Hover</span>
+          <span class="button focus">Focus</span>
+          <span class="button">Secondary</span>
+          <span class="button danger">Reset</span>
+          <span class="button disabled">Locked</span>
+        </div>
+        <div class="badge-row" style="margin-top: 18px">
+          <span class="tag cyan">Active path</span>
+          <span class="tag volt">Decision</span>
+          <span class="tag mag">Story beat</span>
+          <span class="tag" style="color: var(--guide-green)">Passed</span>
+          <span class="tag" style="color: var(--guide-red)">Failed</span>
+          <span class="tag">Locked</span>
+        </div>
+        <div class="bar"><span style="width: 62%"></span></div>
+        <p class="tiny" style="margin-top: 8px">Progress requires a visible mono value: 62%, 04/11, passed 8/10.</p>
+      </div>
+      <div class="two-col" style="margin-top: 18px">
+        <div class="panel component-board">
+          <p class="kicker">Forms</p>
+          <h2>Inputs, selects, toggles</h2>
+          <div class="field-grid" style="margin-top: 18px">
+            <div class="field"><label>Email address</label><div class="input">learner@presstronic.dev</div></div>
+            <div class="field"><label>Callsign</label><div class="input focus">NOVA-17</div></div>
+            <div class="field"><label style="color: var(--guide-red)">Access code</label><div class="input error">Expired token</div></div>
+            <div class="field"><label>Difficulty</label><div class="input">Operator <span style="margin-left:auto;color:var(--guide-cyan-hi)">ChevronDown</span></div></div>
+          </div>
+          <div class="principles" style="grid-template-columns: repeat(2, 1fr); margin-top: 18px">
+            <div class="rule-card" style="--accent: var(--guide-cyan)"><h3>Focus</h3><p>2px cyan ring or border. Must be keyboard visible on every control.</p></div>
+            <div class="rule-card" style="--accent: var(--guide-red)"><h3>Error</h3><p>Red border, red helper copy, and an error icon. Include recovery language.</p></div>
+          </div>
+        </div>
+        <div class="panel component-board">
+          <p class="kicker">Surfaces</p>
+          <h2>Cards, tabs, navigation</h2>
+          <div class="spec-window" style="margin-top: 18px; min-height: 260px">
+            <div class="spec-topbar"><span class="tiny">Catalog</span><span class="tiny">Search / Filter / Sort</span></div>
+            <div class="spec-body" style="grid-template-columns: 130px 1fr">
+              <div class="rail-nav">
+                <div class="rail-item active">Catalog</div>
+                <div class="rail-item">Lessons</div>
+                <div class="rail-item">Story</div>
+                <div class="rail-item">Certs</div>
+              </div>
+              <div>
+                <div class="button-row">
+                  <span class="button primary" style="min-width:80px;height:28px">Active</span>
+                  <span class="button" style="min-width:80px;height:28px">Saved</span>
+                  <span class="button" style="min-width:80px;height:28px">Done</span>
+                </div>
+                <div class="mission-card" style="margin-top: 14px">
+                  <p class="tiny">Course card</p>
+                  <h3>Systems Thinking Under Load</h3>
+                  <p>Hover changes border and fill only. No lift, no nested-card wrapper.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p style="margin-top: 12px">Cards are repeated items. Page sections are full-width bands or single panels, not cards inside cards.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page page-pad">
+      <div class="top-rail"></div>
+      <div class="page-mark">01 / States</div>
+      <div class="section-head">
+        <div>
+          <p class="kicker">States and overlays</p>
+          <h2>Every state has a visible treatment</h2>
+          <p>States apply across buttons, cards, rows, fields, dialogs, code panes, and learning primitives.</p>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel component-board">
+          <p class="kicker">Required state matrix</p>
+          <div class="state-list" style="margin-top: 16px">
+            <div class="state"><b>Default</b><span>Neutral border plus readable content.</span></div>
+            <div class="state"><b>Hover</b><span>Border/fill change. No lift shadow.</span></div>
+            <div class="state"><b>Focus</b><span>2px cyan outline, visible by keyboard.</span></div>
+            <div class="state" style="--state: var(--guide-volt)"><b>Active</b><span>Pressed fill or selected rail.</span></div>
+            <div class="state" style="--state: var(--guide-dim)"><b>Disabled</b><span>Dim but legible. Explain why.</span></div>
+            <div class="state"><b>Loading</b><span>Skeleton rows or mono progress text.</span></div>
+            <div class="state" style="--state: var(--guide-volt)"><b>Empty</b><span>Missing thing plus one recovery CTA.</span></div>
+            <div class="state" style="--state: var(--guide-green)"><b>Success</b><span>Green outcome with concrete result.</span></div>
+            <div class="state" style="--state: var(--guide-volt)"><b>Warning</b><span>Volt decision or caution language.</span></div>
+            <div class="state" style="--state: var(--guide-red)"><b>Error</b><span>Red failure plus recovery copy.</span></div>
+          </div>
+        </div>
+        <div class="panel component-board notched">
+          <p class="kicker">Overlay specimen</p>
+          <div style="height: 260px; background: rgba(0,0,0,.65); border: 1px solid var(--guide-border); margin-top: 16px; position: relative">
+            <div class="panel" style="position:absolute; left:72px; top:52px; width: 360px; padding: 22px">
+              <p class="kicker" style="color: var(--guide-red)">Blocking dialog</p>
+              <h3>Confirm checkpoint reset</h3>
+              <p style="margin-top: 10px">Use dialogs for blocking decisions only. Scrim is black at 65%.</p>
+              <div class="button-row" style="margin-top: 18px">
+                <span class="button" style="min-width:92px">Cancel</span>
+                <span class="button danger" style="min-width:92px">Reset</span>
+              </div>
+            </div>
+          </div>
+          <div class="panel soft" style="margin-top: 14px; padding: 14px; border-left: 4px solid var(--guide-cyan)">
+            <p class="tiny" style="color: var(--guide-text)">Checkpoint saved</p>
+            <p>Toasts appear bottom-center. Auto-dismiss except destructive failures.</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel component-board" style="margin-top: 18px">
+        <p class="kicker">Learning primitives</p>
+        <div class="two-col" style="margin-top: 14px">
+          <div>
+            <div class="mission-card" style="border-color: rgba(240, 221, 124, 0.55)">
+              <p class="tiny" style="color: var(--guide-volt-hi)">Choice 02</p>
+              <h3>Patch the transcript</h3>
+              <p>Choice rows use volt for selected or consequential decisions. They are rows, not decorative cards.</p>
+            </div>
+            <div class="mission-card" style="margin-top: 10px">
+              <p class="tiny">Choice 03</p>
+              <h3>Ask the mentor for another route</h3>
+            </div>
+          </div>
+          <div class="spec-window" style="min-height: 220px">
+            <div class="spec-topbar"><span class="tiny" style="color: var(--guide-red)">Test runner / failed</span></div>
+            <pre style="margin:0; padding:18px; color:var(--guide-text); font: 400 13px/1.45 var(--font-mono)">function calibrate(signal) {
+  return signal.trim().toUpperCase();
+}
+
+> expected: NOVA-17
+> received: nova-17
+Hint: normalize before branching.</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page page-pad">
+      <div class="top-rail"></div>
+      <div class="page-mark">02 / Patterns</div>
+      <div class="section-head">
+        <div>
+          <p class="kicker">Screen patterns</p>
+          <h2>Shell geometry and product blueprints</h2>
+          <p>The shell keeps the product dense and scannable. Screen families reuse regions rather than inventing layouts.</p>
+        </div>
+        <span class="tag cyan">No blank canvas</span>
+      </div>
+      <div class="panel component-board">
+        <p class="kicker">App shell</p>
+        <div class="two-col" style="margin-top: 14px">
+          <div class="spec-window" style="min-height: 260px">
+            <div class="spec-topbar"><span class="tiny">Desktop 1440+</span><span class="tiny">56px topbar</span></div>
+            <div class="spec-body">
+              <div class="rail-nav">
+                <div class="rail-item active">264px rail</div>
+                <div class="rail-item">Catalog</div>
+                <div class="rail-item">Story</div>
+                <div class="rail-item">Certs</div>
+              </div>
+              <div class="mission-card">
+                <p class="tiny">Content region</p>
+                <h3>clamp(28px, 3vw, 48px) page padding</h3>
+                <p>Use dense grids, anchored toolbars, stable tile dimensions, and predictable navigation.</p>
+              </div>
+            </div>
+          </div>
+          <div class="spec-window" style="min-height: 260px; width: 270px; justify-self: center">
+            <div class="spec-topbar"><span class="tiny">Mobile</span></div>
+            <div style="padding: 16px">
+              <div class="mission-card">
+                <p class="tiny">Stacked</p>
+                <p>Use drawer or bottom nav. Do not compress desktop tables.</p>
+              </div>
+            </div>
+            <div style="height: 42px; border-top:1px solid var(--guide-border); margin-top:38px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel component-board" style="margin-top: 18px">
+        <p class="kicker">Primary screen families</p>
+        <div class="screen-grid" style="margin-top: 16px">
+          <div class="screen-card"><h3>Catalog</h3><div class="wire"><div></div><div></div><div></div></div><p>Filters/search/sort, course grid, nearest-match empty states.</p></div>
+          <div class="screen-card"><h3>Onboarding</h3><div class="wire"><div></div><div></div><div></div></div><p>Goal cards, skill calibration, recommended path summary.</p></div>
+          <div class="screen-card"><h3>Story</h3><div class="wire"><div></div><div></div><div></div></div><p>Narrative pane, choice rows, branch map, consequence labels.</p></div>
+          <div class="screen-card"><h3>Lesson</h3><div class="wire"><div></div><div></div><div></div></div><p>Instructions, code editor, tests, AI mentor, checkpoint progress.</p></div>
+          <div class="screen-card"><h3>Progression</h3><div class="wire"><div></div><div></div><div></div></div><p>Commit graph, skill meters, next action, earned milestones.</p></div>
+          <div class="screen-card"><h3>Certificate</h3><div class="wire"><div></div><div></div><div></div></div><p>Credential, verification data, share actions, earned-state toast.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page page-pad">
+      <div class="top-rail"></div>
+      <div class="page-mark">02 / Build</div>
+      <div class="section-head">
+        <div>
+          <p class="kicker">Implementation contract</p>
+          <h2>React, shadcn, Tailwind, and QA rules</h2>
+          <p>Variants map to semantic intent rather than one-off color choices. Tokens live in CSS variables.</p>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="panel component-board">
+          <p class="kicker">shadcn mapping</p>
+          <div class="map-table" style="margin-top: 14px">
+            <div class="table-row"><div>Button</div><div>variants</div><div>default, secondary, destructive, ghost, icon, loading.</div></div>
+            <div class="table-row"><div>Badge</div><div>variants</div><div>status, decision, story, success, danger, locked.</div></div>
+            <div class="table-row"><div>Card</div><div>patterns</div><div>course, story, metric, certificate, empty.</div></div>
+            <div class="table-row"><div>Tabs</div><div>patterns</div><div>catalog filters and lesson panels.</div></div>
+            <div class="table-row"><div>Input</div><div>states</div><div>label, helper, error, focus, disabled.</div></div>
+            <div class="table-row"><div>Select/Menu</div><div>uses</div><div>sort, filter, account, course navigation.</div></div>
+            <div class="table-row"><div>Dialog/Drawer</div><div>overlays</div><div>blocking decisions and mobile navigation.</div></div>
+            <div class="table-row"><div>Toast/Tooltip</div><div>feedback</div><div>compact confirmation and icon clarification.</div></div>
+            <div class="table-row"><div>Progress</div><div>meters</div><div>course completion, tests, skill meters.</div></div>
+            <div class="table-row"><div>Accordion</div><div>content</div><div>path modules, lesson sections, FAQ.</div></div>
+          </div>
+        </div>
+        <div class="panel component-board">
+          <p class="kicker">CSS variable contract</p>
+          <pre style="margin: 14px 0 0; padding: 18px; background:#060708; border:1px solid var(--guide-border); color:var(--guide-text); font: 400 12px/1.45 var(--font-mono)">:root {
+  --background: var(--surface-page);
+  --foreground: var(--text-body);
+  --card: var(--surface-card);
+  --primary: var(--cyan-500);
+  --ring: var(--cyan-500);
+  --destructive: var(--red-500);
+  --radius: 0;
+
+  --academy-story: var(--mag-500);
+  --academy-warning: var(--volt-500);
+  --academy-success: var(--green-400);
+  --academy-code-bg: #060708;
+}</pre>
+          <div class="principles" style="grid-template-columns: repeat(2, 1fr); margin-top: 16px">
+            <div class="rule-card" style="--accent: var(--guide-cyan)"><h3>Icons</h3><p>Use Lucide: Play, Check, X, AlertTriangle, Lock, Search, Filter, ChevronDown, Terminal, BookOpen, Route, Trophy, Share2.</p></div>
+            <div class="rule-card" style="--accent: var(--guide-volt)"><h3>Copy</h3><p>Plain verbs, sentence case outside mono labels, no filler, no apologetic error text.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel component-board" style="margin-top: 18px">
+        <p class="kicker">Do not ship checklist</p>
+        <div class="qa-grid" style="margin-top: 16px">
+          <div class="check"><b>Check</b><span>No giant empty vertical gaps inside or below page frames.</span></div>
+          <div class="check"><b>Check</b><span>Cyan focus states are visible with keyboard navigation.</span></div>
+          <div class="check"><b>Check</b><span>Light mode maps background, surface, text, muted, border, and accents explicitly.</span></div>
+          <div class="check"><b>Check</b><span>Paint chips include token, hex, role, and usage rule.</span></div>
+          <div class="check"><b>Check</b><span>Controls cover default, hover, focus, active, disabled, loading, error, and empty.</span></div>
+          <div class="check"><b>Check</b><span>Cards are not nested inside cards; page sections use bands or panels.</span></div>
+          <div class="check"><b>Check</b><span>Lucide icons are consistent and emoji are not used as UI symbols.</span></div>
+          <div class="check"><b>Check</b><span>Text fits buttons, cards, tabs, headers, and mobile containers.</span></div>
+        </div>
+      </div>
+      <div class="source-note">
+        Built from Presstronic Academy.html plus every file in docs/scifi-mockups/Presstronic-Academy-design-system.
+      </div>
+    </section>
+  </body>
+</html>
