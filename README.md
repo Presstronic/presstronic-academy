@@ -1,68 +1,61 @@
 # Presstronic Academy
 
-An interactive learning platform for branching, story-driven software mastery.
+Presstronic Academy is a branching, story-driven software learning platform.
 
-[![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-blue.svg)](./LICENSE.md)
+This repository is being reset around a monorepo structure for a React frontend,
+a Java Spring Boot API, shared frontend packages, and future independently
+deployable services.
 
-## Overview
-
-Presstronic Academy helps developers practice through guided learning paths, lessons, and coding challenges. The project is being rebuilt around a Spring Boot backend and a React frontend.
-
-## Current Structure
+## Repository Structure
 
 ```text
 apps/
-  frontend/   React application
-docs/         Product mockups and architecture notes
+  web/              Learner-facing React application
+  admin/            Admin and instructor React application
+  api/              Primary Spring Boot REST and WebSocket API
+  worker/           Background jobs and orchestration
+  gateway/          Optional API gateway, if needed later
+
+packages/
+  ui/               Shared ShadCN-based React components
+  contracts/        OpenAPI specs, generated clients, and shared schemas
+  eslint-config/    Shared frontend lint configuration
+  tsconfig/         Shared TypeScript configuration
+
+services/
+  code-runner/      Independent code execution service
+  notifications/    Independent notification delivery service
+  billing/          Independent billing integration service
+
+infra/
+  docker/           Docker assets
+  compose/          Compose files and environment overlays
+  scripts/          Infrastructure scripts
+
+docs/               Product, architecture, and design documentation
+spec/               OpenSpec capability specifications
 ```
 
-The backend is intentionally absent while the Spring Boot service is being introduced.
+## Current Status
+
+The current branch preserves the product documentation and specification work
+while removing implementation remnants from the previous frontend/backend stack.
+Application scaffolds will be added in focused follow-up changes.
 
 ## Planned Stack
 
-- Backend: Java and Spring Boot
-- Frontend: React
+- Learner web app: React, TypeScript, Vite, Tailwind CSS, ShadCN
+- Admin app: React, TypeScript, Vite, Tailwind CSS, ShadCN
+- Primary API: Java, Spring Boot, REST, WebSockets
+- Future API contracts: OpenAPI first, with GraphQL considered only where it adds clear value
 - Database: PostgreSQL
 - Cache: Redis
-- Object storage: S3-compatible storage for local development
-- Infrastructure: Docker Compose for local dependencies
-
-## Local Infrastructure
-
-Start local dependencies:
-
-```bash
-docker compose up -d postgres redis minio
-```
-
-Stop local dependencies:
-
-```bash
-docker compose down
-```
-
-Available services:
-
-- PostgreSQL: `localhost:5432`
-- Redis: `localhost:6379`
-- MinIO API: `localhost:9000`
-- MinIO Console: `localhost:9001`
-
-## Frontend
-
-The frontend lives in `apps/frontend`.
-
-```bash
-cd apps/frontend
-npm install
-npm run dev
-```
-
-The development server runs at `http://localhost:5173`.
+- Object storage: S3-compatible local storage
+- Local infrastructure: Docker Compose
 
 ## Documentation
 
 - [Agent instructions](./AGENTS.md)
-- [Domain context](./CONTEXT.md)
-- [Multi-tenancy ADR](docs/archive/adr/0001-multi-tenancy.md)
-- Product mockups: `docs/pa-mockup-*.html`
+- [Design documentation](./docs/design/)
+- [OpenSpec specifications](./spec/specs/)
+- [Feature analysis](./docs/feature-analysis.md)
