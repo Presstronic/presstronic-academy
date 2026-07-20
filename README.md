@@ -23,9 +23,9 @@ packages/
   tsconfig/         Shared TypeScript configuration
 
 services/
-  code-runner/      Independent code execution service
-  notifications/    Independent notification delivery service
-  billing/          Independent billing integration service
+  code-runner/      Future independent code execution service
+  notifications/    Future independent notification delivery service
+  billing/          Future independent billing integration service
 
 infra/
   docker/           Docker assets
@@ -41,6 +41,10 @@ openspec/           OpenSpec capability specifications and active changes
 The current branch preserves the product documentation and specification work
 while removing implementation remnants from the previous frontend/backend stack.
 Application scaffolds will be added in focused follow-up changes.
+
+`apps/gateway` and `services/*` are reserved placeholders. They stay empty until
+a future OpenSpec proposal justifies activating those independently deployable
+boundaries.
 
 ## Planned Stack
 
@@ -109,3 +113,4 @@ Recommended branch flow:
 - [Design documentation](./docs/design/)
 - [OpenSpec specifications](./openspec/specs/)
 - [Feature analysis](./docs/feature-analysis.md)
+- [OpenSpec follow-up proposals](./docs/openspec-follow-up-proposals.md)
