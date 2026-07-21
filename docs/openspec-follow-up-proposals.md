@@ -5,12 +5,12 @@ and `academy-mvp-scope`.
 
 ## Recommended Order
 
-1. `define-academy-code-prompts-and-deliveries`
+1. `define-academy-code-prompts-and-deliveries` (accepted)
    - Define Code Prompts, Workspaces, Deliveries, attempts, tests/evaluation checks, basic review reports, revision flow, and learner evidence.
    - Keep hiring assessments out of MVP while preserving a compatible foundation.
    - Depends on `academy-mvp-scope`.
 
-2. `define-academy-admin-content-management`
+2. `define-academy-admin-content-management` (next)
    - Define admin authoring for tracks, courses, modules, lessons, challenges, Code Prompts, preview, and publish/unpublish.
    - Establish the minimum content operations needed to run the first shippable path.
    - Depends on `academy-mvp-scope`.
@@ -57,6 +57,6 @@ and `academy-mvp-scope`.
 
 ## First Implementation Recommendation
 
-Start with `define-academy-code-prompts-and-deliveries`, then `define-academy-admin-content-management`.
+Start with `define-academy-admin-content-management`.
 
-Reason: `academy-mvp-scope` makes Code Prompts and Deliveries the central differentiator. Define that behavior before scaffolding so frontend, admin, backend, contracts, and code-runner work all target the same learning loop.
+Reason: `academy-code-prompts-deliveries` now defines the learner prompt and Delivery loop. Admin content management should come next so tracks, courses, lessons, challenges, Code Prompts, preview, and publishing are specified before implementation scaffolding.
