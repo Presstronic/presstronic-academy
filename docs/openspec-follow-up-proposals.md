@@ -10,12 +10,12 @@ and `academy-mvp-scope`.
    - Keep hiring assessments out of MVP while preserving a compatible foundation.
    - Depends on `academy-mvp-scope`.
 
-2. `define-academy-admin-content-management` (next)
+2. `define-academy-admin-content-management` (accepted)
    - Define admin authoring for tracks, courses, modules, lessons, challenges, Code Prompts, preview, and publish/unpublish.
    - Establish the minimum content operations needed to run the first shippable path.
    - Depends on `academy-mvp-scope`.
 
-3. `define-academy-content-health-dashboard`
+3. `define-academy-content-health-dashboard` (next)
    - Define instructor/admin visibility into stuck learners, failed attempts, prompt delivery outcomes, and content quality signals.
    - Depends on `academy-mvp-scope`.
 
@@ -57,6 +57,6 @@ and `academy-mvp-scope`.
 
 ## First Implementation Recommendation
 
-Start with `define-academy-admin-content-management`.
+Start with `define-academy-content-health-dashboard`.
 
-Reason: `academy-code-prompts-deliveries` now defines the learner prompt and Delivery loop. Admin content management should come next so tracks, courses, lessons, challenges, Code Prompts, preview, and publishing are specified before implementation scaffolding.
+Reason: `academy-code-prompts-deliveries` defines the learner prompt and Delivery loop, and `academy-admin-content-management` defines how that content is authored and published. Content health should come next so failed attempts, stuck signals, and Delivery outcomes are specified before implementation scaffolding hardens the data shape.
