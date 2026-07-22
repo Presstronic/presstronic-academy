@@ -1,0 +1,43 @@
+:root {
+  color-scheme: dark;
+  --academy-graphite-950: #080b10;
+  --academy-graphite-900: #0d1118;
+  --academy-graphite-850: #121821;
+  --academy-graphite-800: #17202b;
+  --academy-graphite-700: #243140;
+  --academy-graphite-600: #344354;
+  --academy-graphite-300: #a9b4c0;
+  --academy-graphite-100: #eef3f7;
+  --academy-cyan-400: #31d9ff;
+  --academy-cyan-300: #72e6ff;
+  --academy-cyan-100: #d9f8ff;
+  --academy-volt-300: #f2d94e;
+  --academy-volt-100: #fff4af;
+  --academy-magenta-400: #e86bff;
+  --academy-green-400: #6ee7a8;
+  --academy-green-100: #d7ffe8;
+  --academy-red-400: #ff6b6b;
+  --academy-red-100: #ffe1e1;
+  --academy-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: Archivo, Inter, ui-sans-serif, system-ui, sans-serif;
+  background: var(--academy-graphite-950);
+  color: var(--academy-graphite-100);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--academy-graphite-950);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+* {
+  box-sizing: border-box;
+}

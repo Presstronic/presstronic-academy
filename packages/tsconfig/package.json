@@ -1,0 +1,11 @@
+{
+  "name": "@presstronic-academy/tsconfig",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "files": [
+    "base.json",
+    "react-app.json",
+    "react-package.json"
+  ]
+}
