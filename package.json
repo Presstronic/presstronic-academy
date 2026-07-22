@@ -4,12 +4,18 @@
   "version": "0.1.0",
   "packageManager": "pnpm@9.15.0",
   "scripts": {
+    "dev": "pnpm -r --parallel --filter './apps/*' --if-present dev",
     "check": "pnpm -r --if-present check",
     "build": "pnpm -r --if-present build",
     "test": "pnpm -r --if-present test",
     "lint": "pnpm -r --if-present lint",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "format": "pnpm -r --if-present format",
     "api:build": "gradle -p apps/api build",
     "api:test": "gradle -p apps/api test",
     "api:bootRun": "gradle -p apps/api bootRun --args='--spring.profiles.active=local'"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
   }
 }
