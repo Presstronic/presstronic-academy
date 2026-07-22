@@ -23,12 +23,12 @@ and `academy-mvp-scope`.
    - Define no-direct-answer, hint-ladder, lesson/prompt scope, explain-don't-solve, and authored-hint fallback behavior.
    - Depends on `academy-mvp-scope`.
 
-5. `scaffold-frontend-workspaces` (next)
+5. `scaffold-frontend-workspaces` (accepted)
    - Create `apps/web`, `apps/admin`, `packages/ui`, `packages/tsconfig`, and `packages/eslint-config` implementation scaffolding.
    - Establish strict TypeScript, Vite, Tailwind CSS, ShadCN, linting, formatting, and workspace scripts.
    - Depends on `academy-monorepo-structure` and should reference `academy-mvp-scope`.
 
-6. `scaffold-spring-boot-api`
+6. `scaffold-spring-boot-api` (next)
    - Create the primary `apps/api` Spring Boot application.
    - Establish REST/WebSocket-ready backend structure, health checks, test setup, and local profile conventions.
    - Depends on `academy-monorepo-structure` and should reference `academy-mvp-scope`.
@@ -57,6 +57,6 @@ and `academy-mvp-scope`.
 
 ## First Implementation Recommendation
 
-Start with `scaffold-frontend-workspaces`.
+Start with `scaffold-spring-boot-api`.
 
-Reason: `academy-code-prompts-deliveries`, `academy-admin-content-management`, `academy-content-health-dashboard`, and `academy-ai-mentor-guardrails` now define the learner prompt loop, content operations, operational health visibility, and bounded help behavior. Frontend workspace scaffolding should come next so the React web/admin structure can be created against the accepted product boundaries.
+Reason: `academy-frontend-workspaces` will define the frontend application scaffolding. Spring Boot API scaffolding should come next so the primary REST/WebSocket backend boundary exists before shared contracts and local infrastructure are implemented.
