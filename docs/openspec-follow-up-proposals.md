@@ -15,11 +15,11 @@ and `academy-mvp-scope`.
    - Establish the minimum content operations needed to run the first shippable path.
    - Depends on `academy-mvp-scope`.
 
-3. `define-academy-content-health-dashboard` (next)
+3. `define-academy-content-health-dashboard` (accepted)
    - Define instructor/admin visibility into stuck learners, failed attempts, prompt delivery outcomes, and content quality signals.
    - Depends on `academy-mvp-scope`.
 
-4. `define-academy-ai-mentor-guardrails`
+4. `define-academy-ai-mentor-guardrails` (next)
    - Define no-direct-answer, hint-ladder, lesson/prompt scope, explain-don't-solve, and authored-hint fallback behavior.
    - Depends on `academy-mvp-scope`.
 
@@ -57,6 +57,6 @@ and `academy-mvp-scope`.
 
 ## First Implementation Recommendation
 
-Start with `define-academy-content-health-dashboard`.
+Start with `define-academy-ai-mentor-guardrails`.
 
-Reason: `academy-code-prompts-deliveries` defines the learner prompt and Delivery loop, and `academy-admin-content-management` defines how that content is authored and published. Content health should come next so failed attempts, stuck signals, and Delivery outcomes are specified before implementation scaffolding hardens the data shape.
+Reason: `academy-code-prompts-deliveries`, `academy-admin-content-management`, and `academy-content-health-dashboard` now define the learner prompt loop, content operations, and operational health visibility. AI mentor guardrails should come next so help behavior is bounded before live AI or authored-hint implementation.
