@@ -28,12 +28,12 @@ and `academy-mvp-scope`.
    - Establish strict TypeScript, Vite, Tailwind CSS, ShadCN, linting, formatting, and workspace scripts.
    - Depends on `academy-monorepo-structure` and should reference `academy-mvp-scope`.
 
-6. `scaffold-spring-boot-api` (next)
+6. `scaffold-spring-boot-api` (accepted)
    - Create the primary `apps/api` Spring Boot application.
    - Establish REST/WebSocket-ready backend structure, health checks, test setup, and local profile conventions.
    - Depends on `academy-monorepo-structure` and should reference `academy-mvp-scope`.
 
-7. `setup-shared-api-contracts`
+7. `setup-shared-api-contracts` (next)
    - Create the initial `packages/contracts` structure for OpenAPI documents, shared schemas, and generated TypeScript clients.
    - Define how frontend clients consume generated contracts.
    - Depends on `scaffold-spring-boot-api` for initial API shape or may run in parallel if using contract-first stubs.
@@ -57,6 +57,6 @@ and `academy-mvp-scope`.
 
 ## First Implementation Recommendation
 
-Start with `scaffold-spring-boot-api`.
+Start with `setup-shared-api-contracts`.
 
-Reason: `academy-frontend-workspaces` will define the frontend application scaffolding. Spring Boot API scaffolding should come next so the primary REST/WebSocket backend boundary exists before shared contracts and local infrastructure are implemented.
+Reason: `academy-spring-boot-api` will establish the primary REST/WebSocket backend scaffold. Shared API contracts should come next so frontend clients and future backend feature work can align on OpenAPI documents, shared schemas, and generated TypeScript client boundaries before product endpoints expand.

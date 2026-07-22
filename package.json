@@ -7,6 +7,9 @@
     "check": "pnpm -r --if-present check",
     "build": "pnpm -r --if-present build",
     "test": "pnpm -r --if-present test",
-    "lint": "pnpm -r --if-present lint"
+    "lint": "pnpm -r --if-present lint",
+    "api:build": "gradle -p apps/api build",
+    "api:test": "gradle -p apps/api test",
+    "api:bootRun": "gradle -p apps/api bootRun --args='--spring.profiles.active=local'"
   }
 }
