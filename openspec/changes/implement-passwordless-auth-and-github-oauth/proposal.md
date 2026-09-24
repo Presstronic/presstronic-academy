@@ -89,12 +89,28 @@ Each item is labeled with a risk level and the chosen mitigation path. Mitigatio
 
 ## Security Follow-Ups
 
-These are the security items intentionally deferred out of this change. Each should become its own OpenSpec change when picked up:
+These are the security items intentionally deferred out of this change. Each should become its own OpenSpec change when picked up. The list is grouped so it is obvious which items grew out of this change's risk register and which items close broader OWASP Top 10 gaps that no auth change alone would cover.
 
-- `harden-web-security-headers` — CSP, HSTS, `Referrer-Policy`, `X-Content-Type-Options`, `Permissions-Policy`, and the `SameSite=Strict` refresh cookie posture across the frontend + API.
-- `add-mfa-and-webauthn` — Optional WebAuthn/passkey second factor + step-up re-verification UI when `rv=false`.
-- `add-account-takeover-notifications` — New-device sign-in email + session/device listing + revoke, gated on `activate-notifications-service` and `academy-profile` support.
-- `add-linked-identities-management` — Explicit view + unlink for `github` (and future) identities under `academy-profile`.
-- `add-captcha-and-suspicious-score` — CAPTCHA challenge on suspicious-score threshold; wires into the existing Bucket4j buckets.
-- `add-dpop-proof-of-possession` — DPoP or per-session key binding once the frontend can hold non-extractable `CryptoKey` material.
-- `harden-migration-review` — Shadow-database CI run + manual approval gate for destructive DDL.
+### Auth-adjacent follow-ups (grew out of this change's risk register)
+
+- `harden-web-security-headers` — CSP, HSTS, `Referrer-Policy`, `X-Content-Type-Options`, `Permissions-Policy`, and the `SameSite=Strict` refresh cookie posture across the frontend + API. Covers OWASP **A02** (Cryptographic Failures — HSTS) and **A05** (Security Misconfiguration).
+- `add-mfa-and-webauthn` — Optional WebAuthn/passkey second factor + step-up re-verification UI when `rv=false`. Covers OWASP **A07** (Identification and Authentication Failures — MFA gap).
+- `add-account-takeover-notifications` — New-device sign-in email + session/device listing + revoke, gated on `activate-notifications-service` and `academy-profile` support. Covers OWASP **A07** (post-compromise detection) and **A09** (Logging and Monitoring — user-facing alerting).
+- `add-linked-identities-management` — Explicit view + unlink for `github` (and future) identities under `academy-profile`. Covers OWASP **A01** (Broken Access Control — account-owned integrations).
+- `add-captcha-and-suspicious-score` — CAPTCHA challenge on suspicious-score threshold; wires into the existing Bucket4j buckets. Covers OWASP **A07** (abuse controls beyond fixed rate limits).
+- `add-dpop-proof-of-possession` — DPoP or per-session key binding once the frontend can hold non-extractable `CryptoKey` material. Covers OWASP **A02** (bearer-token exposure) and **A07** (session token theft).
+- `harden-migration-review` — Shadow-database CI run + manual approval gate for destructive DDL. Covers OWASP **A08** (Software and Data Integrity Failures — deploy-time DB changes).
+
+### OWASP Top 10 gap follow-ups (not owned by any auth change)
+
+These close broader web-application exposures that this auth change does not — and cannot — address on its own. Named here so they are not silently deferred forever.
+
+- `define-authorization-model` — Roles/RBAC (or ABAC) contract, per-resource ownership checks, IDOR test convention. This change proves callers are authenticated; this follow-up proves they are authorized. Covers OWASP **A01** (Broken Access Control — authorization semantics and IDOR).
+- `define-injection-defense` — Repo-wide requirements banning string-concatenated native queries, header-injection protection on log-emitted URLs, HTML-escape requirements for the two-step consume landing and future rendered surfaces, output-encoding requirements for the frontend, and a static-analysis gate in CI (SpotBugs/Semgrep). Covers OWASP **A03** (Injection).
+- `define-supply-chain-hygiene` — SBOM generation (CycloneDX), Dependabot/Renovate wiring, `./gradlew dependencyCheck` (OWASP Dependency-Check) and `npm audit` gates in CI, lockfile-freshness enforcement, renewal cadence. Covers OWASP **A06** (Vulnerable and Outdated Components).
+- `secure-actuator-and-infra-defaults` — Actuator endpoint lockdown (auth-required, minimal surface), custom error pages that do not leak framework identity, Postgres role least-privilege, Redis auth in non-local envs, MinIO admin-console posture. Covers OWASP **A05** (Security Misconfiguration — server/infra defaults).
+- `define-build-and-deploy-integrity` — SLSA build provenance target, Cosign container-image signing, SRI on the frontend bundle, deserialization-safety requirements. Covers OWASP **A08** (Software and Data Integrity Failures — build/deploy chain).
+- `define-security-observability` — Central log destination, alert thresholds (e.g. N `refresh_grace_hit` events per hour pages oncall), retention policy, PII/token redaction rules, SIEM integration story. Tied to `activate-notifications-service` for the alerting leg. Covers OWASP **A09** (Security Logging and Monitoring Failures).
+- `define-egress-controls` — Outbound proxy or Spring `RestTemplate`/`WebClient` interceptor enforcing an egress allowlist, cloud-metadata-endpoint block (`169.254.169.254`), DNS rebinding protection. Needed before capabilities that will fetch user-supplied URLs (AI mentor references, code runner resources, notifications avatar fetch) reach production. Covers OWASP **A10** (Server-Side Request Forgery).
+- `define-persistence-data-protection` — KMS-backed JWKS keyset custody, at-rest encryption for PII columns (`primary_email`, `callsign`) via `pgcrypto` or app-side envelope encryption, logging redaction requirements for tokens and emails. Covers OWASP **A02** (Cryptographic Failures — key custody and PII at rest).
+- `define-ci-security-baseline` — Rootless Docker or per-job ephemeral runners for Testcontainers, secret-scanning on push (gitleaks), forbidden-string checks (e.g. hardcoded JWT keys), CODEOWNERS coverage report. Absorbs the Testcontainers Docker-socket item from this change's Low risks. Covers OWASP **A05** (Security Misconfiguration — CI plane) and **A08** (build integrity).
