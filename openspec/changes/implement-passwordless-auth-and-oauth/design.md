@@ -6,7 +6,7 @@ See `proposal.md` — Why.
 
 Current state that shapes the approach:
 
-- `apps/api` is a bare Spring Boot 3.5.3 / Java 21 scaffold with only `starter-web`, `starter-actuator`, `starter-validation`, and `starter-websocket`. No Spring Security, no persistence layer, no auth code (`apps/api/build.gradle.kts:16-24`).
+- `apps/api` is a bare Spring Boot 4.1 / Java 25 scaffold (after `upgrade-spring-boot-4`) with only `starter-webmvc`, `starter-actuator`, `starter-validation`, and `starter-websocket`. No Spring Security, no persistence layer, no auth code (`apps/api/build.gradle.kts:16-24`).
 - `apps/web` is a starter placeholder (`apps/web/src/app.tsx`). No auth screen, no session store, no route guards.
 - `docker-compose.yml` runs Postgres 17, Redis 7, and MinIO but nothing in the applications connects to them.
 - `academy-auth-entry`'s modified requirements (this change) mandate: passwordless sign-in email (magic link + one-time code) plus GitHub and Google OAuth, short-lived + rotatable sessions, silent refresh, non-revealing responses, step-up re-verification, and abuse controls on email requests, link/code verification, and OAuth callbacks.
