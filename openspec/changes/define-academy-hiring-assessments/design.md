@@ -32,6 +32,12 @@ Candidate assessment evidence should not automatically become learner profile or
 
 Alternative considered: treat candidates as learners. That would blur privacy, consent, and review expectations.
 
+### Decision: Candidates sign in with an assessment-bound invite
+
+A candidate receives a single-use invite link for one assessment. Opening it sends a one-time code to the invited email (the same code machinery learners use) and the candidate confirms it **before** the assessment timer starts. That creates a candidate session scoped to that one assessment attempt, which expires when the time window closes. Candidates do not need an Academy learner account, and nothing about sign-in can interrupt a running attempt. A candidate may later choose to link the attempt to a learner account; evidence still follows candidate privacy rules.
+
+Alternative considered: require candidates to enroll as learners. That blurs candidate and learner privacy and adds sign-in friction to a timed, high-stakes flow.
+
 ## Risks / Trade-offs
 
 - Assessment needs can distort MVP learning -> keep implementation deferred and scoped as future/B2B.
@@ -48,6 +54,5 @@ Alternative considered: treat candidates as learners. That would blur privacy, c
 
 ## Open Questions
 
-- Should candidates authenticate through the same auth surface as learners?
 - What evidence can be shared with companies, candidates, and internal reviewers?
 - Which integrity controls are required before a paid B2B assessment launch?

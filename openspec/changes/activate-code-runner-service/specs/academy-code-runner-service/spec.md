@@ -70,3 +70,28 @@ THEN health and readiness signals distinguish service availability from individu
 GIVEN jobs are processed
 WHEN observability is reviewed
 THEN job counts, durations, failure categories, timeout counts, and queue pressure are available or intentionally deferred with documented rationale.
+
+### Requirement: Internal Request Authentication
+The service SHALL accept requests only from authenticated internal callers that are allowed to perform the requested operation.
+
+#### Scenario: Unauthenticated internal request
+GIVEN a request reaches the service without a valid internal caller identity
+WHEN the service processes it
+THEN the service rejects it before any side effect
+AND records the rejection.
+
+#### Scenario: Caller limited to its operations
+GIVEN an authenticated internal caller requests an operation it is not allowed to perform
+WHEN the service processes it
+THEN the service rejects it.
+
+#### Scenario: End-user credentials are not accepted
+GIVEN a request carries a learner or staff session cookie
+WHEN it reaches the service
+THEN the service does not treat the cookie as authentication.
+
+#### Scenario: Execution environment holds no service credentials
+GIVEN a job runs untrusted code
+WHEN the sandbox is prepared
+THEN no service token, signing key, or caller credential is present in the sandbox
+AND results are returned to the caller by the runner, not by the untrusted code.

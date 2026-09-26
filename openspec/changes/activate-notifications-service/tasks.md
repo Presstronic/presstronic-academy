@@ -4,6 +4,7 @@
 - [ ] 1.2 Define service package/build/runtime metadata.
 - [ ] 1.3 Document ownership between product event sources, worker orchestration, and notification delivery.
 - [ ] 1.4 Keep provider credentials and production sending disabled until accepted.
+- [ ] 1.5 Define transactional email as the first channel for authentication messages, including sending-domain SPF, DKIM, and DMARC and sign-in delivery-latency monitoring.
 
 ## 2. Delivery Model
 
@@ -11,6 +12,7 @@
 - [ ] 2.2 Define delivery lifecycle states, retries, idempotency, and failure handling.
 - [ ] 2.3 Define channel, template, preference, and suppression boundaries.
 - [ ] 2.4 Define observability requirements for delivery attempts and failures.
+- [ ] 2.5 Define internal caller authentication (short-lived signed service tokens or mTLS), the allowed callers and operations, and rejection logging.
 
 ## 3. Verification
 

@@ -40,3 +40,22 @@ The billing service SHALL provide visibility into provider events, entitlement c
 GIVEN billing integration is active
 WHEN operators inspect billing health
 THEN webhook failures, replay needs, provider API failures, and entitlement update outcomes are visible.
+
+### Requirement: Internal Request Authentication
+The service SHALL accept requests only from authenticated internal callers that are allowed to perform the requested operation.
+
+#### Scenario: Unauthenticated internal request
+GIVEN a request reaches the service without a valid internal caller identity
+WHEN the service processes it
+THEN the service rejects it before any side effect
+AND records the rejection.
+
+#### Scenario: Caller limited to its operations
+GIVEN an authenticated internal caller requests an operation it is not allowed to perform
+WHEN the service processes it
+THEN the service rejects it.
+
+#### Scenario: End-user credentials are not accepted
+GIVEN a request carries a learner or staff session cookie
+WHEN it reaches the service
+THEN the service does not treat the cookie as authentication.

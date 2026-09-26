@@ -7,6 +7,7 @@ Hiring assessments are a future/B2B direction that should reuse the Academy Code
 - Define future hiring assessment concepts: company assignment, candidate attempt, rubric, evaluation, reviewer access, and assessment outcome.
 - Clarify how assessments reuse Code Prompt and Delivery foundations.
 - Establish anti-cheating, candidate privacy, time-window, and review integrity boundaries.
+- Define candidate authentication through an assessment-bound invite rather than a learner account.
 - Keep B2B implementation, tenant administration, pricing, and production assessment workflows deferred.
 
 ## Capabilities
