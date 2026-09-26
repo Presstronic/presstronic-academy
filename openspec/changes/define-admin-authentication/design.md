@@ -3,7 +3,7 @@
 - `implement-passwordless-auth-and-oauth` gives every account one or more verified email identities, optional GitHub/Google identities, cookie-based JWT access + rotating refresh sessions, a double-submit CSRF header, Redis rate limiting, and a recently-verified (`rv`) signal. It covers `apps/web` only.
 - `apps/admin` is a scaffold served by Vite on port 5174 locally. It will call `apps/api`, which must share a registrable domain with the admin app (the same-origin startup assertion from the auth change is extended to the admin origin).
 - `academy-admin-content-management` defines author, reviewer, publisher, and read-only permissions and expects authentication and authorization systems to provide identity and permission decisions.
-- Spring Boot 3.5 ships Spring Security 6.5, which includes WebAuthn relying-party support.
+- Spring Boot 4.1 ships Spring Security 7.1, which includes WebAuthn relying-party support.
 
 ## Goals / Non-Goals
 
