@@ -47,3 +47,24 @@ GIVEN anti-cheating, plagiarism detection, monitoring, or time-window enforcemen
 WHEN integrity behavior is reviewed
 THEN the controls are explicitly specified by assessment proposals
 AND are not implied solely by learner Delivery behavior.
+
+### Requirement: Candidate Authentication
+The hiring assessment capability SHALL authenticate candidates through a single-use invite bound to one assessment and SHALL complete verification before the assessment time window starts.
+
+#### Scenario: Candidate verifies before the timer
+GIVEN a candidate opens a valid assessment invite
+WHEN the candidate enters the one-time code sent to the invited email
+THEN the system creates a candidate session scoped to that assessment attempt
+AND the assessment time window starts only after verification succeeds.
+
+#### Scenario: Candidate session scope
+GIVEN a candidate has a candidate session
+WHEN the candidate requests learner or other assessment content
+THEN the system denies access
+AND the session expires when the assessment time window closes.
+
+#### Scenario: Invite reuse is rejected
+GIVEN an invite has already been redeemed or has expired
+WHEN it is opened again
+THEN the system rejects it
+AND tells the candidate to contact the assessing company.

@@ -38,6 +38,12 @@ The proposal should define the safety contract before locking the exact runtime 
 
 Alternative considered: choose Docker, Firecracker, or a managed runner now. That is premature before workload and isolation needs are validated.
 
+### Decision: Authenticate every internal request
+
+`services/code-runner` accepts requests only from named internal callers presenting a short-lived signed service token (audience = this service, issuer = the caller, minutes-long expiry) or an equivalent mutual-TLS identity. Learner and staff cookies are never forwarded to or accepted by the service. Each caller is allowed only the operations it needs.
+
+Alternative considered: trust the private network. A single compromised pod or misconfigured ingress would then reach every service.
+
 ## Risks / Trade-offs
 
 - Sandbox escapes or resource abuse -> require isolation, resource limits, and no shared secrets in execution environments.

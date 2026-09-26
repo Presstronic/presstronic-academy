@@ -11,6 +11,7 @@
 - [ ] 2.2 Define job lifecycle states and failure semantics.
 - [ ] 2.3 Define sandbox isolation, timeout, resource, and cancellation requirements.
 - [ ] 2.4 Define artifact and log handling boundaries.
+- [ ] 2.5 Define internal caller authentication (short-lived signed service tokens or mTLS), the allowed callers and operations, and rejection logging.
 
 ## 3. Evaluation Integration
 

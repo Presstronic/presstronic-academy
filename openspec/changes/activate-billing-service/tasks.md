@@ -11,6 +11,7 @@
 - [ ] 2.2 Define provider webhook handling, idempotency, replay, and audit expectations.
 - [ ] 2.3 Define failure handling when provider state and Academy state diverge.
 - [ ] 2.4 Define observability requirements for billing events and entitlement changes.
+- [ ] 2.5 Define internal caller authentication (short-lived signed service tokens or mTLS), the allowed callers and operations, and rejection logging.
 
 ## 3. Verification
 

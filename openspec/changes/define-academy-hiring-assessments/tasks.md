@@ -11,6 +11,7 @@
 - [ ] 2.2 Define time-window and attempt constraints.
 - [ ] 2.3 Define anti-cheating and plagiarism detection boundaries without implementing them.
 - [ ] 2.4 Define rubric visibility and reviewer access constraints.
+- [ ] 2.5 Define candidate authentication: assessment-bound single-use invite, email code confirmed before the timer starts, and a candidate session scoped to one attempt.
 
 ## 3. Verification
 

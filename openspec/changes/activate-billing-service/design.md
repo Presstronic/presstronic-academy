@@ -32,6 +32,12 @@ Application access should depend on normalized entitlements rather than direct p
 
 Alternative considered: let feature code query provider state directly. That couples product behavior to provider APIs and failure modes.
 
+### Decision: Authenticate every internal request
+
+`services/billing` accepts requests only from named internal callers presenting a short-lived signed service token (audience = this service, issuer = the caller, minutes-long expiry) or an equivalent mutual-TLS identity. Learner and staff cookies are never forwarded to or accepted by the service. Each caller is allowed only the operations it needs.
+
+Alternative considered: trust the private network. A single compromised pod or misconfigured ingress would then reach every service.
+
 ## Risks / Trade-offs
 
 - Premature extraction can slow MVP -> keep service future/B2B or launch-gating scoped until needed.
