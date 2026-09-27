@@ -162,7 +162,7 @@ Rationale: keeps the dev loop one click away without adding Mailhog + SMTP wirin
 
 **Chosen:** Set `sessions.last_verified_at = now()` whenever the session is minted via magic-link consumption, code verification, or a fresh OAuth callback, and when step-up re-verification succeeds. Do **not** update it on silent refresh. The JWT access token carries `rv=(now - last_verified_at) < RV_WINDOW` (default 10 min).
 
-Endpoints that their owning capability marks sensitive (privacy export and erasure, account-security changes) return `403` with body `{"error":"reverification_required"}` when `rv=false`. The frontend intercepts that response, opens a `ReverifyDialog`, calls `POST /auth/reverify/request` (sends a code-only `REVERIFY` email to the account's primary verified email), then `POST /auth/reverify/confirm {code}`. On success the API updates `last_verified_at`, re-issues the access cookie with `rv=true`, and the frontend replays the original request with its original body.
+Endpoints that their owning capability marks sensitive (privacy export and erasure, account-security changes) return a `403` problem detail (`application/problem+json`, per the `academy-spring-boot-api` error contract) whose `code` is `reverification_required` when `rv=false`. The security entry point and access-denied handler emit the same problem-details format for 401 and 403. The frontend intercepts that response, opens a `ReverifyDialog`, calls `POST /auth/reverify/request` (sends a code-only `REVERIFY` email to the account's primary verified email), then `POST /auth/reverify/confirm {code}`. On success the API updates `last_verified_at`, re-issues the access cookie with `rv=true`, and the frontend replays the original request with its original body.
 
 Rationale: the email code works for every account because every account has a verified email (decision #5), so there is one re-verification path instead of one per provider. Forcing a provider re-login is not reliable on GitHub.
 
@@ -226,7 +226,7 @@ Rationale: the rules are small and belong with the session model; deferring them
 There is nothing to migrate from — no prior auth data, no prior schema. Deployment is:
 
 1. Merge & deploy `apps/api` with Flyway migrations `V1__auth_baseline.sql` (accounts, identities, sessions, refresh_tokens, magic_link_tokens, login_attempts).
-2. Frontend deploy sets `#auth` as the initial route for unauthenticated users; `academy-shell`'s existing protected-route logic starts routing users through the new screen.
+2. Frontend deploy sets `#/auth` as the initial route for unauthenticated users; `academy-shell`'s existing protected-route logic starts routing users through the new screen.
 3. Rollback: revert application deploys; Flyway migrations do not require rollback because no prior schema exists. If a rollback ships anyway, `V1` tables can be left in place (unused) or dropped manually — no cross-schema references yet.
 
 ## Open Questions

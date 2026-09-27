@@ -39,6 +39,34 @@ The initial contracts package should prove tooling and ownership without inventi
 
 Alternative considered: define all first-pass product endpoints now. That would mix scaffolding with product workflow decisions that deserve focused proposals.
 
+### Decision: Contract-first, with a backend drift test
+
+The OpenAPI document in `packages/contracts` is written first and reviewed as source. `apps/api` adds `springdoc-openapi` as a test-only dependency (or a build-time generation task that doesn't ship in the runtime artifact), and a test compares the API's generated document with the contract. Differences in paths, operations, status codes, or schemas fail the build, and therefore CI.
+
+Alternative considered: code-first (generate the contract from controllers and treat that as the source). This is faster for backend-only changes, but contract diffs become a side effect of code changes rather than something reviewed first. It also lets the frontend's view of the API drift without anyone deciding it should.
+
+### Decision: `openapi-typescript` types with an `openapi-fetch` client
+
+`openapi-typescript` generates TypeScript types only (a `paths` type per contract), with no runtime classes. Frontend apps call endpoints through `openapi-fetch`, a small typed `fetch` wrapper. Its middleware hooks carry the same request interceptors (for example the CSRF header) and the `ApiProblem` / `NetworkError` mapping as the per-app `apiFetch` from `setup-frontend-app-foundations`, so moving a call to the generated client doesn't change error handling. TanStack Query hooks stay hand-written and thin over the typed client.
+
+Alternative considered: `orval`, which generates TanStack Query hooks and runtime validators. It's less hand-written code, but far more generated code to review, and it would own the Query conventions instead of the apps.
+
+Alternative considered: `@hey-api/openapi-ts`. It's capable, but it generates an SDK layer we don't need on top of the types.
+
+### Decision: Compile-time types only, no runtime response validation
+
+Generated types are used for compile-time checking only. The API and both frontends are owned and deployed together, the drift test catches contract mismatches before merge, and the API validates its own inputs. Runtime schema validation (for example zod generated from the contract) is deferred until the platform consumes an API it doesn't control.
+
+### Decision: The first contract has shared components only
+
+The initial contract defines reusable components and no endpoints:
+
+- `Problem`: the RFC 9457 problem-details body with `code` and `requestId`, from `setup-api-platform-foundations`
+- `ValidationProblem`: `Problem` plus field `errors`
+- `ErrorCode`: the documented stable codes (`validation_failed`, `not_found`, `method_not_allowed`, `unsupported_media_type`, `malformed_request`, `internal_error`)
+
+Actuator health is operational, not product API, so it stays out of the contract. The first endpoint contracts arrive with `implement-passwordless-auth-and-oauth` (#205) as contract deltas, which is also where the drift test first gets real operations to compare.
+
 ## Risks / Trade-offs
 
 - Contract tooling can become heavy before endpoints exist -> start with minimal validation/generation commands.
@@ -53,8 +81,8 @@ Alternative considered: define all first-pass product endpoints now. That would 
 3. Add root scripts or documented commands for contract validation/generation.
 4. Use later feature proposals to add concrete endpoint contracts.
 
-## Open Questions
+## Resolved Questions
 
-- Which OpenAPI generator should be used for TypeScript clients?
-- Should shared runtime validation use generated schemas immediately, or remain compile-time only until APIs exist?
-- Should the first contract include only health/readiness examples, or no endpoint examples at all?
+- TypeScript client generator: `openapi-typescript` + `openapi-fetch` (see above).
+- Runtime validation: compile-time only for now (see above).
+- First contract contents: shared problem-details components only, no endpoints (see above).

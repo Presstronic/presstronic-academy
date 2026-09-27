@@ -51,7 +51,7 @@ The first staff account is created by a one-shot operator command run on the ser
 
 ### 6. Step-up for high-impact actions
 
-**Chosen:** Granting or revoking staff access, changing roles, publishing, unpublishing, and rolling back content require a passkey assertion within the last 5 minutes. Endpoints return `403 {"error":"admin_step_up_required"}`; the admin client prompts for a passkey and replays the request, mirroring the learner re-verification pattern.
+**Chosen:** Granting or revoking staff access, changing roles, publishing, unpublishing, and rolling back content require a passkey assertion within the last 5 minutes. Endpoints return a `403` problem detail whose `code` is `admin_step_up_required`; the admin client prompts for a passkey and replays the request, mirroring the learner re-verification pattern.
 
 ### 7. Audit
 

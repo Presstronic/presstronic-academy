@@ -16,7 +16,7 @@ We are choosing **passwordless email sign-in (a magic link plus a one-time code)
 - Implement step-up re-verification: sensitive endpoints return `reverification_required` when the session is not recently verified, and a dialog re-verifies with an emailed code before replaying the action.
 - Authenticate WebSocket handshakes: session check, explicit `Origin` allowlist, and prompt close of connections whose session is revoked. Modifies `academy-spring-boot-api`.
 - Implement Redis-backed rate limiting and lockouts for sign-in email requests, link consumption, code verification, re-verification, and OAuth callback abuse.
-- Implement the React auth screen (`apps/web`): `Sign in` and `Enroll` tabs with email-only form + `Continue with GitHub` and `Continue with Google` buttons, a link-sent confirmation view with code entry, an OAuth "add your email" step, a re-verification dialog, a session store, and route guards that redirect unauthenticated users to `#auth` while preserving the intended destination for `academy-shell`.
+- Implement the React auth screen (`apps/web`): `Sign in` and `Enroll` tabs with email-only form + `Continue with GitHub` and `Continue with Google` buttons, a link-sent confirmation view with code entry, an OAuth "add your email" step, a re-verification dialog, a session store, and route guards that redirect unauthenticated users to `#/auth` while preserving the intended destination for `academy-shell`.
 - Add auth-related environment templates (JWT signing keyset, code HMAC key, GitHub and Google OAuth client id/secret, magic-link TTL) to `.env.example`; no real secrets committed.
 
 ## Capabilities

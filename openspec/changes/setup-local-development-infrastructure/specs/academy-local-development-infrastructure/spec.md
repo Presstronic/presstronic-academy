@@ -9,6 +9,12 @@ WHEN a contributor reviews the local environment
 THEN PostgreSQL, Redis, and S3-compatible storage are declared or intentionally deferred
 AND each active local dependency has documented purpose, port, credentials, and health behavior.
 
+#### Scenario: Local images are pinned and maintained
+GIVEN a local dependency runs from a container image
+WHEN the Compose definition is reviewed
+THEN the image is referenced by an explicit version tag rather than `latest` or a floating major tag
+AND the image comes from a project that still publishes maintained releases.
+
 #### Scenario: Local infrastructure is not production deployment
 GIVEN local Compose or scripts exist
 WHEN deployment behavior is reviewed
