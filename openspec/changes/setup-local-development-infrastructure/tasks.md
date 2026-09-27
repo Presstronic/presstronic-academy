@@ -2,7 +2,7 @@
 
 - [ ] 1.1 Move `docker-compose.yml` to `infra/compose/docker-compose.yml` and add a root `compose.yaml` that only `include`s it; verify `docker compose config` from the repo root renders all services.
 - [ ] 1.2 Pin PostgreSQL to the current `17.x-alpine` tag and Redis to the current `7.4.x-alpine` tag, keep the existing container names, volume names, and health checks, and read credentials and host ports from `${VAR:-default}` with today's values as defaults; verify `docker compose up -d --wait` reports both healthy.
-- [ ] 1.3 Replace the MinIO service with SeaweedFS (`chrislusf/seaweedfs`, pinned tag) in `server -s3` mode on host port `9000`, with S3 credentials from `ACADEMY_S3_ACCESS_KEY` / `ACADEMY_S3_SECRET_KEY`, a named volume, and an S3 health check; verify with `aws s3 --endpoint-url http://localhost:9000 mb s3://smoke` and `ls` using the `.env` credentials, then remove the bucket.
+- [ ] 1.3 Replace the MinIO service with SeaweedFS (`chrislusf/seaweedfs`, pinned tag) in `server -s3` mode on host port `9000`, with S3 credentials mapped from `ACADEMY_S3_ACCESS_KEY` / `ACADEMY_S3_SECRET_KEY` to the container's `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` (pick a tag where environment credentials work; 3.97 had a regression), a named volume, and an S3 health check; verify with `aws s3 --endpoint-url http://localhost:9000 mb s3://smoke` and `ls` using the `.env` credentials, then remove the bucket.
 - [ ] 1.4 Keep provider-specific production integrations absent; verify no production hostnames or credentials appear under `infra/`.
 
 ## 2. Environment and Documentation

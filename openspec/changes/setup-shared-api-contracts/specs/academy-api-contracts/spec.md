@@ -24,6 +24,12 @@ WHEN its request, response, status, or error shape is documented
 THEN the shape is represented in OpenAPI-compatible contract source
 AND backend and frontend implementation can verify against that contract.
 
+#### Scenario: Shared error shapes are contracted
+GIVEN the API defines a standard error response format
+WHEN the contract is reviewed
+THEN the error body, validation error body, and documented stable error codes are defined once as reusable contract components
+AND endpoint contracts reference those components instead of redefining error shapes.
+
 #### Scenario: Product endpoints remain deferred
 GIVEN product endpoint behavior has not been accepted
 WHEN the contracts scaffold is implemented

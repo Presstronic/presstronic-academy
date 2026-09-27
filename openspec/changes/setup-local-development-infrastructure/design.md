@@ -42,7 +42,7 @@ Alternative considered: floating major tags such as `17-alpine`. Contributors wo
 
 ### Decision: SeaweedFS replaces MinIO for local S3
 
-Run SeaweedFS (`chrislusf/seaweedfs`, pinned tag) in single-container `server -s3` mode, exposing the S3 API on `9000`. Credentials come from an S3 identity config generated from `ACADEMY_S3_ACCESS_KEY` / `ACADEMY_S3_SECRET_KEY`. The health check hits the S3 endpoint. It's actively maintained, Apache-2.0 licensed, and needs one container with no bootstrap commands.
+Run SeaweedFS (`chrislusf/seaweedfs`, pinned tag) in single-container `server -s3` mode, exposing the S3 API on `9000`. Credentials come from `.env`: Compose maps `ACADEMY_S3_ACCESS_KEY` / `ACADEMY_S3_SECRET_KEY` onto the container's `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`, which SeaweedFS reads directly, so no identity config file is needed. Environment-variable credentials were broken in SeaweedFS 3.97, so the pinned tag must be one where they're verified to work (task 1.3). The health check hits the S3 endpoint. It's actively maintained, Apache-2.0 licensed, and needs one container with no bootstrap commands.
 
 Alternatives considered:
 - *Garage*: Lightweight and maintained, but it needs a config file plus `garage layout assign` bootstrap before first use.

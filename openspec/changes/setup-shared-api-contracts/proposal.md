@@ -25,5 +25,6 @@ Frontend and backend scaffolds are now active, but there is still no accepted co
 
 - Affects future files under `packages/contracts`.
 - Affects future backend/frontend API work by requiring contract-first or contract-synced schemas.
-- May add build tooling for OpenAPI validation and TypeScript client generation in a later implementation step.
+- Adds OpenAPI validation and TypeScript type generation (`openapi-typescript`), a typed `openapi-fetch` client, and a `springdoc-openapi` drift test in `apps/api` that doesn't ship in the runtime artifact.
+- Depends on `setup-api-platform-foundations` (#203) for the error contract and `setup-frontend-app-foundations` (#263) for the client conventions it mirrors.
 - Does not implement production product endpoints, database models, authentication flows, live WebSocket contracts, or GraphQL.
