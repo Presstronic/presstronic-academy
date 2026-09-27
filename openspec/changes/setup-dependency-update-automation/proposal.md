@@ -10,7 +10,7 @@ Nothing in the repository keeps dependencies current, so the API drifted to Spri
   - GitHub Actions (SHA-pinned actions from `setup-continuous-integration`)
   - Docker Compose images
 - Group patch and minor updates per ecosystem into one weekly PR, and open separate PRs for security updates as soon as advisories are published.
-- Don't open version-update PRs for major versions of application dependencies. Major upgrades are proposed as OpenSpec changes. The exception is GitHub Actions: their major bumps are mechanical, so they get PRs.
+- Don't open PRs for major versions of application dependencies. Major upgrades are proposed as OpenSpec changes. This also applies to a security fix that exists only in a new major: the security alert still fires and is triaged into an OpenSpec change or a documented risk acceptance. The exception is GitHub Actions: their major bumps are mechanical, so they get PRs.
 - Label and prefix update PRs consistently (`dependencies` plus an ecosystem label, commit prefix `chore(deps)`), so they're easy to find and triage.
 - Enable Dependabot security alerts and security updates in the repository settings.
 

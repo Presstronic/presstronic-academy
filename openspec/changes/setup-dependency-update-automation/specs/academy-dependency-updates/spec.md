@@ -35,7 +35,14 @@ The repository SHALL propose fixes for dependencies with published security advi
 GIVEN a dependency in the repository has a published security advisory with a fixed version
 WHEN the advisory is published
 THEN a security alert is raised
-AND a pull request updating to the fixed version is opened independently of routine grouping, including when the fix is a major version.
+AND when the fix is within the current major version, a pull request updating to the fixed version is opened independently of routine grouping.
+
+#### Scenario: Security fix requires a major upgrade
+
+GIVEN a security advisory is fixed only in a new major version of an application dependency
+WHEN the security alert is raised
+THEN no automated pull request is opened for the major version
+AND the alert is triaged within one week into either an OpenSpec upgrade change or a documented risk acceptance.
 
 ### Requirement: Major Upgrades Through OpenSpec
 

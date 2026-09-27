@@ -33,7 +33,7 @@
 
 **Chosen:**
 - Each ecosystem entry has a weekly schedule (Monday), a `groups` rule collecting `minor` and `patch` updates, and an `ignore` rule for `update-types: ["version-update:semver-major"]` on every ecosystem except `github-actions`.
-- Security updates aren't affected by `ignore` rules for version updates, so a major-only security fix still opens a PR. That PR's review decides whether an OpenSpec change is needed first.
+- Dependabot applies `ignore` rules to security updates too. Patch and minor security fixes still open PRs right away, but a fix that exists only in a new major is suppressed. Dependabot **alerts** are separate from PRs and still fire, so a major-only fix shows up as an alert and is triaged within a week into an OpenSpec upgrade change or a documented risk acceptance.
 - Entries:
   - `npm` at `/` (pnpm is detected from the lockfile)
   - `gradle` at `/apps/api`
@@ -51,6 +51,7 @@
 ## Risks / Trade-offs
 
 - [Grouped PRs fail and hide which dependency broke] → CI logs show the failing workspace. Dependabot can split a group on request (`@dependabot recreate` after narrowing the group), and failed groups are triaged within the week.
+- [A major-only security fix gets no automatic PR] → The alert still fires. Weekly alert triage is part of the README process, and the alert is the trigger for an OpenSpec change.
 - [Ignoring majors lets frameworks fall behind again] → A monthly check of ignored majors (`pnpm outdated -r` for the frontend, and the Spring Boot and Gradle release pages for the backend, which has no outdated-report plugin) feeds OpenSpec proposals. This is documented in the README.
 - [Floating image tags give Dependabot nothing to bump] → `setup-local-development-infrastructure` pins images to explicit tags first.
 

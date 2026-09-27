@@ -10,7 +10,7 @@
 
 ## 3. Documentation
 
-- [ ] 3.1 Document in the root `README.md` how update PRs are grouped, that majors go through OpenSpec, and the monthly check of ignored majors; verify the README names the commands used for that check.
+- [ ] 3.1 Document in the root `README.md` how update PRs are grouped, that majors go through OpenSpec, the weekly triage of security alerts whose fix needs a major, and the monthly check of ignored majors; verify the README names the commands used for that check.
 
 ## 4. Verification
 
