@@ -6,7 +6,7 @@ The monorepo structure capability SHALL allow accepted local infrastructure work
 #### Scenario: Local infrastructure assets are active
 GIVEN `setup-local-development-infrastructure` is accepted and applied
 WHEN local infrastructure files are created
-THEN they live under `infra/` or root scripts that delegate to `infra/`
+THEN they live under `infra/`, with any root entry points (scripts or a root Compose file) only delegating to `infra/`
 AND they are documented as development-only assets.
 
 #### Scenario: Local infrastructure does not activate services
