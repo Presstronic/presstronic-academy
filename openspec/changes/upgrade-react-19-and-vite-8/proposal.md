@@ -29,4 +29,4 @@ None.
 - **Tooling**: Contributors need a Node version that satisfies the pin. The local dev ports (5175 web, 5174 admin) and the `dev`, `build`, and `preview` scripts don't change.
 - **APIs**: None.
 - **Other proposals**: `setup-frontend-app-foundations` depends on this change (Vitest 5 needs Vite ≥ 6.4). `setup-continuous-integration` reads the Node pin. `implement-passwordless-auth-and-oauth` frontend tasks (#207) inherit React 19 and Vite 8.
-- **Deferred**: React Compiler (and the `eslint-plugin-react-hooks` 7 compiler rules), Tailwind 4, TypeScript 7, and `lucide-react` 1.x. Each is its own change if wanted.
+- **Deferred**: Build-time React Compiler adoption. The `eslint-plugin-react-hooks` 7 compiler lint rules and TypeScript 6 arrive in `upgrade-frontend-tooling`, Tailwind 4 and `lucide-react` 1.x in `upgrade-tailwind-4`, and TypeScript 7 in `upgrade-typescript-7`.

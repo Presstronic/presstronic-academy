@@ -79,6 +79,13 @@ WHEN its token permissions are evaluated
 THEN the default is read-only repository contents
 AND any additional permission is granted only to the job that needs it.
 
+#### Scenario: Credentials are blocked before they reach the repository
+
+GIVEN a contributor pushes a commit containing a recognized credential pattern
+WHEN the push reaches the repository
+THEN the push is rejected with an explanation
+AND any credential already in history raises a security alert.
+
 #### Scenario: Pinned third-party actions
 
 GIVEN a workflow uses an action from outside the repository

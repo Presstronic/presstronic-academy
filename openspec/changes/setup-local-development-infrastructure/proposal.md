@@ -13,7 +13,7 @@ The auth change (#205) and every persistence-bearing feature after it need a pre
 ## What Changes
 
 - Move the Compose definition to `infra/compose/`, with a root `compose.yaml` that includes it, so `docker compose up` keeps working from the repo root.
-- Pin every local service image to an explicit version tag (PostgreSQL 17, Redis 7.4).
+- **BREAKING (local only)**: Pin every local service image to an explicit version tag on the latest majors (PostgreSQL 18, Redis 8). Existing PostgreSQL 17 volumes must be reset, which is fine because there's no data yet.
 - **BREAKING (local only)**: Replace MinIO with SeaweedFS's S3 gateway as the local S3-compatible store. It uses the same default port (9000) and credentials come from the environment. Existing local MinIO volumes are discarded.
 - Add a root `.env.example` listing every variable used by the Compose services and local app wiring: service credentials and ports, API origins (`ACADEMY_WEB_ORIGIN`, `ACADEMY_ADMIN_ORIGIN`, `ACADEMY_API_ORIGIN`), and the frontend proxy target (`ACADEMY_API_PROXY_TARGET`). Real `.env` files stay ignored.
 - Have the API's `local` profile import the root `.env` as optional properties, so local wiring is in one file.

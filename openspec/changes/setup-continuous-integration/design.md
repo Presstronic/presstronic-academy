@@ -60,7 +60,14 @@ Changes to `.github/workflows/**` set all three. Each verification job runs `if:
 
 ### 6. Branch protection via a repository ruleset
 
-**Chosen:** A ruleset on `main` requires PRs, the `ci-status` check, and the CodeQL analysis checks, and blocks force pushes. It's applied by a repository admin after the first green run, so the check names exist when the rule is created.
+**Chosen:** The repository already has a disabled ruleset named "Production Branch Protection". Update that ruleset rather than creating a second one: target `main`, require pull requests, require the `ci-status` check and the CodeQL analysis checks, block force pushes and deletion, then set it to active. A repository admin does this after the first green run, so the check names exist when the rule is updated.
+
+### 7. Secret scanning and push protection
+
+**Chosen:** Enable GitHub secret scanning and push protection. They're free for public repositories. Push protection blocks commits containing recognized credentials, which matters once `.env` files hold OAuth client secrets and JWT keys for #205. Alerts appear in the Security tab next to CodeQL and Dependabot.
+
+**Alternatives considered:**
+- *A gitleaks CI job*: It overlaps with native scanning, and it only catches secrets after they're pushed, where push protection blocks them first.
 
 ## Risks / Trade-offs
 
@@ -71,6 +78,6 @@ Changes to `.github/workflows/**` set all three. Each verification job runs `if:
 ## Migration Plan
 
 1. Merge the workflows. Confirm the first PR run is green, with each job exercised at least once.
-2. The admin creates the `main` ruleset.
+2. The admin updates and activates the existing "Production Branch Protection" ruleset, and enables secret scanning and push protection.
 3. Remove any prerequisite fallbacks once `upgrade-spring-boot-4` and `upgrade-react-19-and-vite-8` merge.
 4. Rollback: delete the workflows and ruleset.

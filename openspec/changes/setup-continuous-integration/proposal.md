@@ -13,7 +13,8 @@ The repository has no CI. Pull requests merge without an automated build, test, 
 - Add a CodeQL workflow for `java-kotlin` and `javascript-typescript` on pull requests, pushes to `main`, and a weekly schedule.
 - Harden the workflows: read-only default token permissions, third-party actions pinned to full commit SHAs, and cancellation of superseded runs on the same PR.
 - Pin the OpenSpec CLI as a root dev dependency so CI and contributors run the same version.
-- Require the CI status and CodeQL checks on `main` through a repository ruleset.
+- Require the CI status and CodeQL checks on `main` by updating and activating the existing (disabled) "Production Branch Protection" ruleset.
+- Enable GitHub secret scanning and push protection.
 - Rewrite #204 around this change, and close #202 as obsolete.
 
 ## Capabilities
@@ -29,6 +30,7 @@ None.
 ## Impact
 
 - **Code**: New `.github/workflows/ci.yml` and `.github/workflows/codeql.yml`. Root `package.json` gains `@fission-ai/openspec` as a dev dependency and an `openspec:validate` script.
-- **Repository settings**: A ruleset on `main` requiring the CI status and CodeQL checks. This needs a repository admin.
+- **Repository settings**: The existing "Production Branch Protection" ruleset is updated to require the CI status and CodeQL checks on `main` and set to active. Secret scanning and push protection are enabled. This needs a repository admin.
+- **Tooling**: The frontend job runs on pnpm 12 and the extended root `pnpm format` once `upgrade-frontend-tooling` lands.
 - **Other proposals**: The backend job depends on `upgrade-spring-boot-4` (wrapper and Java 25). The frontend job reads the `.nvmrc` pin added by `upgrade-react-19-and-vite-8`. Until those land, the jobs use the documented fallback in design.md. `setup-dependency-update-automation` relies on this CI to check update PRs.
 - **Deferred**: Deployment and CD, container image builds, end-to-end browser tests, coverage thresholds, and release automation.
