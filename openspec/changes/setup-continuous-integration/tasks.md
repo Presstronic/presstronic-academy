@@ -19,7 +19,8 @@
 
 ## 4. Merge Gate
 
-- [ ] 4.1 After the first green run, ask a repository admin to create a `main` ruleset requiring pull requests, the `ci-status` check, and the CodeQL analysis checks, and blocking force pushes; verify a PR with a failing job cannot be merged.
+- [ ] 4.1 After the first green run, ask a repository admin to update the existing disabled "Production Branch Protection" ruleset to target `main`, require pull requests, the `ci-status` check, and the CodeQL analysis checks, and block force pushes and deletion, then set it to active; verify only one ruleset targets `main` and a PR with a failing job cannot be merged.
+- [ ] 4.2 Ask a repository admin to enable secret scanning and push protection; verify a test push containing a sample token pattern (for example a GitHub test token from GitHub's docs) is blocked, then discard it.
 
 ## 5. Documentation and Issue Hygiene
 

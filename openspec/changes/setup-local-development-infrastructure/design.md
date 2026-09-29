@@ -36,9 +36,18 @@ Alternative considered: keep the file at the root. That's simpler, but it contra
 
 ### Decision: Pin images to explicit version tags
 
-Use exact tags within the current majors: PostgreSQL `17.x-alpine` and Redis `7.4.x-alpine`. Pick the current patch when implementing. Dependabot (`setup-dependency-update-automation`) bumps them. Majors (for example Redis 8) go through an OpenSpec change.
+Use exact tags on the latest majors: PostgreSQL `18.x-alpine` and Redis `8.x.y-alpine`. Pick the current patch when implementing. Dependabot (`setup-dependency-update-automation`) bumps patches and minors. Future majors go through an OpenSpec change.
 
-Alternative considered: floating major tags such as `17-alpine`. Contributors would silently end up on different patches.
+Alternative considered: floating major tags such as `18-alpine`. Contributors would silently end up on different patches.
+
+### Decision: Move to PostgreSQL 18 and Redis 8 now
+
+There's no local or production data yet, so moving up a major costs only a volume reset now. It would cost a real migration later.
+
+- **PostgreSQL 17 → 18.** The 18 image changed its data layout: `PGDATA` is version-specific under `/var/lib/postgresql`. The named volume therefore mounts at `/var/lib/postgresql` instead of `/var/lib/postgresql/data`, and existing 17 volumes must be removed (`pnpm infra:reset`). The Testcontainers images in `implement-passwordless-auth-and-oauth` use the same major.
+- **Redis 7 → 8.** The 7.x images are no longer refreshed. Redis 8 is licensed under RSALv2, SSPLv1, or AGPLv3. That doesn't matter for local development. The production engine and license (Redis 8, a managed service, or the BSD-licensed Valkey fork) is decided in the deployment proposal, and the application only uses the Redis protocol through Spring Data Redis, so any of them works.
+
+Alternative considered: stay on PostgreSQL 17 and Redis 7.4. Both are supported, but staying back means a major upgrade soon anyway, and it runs against the platform baseline of current supported majors.
 
 ### Decision: SeaweedFS replaces MinIO for local S3
 
