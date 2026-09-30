@@ -13,9 +13,11 @@
     "format": "pnpm -r --if-present format",
     "api:build": "gradle -p apps/api build",
     "api:test": "gradle -p apps/api test",
-    "api:bootRun": "gradle -p apps/api bootRun --args='--spring.profiles.active=local'"
+    "api:bootRun": "gradle -p apps/api bootRun --args='--spring.profiles.active=local'",
+    "openspec:validate": "openspec validate --all --strict"
   },
   "devDependencies": {
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "@fission-ai/openspec": "1.6.0"
   }
 }
