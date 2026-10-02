@@ -26,5 +26,5 @@
 ## 6. Verification
 
 - [ ] 6.1 Run `openspec validate define-account-lifecycle --strict`.
-- [ ] 6.2 Run `./gradlew :apps:api:test` and the `apps/web` and `apps/admin` check scripts.
+- [ ] 6.2 Run `pnpm api:test` and the `apps/web` and `apps/admin` check scripts.
 - [ ] 6.3 Manual acceptance: change email and revert it, connect and disconnect GitHub and Google, sign out everywhere across two browsers, suspend and reinstate an account, schedule and cancel erasure, and complete a support recovery.

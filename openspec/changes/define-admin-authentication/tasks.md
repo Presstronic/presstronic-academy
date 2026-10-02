@@ -24,6 +24,6 @@
 ## 5. Verification
 
 - [ ] 5.1 Run `openspec validate define-admin-authentication --strict`.
-- [ ] 5.2 Run `./gradlew :apps:api:test` and the `apps/admin` check script.
+- [ ] 5.2 Run `pnpm api:test` and the `apps/admin` check script.
 - [ ] 5.3 Manual acceptance: bootstrap the first staff manager, redeem the invite, sign in with a passkey, grant a second staff member, revoke them and confirm their admin session ends, and confirm a learner session never opens the admin app.
 - [ ] 5.4 Document the bootstrap command and passkey setup in `apps/api/README.md` and `apps/admin/README.md`.

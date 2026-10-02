@@ -7,6 +7,12 @@ This scaffold is intentionally small. It establishes the buildable backend
 workspace and runtime conventions without implementing learner, admin, content,
 Code Prompt, Delivery, mentor, billing, or content health product endpoints.
 
+## Prerequisites
+
+- Java 25 (auto-provisioned via Gradle Foojay Toolchain Resolver, or install via [SDKMAN](https://sdkman.io/) for IDE use)
+- Gradle 9.8.0 (use the wrapper: `apps/api/gradlew`)
+
+
 ## Commands
 
 Run from the repository root:
@@ -20,9 +26,9 @@ pnpm api:bootRun
 Run directly from this workspace:
 
 ```bash
-gradle -p apps/api build
-gradle -p apps/api test
-gradle -p apps/api bootRun --args='--spring.profiles.active=local'
+./gradlew build
+./gradlew test
+./gradlew bootRun --args='--spring.profiles.active=local'
 ```
 
 Health checks are available when the app is running:
