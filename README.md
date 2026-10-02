@@ -50,7 +50,7 @@ boundaries.
 
 - Learner web app: React, TypeScript, Vite, Tailwind CSS, ShadCN
 - Admin app: React, TypeScript, Vite, Tailwind CSS, ShadCN
-- Primary API: Java, Spring Boot, REST, WebSockets
+- Primary API: Java 25, Spring Boot 4.1.1, REST, WebSockets
 - Future API contracts: OpenAPI first, with GraphQL considered only where it adds clear value
 - Database: PostgreSQL
 - Cache: Redis

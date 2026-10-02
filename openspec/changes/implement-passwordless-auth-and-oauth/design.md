@@ -219,7 +219,7 @@ Rationale: the rules are small and belong with the session model; deferring them
 - **Long-lived WebSocket connections outlive sign-out** → A connection opened before logout could keep streaming. **Mitigation:** Redis revocation broadcast closes connections on revoke, with a 60 s re-check backstop (decision #13).
 - **Re-verification email delay blocks sensitive actions** → Export or erasure waits on email delivery. **Mitigation:** acceptable for rare actions; the dialog offers resend within the `reverify` bucket, and the notifications service is a launch prerequisite for production email.
 - **Dev endpoint leaking into non-dev** → `@Profile` misconfiguration could expose `/dev/magic-links/latest`. **Mitigation:** dedicated integration test asserts the endpoint returns 404 under the `test`/`prod` profiles; the endpoint also refuses to start if `spring.profiles.active` contains none of `local`, `dev`.
-- **First real schema means the API becomes migration-critical** → From this change forward, `apps/api` deployment requires Flyway to run cleanly. **Mitigation:** Flyway runs on Spring Boot startup with `flyway.baselineOnMigrate=false`; CI runs `./gradlew :apps:api:test` which brings up an ephemeral Postgres via Testcontainers so every migration is exercised before merge.
+- **First real schema means the API becomes migration-critical** → From this change forward, `apps/api` deployment requires Flyway to run cleanly. **Mitigation:** Flyway runs on Spring Boot startup with `flyway.baselineOnMigrate=false`; CI runs `pnpm api:test` which brings up an ephemeral Postgres via Testcontainers so every migration is exercised before merge.
 
 ## Migration Plan
 
