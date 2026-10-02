@@ -57,6 +57,60 @@ boundaries.
 - Object storage: S3-compatible local storage
 - Local infrastructure: Docker Compose
 
+## Continuous Integration
+
+The CI pipeline runs on all pushes to `main` and on all pull requests. It uses intelligent path filtering to skip irrelevant jobs when files haven't changed.
+
+### CI Jobs
+
+**changes** — Detects which parts of the codebase changed using [dorny/paths-filter](https://github.com/dorny/paths-filter). Downstream jobs run conditionally based on these outputs.
+
+**frontend** — Runs when frontend code changes (apps/web, apps/admin, packages). Executes:
+- `pnpm format` — Prettier formatting check
+- `pnpm check` — Linting and type checking across all frontend workspaces
+- `pnpm test` — Unit tests
+- `pnpm build` — Production builds
+
+**backend** — Runs when backend code changes (apps/api). Executes:
+- Gradle wrapper validation
+- `apps/api/gradlew -p apps/api build` — Compiles, tests, and packages the Spring Boot API
+
+**openspec** — Runs when OpenSpec files change. Executes:
+- `pnpm openspec:validate` — Validates all specs and changes against the schema
+
+**ci-status** — Aggregates results from all jobs. This is the single required status check that gates merges. It fails if any upstream job fails or is cancelled.
+
+### Running CI Checks Locally
+
+Before pushing, run the relevant checks based on what you changed:
+
+```bash
+# Frontend changes
+pnpm format
+pnpm check
+pnpm test
+pnpm build
+
+# Backend changes
+apps/api/gradlew -p apps/api build
+
+# Or use the pnpm scripts from the root
+pnpm api:build
+pnpm api:test
+
+# OpenSpec changes
+pnpm openspec:validate
+```
+
+### Branch Protection
+
+The `main` branch is protected by the "Production Branch Protection" ruleset:
+- All commits must be signed (SSH or GPG)
+- Changes must come through a pull request
+- Required status check: `ci-status`
+- Only squash merges allowed (preserves linear history)
+- Repository admins can bypass these rules
+
 ## OpenSpec Workflow
 
 This project uses OpenSpec for spec-driven planning. Specs live in
